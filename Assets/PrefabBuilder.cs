@@ -12,6 +12,9 @@ public class PrefabBuilder : MonoBehaviour
     public GameObject tower = null;
     Camera cam = null;
 
+    // Parent object for towers
+    public Transform TowerParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,9 @@ public class PrefabBuilder : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit)) 
             {
-                Instantiate(tower, new Vector3(hit.point.x, hit.point.y + tower.transform.position.y/2, hit.point.z), Quaternion.identity);
+                Instantiate(tower, new Vector3(hit.point.x, hit.point.y + tower.transform.position.y/2, hit.point.z), Quaternion.identity, TowerParent);
+                Tower t = tower.GetComponent<Tower>();
+                t.ShrinkSpeed = Random.Range(0.2f, 0.5f);
             }
         }
     }

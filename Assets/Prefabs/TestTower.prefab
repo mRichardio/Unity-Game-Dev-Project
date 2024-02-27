@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5767611970886983796}
+  - component: {fileID: 8842185137842819206}
   m_Layer: 0
   m_Name: TestTower
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8842185137842819206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3704251855290491307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4e391336a0c264b89c716a3b94366a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  ShrinkSpeed: 0.3
 --- !u!1 &8135691450728154285
 GameObject:
   m_ObjectHideFlags: 0
