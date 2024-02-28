@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float MovementSpeed;
     public int JumpPower;
     public int RotationSpeed;
+    public float MaxVelocity = 1.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,34 +29,39 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        //Debug.Log(rb.velocity);
+
         float h = Input.GetAxis("Mouse X");
         target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
 
+
+        // Move Forward/Back
         if (Input.GetKey(KeyCode.W) && BuildCamera.active == false)
         {
             rb.velocity += transform.forward * MovementSpeed * Time.deltaTime;
         }
-
         if (Input.GetKey(KeyCode.S) && BuildCamera.active == false)
         {
             rb.velocity += -transform.forward * MovementSpeed * Time.deltaTime;
         }
 
+        // Move Left/Right
         if (Input.GetKey(KeyCode.A) && BuildCamera.active == false)
         {
-            rb.AddTorque(-transform.up * RotationSpeed * Time.deltaTime);
+            rb.velocity += -transform.right * MovementSpeed * Time.deltaTime;
         }
-
         if (Input.GetKey(KeyCode.D) && BuildCamera.active == false)
         {
-            rb.AddTorque(transform.up * RotationSpeed * Time.deltaTime);
+            rb.velocity += transform.right * MovementSpeed * Time.deltaTime;
         }
 
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && BuildCamera.active == false)
         {
             rb.velocity += transform.up * JumpPower;
         }
 
+        // Toggle Build Mode
         if (Input.GetKeyDown(KeyCode.V))
         {
             if (BuildCamera.active == true)
@@ -66,6 +73,17 @@ public class PlayerController : MonoBehaviour
             {
                 BuildCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.name == "Demo")
+        {
+            if (collision.gameObject.GetComponent<Rigidbody>() == null)
+            {
+                Rigidbody rbNew = collision.gameObject.AddComponent<Rigidbody>();
             }
         }
     }
