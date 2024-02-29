@@ -24,44 +24,18 @@ public class Checkpoint : MonoBehaviour
 
     void MoveTowardsCheckpoint()
     {
-        if (checkpoints.Length == 0) return; // Exit if no checkpoints
+        if (checkpoints.Length == 0 || currentCheckpointIndex >= checkpoints.Length) return; // Exit if no checkpoints or we've reached the last one
 
         Transform targetCheckpoint = checkpoints[currentCheckpointIndex];
-        // Use Vector3.Distance to find the distance to the checkpoint
+        // Find the distance between two objects // https://forum.unity.com/threads/distance-between-two-objects.37918/
         float distanceToCheckpoint = Vector3.Distance(transform.position, targetCheckpoint.position);
-        if (distanceToCheckpoint < 0.1f) // Check if we've reached the checkpoint
+        if (distanceToCheckpoint < 0.1f) // Checks if th checkpoint has vbeen reached
         {
-            // Logic to move to the next checkpoint or change direction
-            if (movingForward)
-            {
-                if (currentCheckpointIndex < checkpoints.Length - 1)
-                {
-                    currentCheckpointIndex++;
-                }
-                else
-                {
-                    movingForward = false; // Change direction if you want to move back
-                                           // Uncomment below if you want to loop
-                                           // currentCheckpointIndex = 0;
-                }
-            }
-            else
-            {
-                if (currentCheckpointIndex > 0)
-                {
-                    currentCheckpointIndex--;
-                }
-                else
-                {
-                    movingForward = true; // Change direction if you want to move forward again
-                                          // Uncomment below if you want to loop
-                                          // currentCheckpointIndex = checkpoints.Length - 1;
-                }
-            }
+            currentCheckpointIndex++; // Goes tto the next checkpoint in the array
         }
         else
         {
-            // Move towards the checkpoint
+            // Then will move to the checkpoint
             Vector3 movementDirection = (targetCheckpoint.position - transform.position).normalized;
             transform.position += movementDirection * speed * Time.deltaTime;
         }
