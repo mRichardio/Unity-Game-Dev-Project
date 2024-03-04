@@ -153,7 +153,8 @@ public class Tower : MonoBehaviour
         if (Target != null && Target.name == "Enemy")
         {
             Debug.Log("Firing laser!");
-            GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position));
+            Transform LaserParent = GameObject.Find("Projectiles").transform;
+            GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), LaserParent);
             createdLaser.name = ("Laser");
         }
     }
