@@ -1279,7 +1279,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 940372303}
   BuildCamera: {fileID: 1792767065}
-  MovementSpeed: 10
+  MovementSpeed: 20
+  MaxSpeed: 10
   JumpPower: 5
   RotationSpeed: 100
   MaxVelocity: 1.5
@@ -5702,7 +5703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 940372303}
-  MovementSpeed: 10
+  MovementSpeed: 30
   RotationSpeed: 10
 --- !u!1 &1812190527
 GameObject:

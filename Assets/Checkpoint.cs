@@ -40,12 +40,7 @@ public class Checkpoint : MonoBehaviour
             transform.position += movementDirection * speed * Time.deltaTime;
         }
 
-        // I have this here for now because it looks cool
-        if (currentCheckpointIndex >= checkpoints.Length)
-        {
-            transform.position = checkpoints[0].position;
-            currentCheckpointIndex = 0;
-        }
+
     }
 
 }
