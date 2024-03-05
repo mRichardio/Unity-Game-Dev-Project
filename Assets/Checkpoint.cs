@@ -39,6 +39,13 @@ public class Checkpoint : MonoBehaviour
             Vector3 movementDirection = (targetCheckpoint.position - transform.position).normalized;
             transform.position += movementDirection * speed * Time.deltaTime;
         }
+
+        // I have this here for now because it looks cool
+        if (currentCheckpointIndex >= checkpoints.Length)
+        {
+            transform.position = checkpoints[0].position;
+            currentCheckpointIndex = 0;
+        }
     }
 
 }
