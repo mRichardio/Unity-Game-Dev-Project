@@ -1,48 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.UIElements;
-//using static UnityEngine.GraphicsBuffer;
-
-//public class Tower : MonoBehaviour
-//{
-//    public float Health = 100f;
-//    public float Damage = 10.0f;
-//    public float ShrinkSpeed = .3f;
-
-//    GameObject Turret;
-//    public GameObject LaserProjectile;
-//    public Transform Target;
-//    public float RotationSpeed;
-
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        Turret = transform.GetChild(1).gameObject;
-//    }
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        if (Health <= 0) 
-//        {
-//            transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
-
-//            if (transform.localScale.x <= 0.01f)
-//            {
-//                Destroy(gameObject);
-//            }
-//        }
-
-//        Turret.transform.LookAt(Target);
-
-//        if (Input.GetKeyDown(KeyCode.Q))
-//        {
-//            GameObject createdLaser = Instantiate(LaserProjectile, transform.position, Quaternion.identity);
-//        }
-//    }
-//}
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +6,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Tower : MonoBehaviour
 {
+    // ASSET REFERENCES:
+
+    // Health Bar: https://opengameart.org/content/health-bar
+    // Heart: https://opengameart.org/content/heart-1616
+
     public float Health = 100f;
     public float Damage = 10.0f;
     public float ShrinkSpeed = .3f;
@@ -78,41 +38,54 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Enemy Detection Interval
 
-        // Sets an interval for detecting enemies, better for performance
-        if (Time.time >= nextDetectionTime)
         {
-            DetectEnemies();
-            nextDetectionTime = Time.time + detectionInterval;
-        }
-
-        // Destroy the turret if its health is 0    
-        if (Health <= 0)
-        {
-            transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
-
-            if (transform.localScale.x <= 0.01f)
+            // Sets an interval for detecting enemies, better for performance
+            if (Time.time >= nextDetectionTime)
             {
-                Destroy(gameObject);
+                DetectEnemies();
+                nextDetectionTime = Time.time + detectionInterval;
             }
         }
 
-        if (Target != null)
+        // Destroy Tower
+
         {
-            Turret.transform.LookAt(Turret.transform.position + (Turret.transform.position - Target.transform.position));
+            // Destroy the turret if its health is 0    
+            if (Health <= 0)
+            {
+                transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
+
+                if (transform.localScale.x <= 0.01f)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
 
-        //Turret.transform.LookAt(Target.transform.position);
+        // Turret Aiming
 
-        if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position));
+            if (Target != null)
+            {
+                Turret.transform.LookAt(Turret.transform.position + (Turret.transform.position - Target.transform.position));
+            }
         }
 
-        if (Time.time >= nextFireTime)
+        // Turret Firing
+
         {
-            InstantiateLaser();
-            nextFireTime = Time.time + FiringInterval;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position));
+            }
+
+            if (Time.time >= nextFireTime)
+            {
+                InstantiateLaser();
+                nextFireTime = Time.time + FiringInterval;
+            }
         }
     }
 
@@ -122,19 +95,55 @@ public class Tower : MonoBehaviour
         Vector3 detectionCenter = transform.position;
         float detectionRadius = transform.localScale.y * 10;
 
+        var isCurrentTargetInRange = false;
+
         Collider[] hitColliders = Physics.OverlapSphere(detectionCenter, detectionRadius);
         if (hitColliders.Length != 0)
         {
+            // Sets the initial Target
+            Debug.Log("Detected Enemies: " + hitColliders.Length);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.name == "Enemy")
                 {
-                    //Debug.Log("Found the enemy!");
-                    Target = hitCollider.gameObject;
+                    float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distanceToEnemy <= detectionRadius)
+                    {
+                        if (Target == hitCollider.gameObject)
+                        {
+                            isCurrentTargetInRange = true;
+                        }
+                    }
+                }
+            }
+
+            // If the current target is not in range then find a new target
+            if (!isCurrentTargetInRange)
+            {
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.name == "Enemy")
+                    {
+                        float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
+                        if (distanceToEnemy <= detectionRadius)
+                        {
+                            Target = hitCollider.gameObject;
+                            isCurrentTargetInRange = true;
+                            break;
+                        }
+                    }
                 }
             }
         }
+
+        // If the current target is not in range then clear the target
+        if (!isCurrentTargetInRange)
+        {
+            Target = null;
+        }
     }
+
+
 
     void InstantiateLaser()
     {

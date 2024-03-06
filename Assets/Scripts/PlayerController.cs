@@ -37,9 +37,6 @@ public class PlayerController : MonoBehaviour
         {
             float h = Input.GetAxis("Mouse X");
             target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         {
@@ -103,7 +100,7 @@ public class PlayerController : MonoBehaviour
             // Toggle Build Mode
             if (Input.GetKeyDown(KeyCode.V))
             {
-                if (BuildCamera.active == true)
+                if (BuildCamera.activeSelf == true)
                 {
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;

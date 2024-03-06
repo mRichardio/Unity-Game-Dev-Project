@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float Health = 100f;
+    public int maxHealth = 100;
+    public int currentHealth;
+
     public float Damage = 10.0f;
     public float MovementSpeed = 5f;
     public float ShrinkSpeed = .3f;
@@ -15,10 +17,13 @@ public class Enemy : MonoBehaviour
     private int currentCheckpointIndex = 0;
     private bool movingForward = true;
 
+    public HealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -34,13 +39,17 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.name == "Laser")
         {
-            Health -= 10;
+            TakeDamage(20); // Might wanna make a variable for this and set the damage in the laser script.
+
+            MeshRenderer meshR = gameObject.GetComponent<MeshRenderer>();
+            Material material = meshR.material;
+            material.color = Color.white;
         }
     }
 
     void CheckHealth()
     {
-        if (Health <= 0)
+        if (currentHealth <= 0)
         {
             transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
 
@@ -49,6 +58,12 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     void MoveTowardsCheckpoint()
