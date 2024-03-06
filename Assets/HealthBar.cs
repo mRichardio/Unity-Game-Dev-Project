@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    // REFERENCE: https://www.youtube.com/watch?v=BLfNP4Sc_iA&t=1138s
+
     public Slider slider;
     public Gradient gradient;
     public Image fill;
