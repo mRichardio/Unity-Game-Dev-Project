@@ -6,18 +6,28 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
+    // Base
+
     Transform target;
     Rigidbody rb;
+
+    // Camera
     public GameObject PlayerCamera;
     public GameObject BuildCamera;
 
+    // Movement
     public float MovementSpeed;
     public float MaxSpeed;
     private bool isSprinting = false;
 
+    // Advanced Movement
     public int JumpPower;
     public int RotationSpeed;
     public float MaxVelocity = 1.5f;
+
+    // Weapons
+    public GameObject Weapon;
+    public bool isEquipped;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +36,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         BuildCamera.SetActive(false);
         PlayerCamera.SetActive(true);
+        isEquipped = false;
     }
 
     // Update is called once per frame
@@ -115,6 +126,37 @@ public class PlayerController : MonoBehaviour
 
                     BuildCamera.SetActive(true);
                     PlayerCamera.SetActive(false);
+                }
+            }
+        }
+
+        // Weapon Handling
+
+        {
+            // Equip Weapon
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Transform weaponParent = GameObject.Find("WeaponAttatch").transform;
+
+                if (isEquipped == false)
+                {
+                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.identity, weaponParent);
+                    createdWeapon.name = ("Weapon");
+                    isEquipped = true;
+                }
+                else
+                {
+                    Destroy(GameObject.Find("Weapon"));
+                    isEquipped = false;
+                }
+            }
+
+            // Fire Weapon
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (Weapon != null)
+                {
+                    
                 }
             }
         }

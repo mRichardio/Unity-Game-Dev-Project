@@ -100,8 +100,6 @@ public class Tower : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(detectionCenter, detectionRadius);
         if (hitColliders.Length != 0)
         {
-            // Sets the initial Target
-            Debug.Log("Detected Enemies: " + hitColliders.Length);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.name == "Enemy")
@@ -149,7 +147,6 @@ public class Tower : MonoBehaviour
     {
         if (Target != null && Target.name == "Enemy")
         {
-            Debug.Log("Firing laser!");
             Transform LaserParent = GameObject.Find("Projectiles").transform;
             GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), LaserParent);
             createdLaser.name = ("Laser");
