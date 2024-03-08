@@ -1488,6 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd861efaaa8f12a499ad4c211752a9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ForwardMarker: {fileID: 1743714051}
   PlayerCamera: {fileID: 940372303}
   BuildCamera: {fileID: 1792767065}
   MovementSpeed: 20

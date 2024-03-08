@@ -143,7 +143,8 @@ public class PlayerController : MonoBehaviour
 
                 if (isEquipped == false)
                 {
-                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), weaponParent);
+                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                    // 
                     createdWeapon.name = ("Weapon");
                     isEquipped = true;
                 }
