@@ -14,6 +14,7 @@ public class WeaponController : MonoBehaviour
 
     // Projectile Related
     public GameObject Projectile;
+    public GameObject FiringPoint;
     Transform ProjectileParent;
 
     // Weapon Stats
@@ -28,6 +29,7 @@ public class WeaponController : MonoBehaviour
         BuildCamera = BuildCamerParent.transform.Find("BuildCamera").gameObject;
 
         ProjectileParent = GameObject.Find("Projectiles").transform;
+        FiringPoint = gameObject.transform.GetChild(0).gameObject;
         Debug.Log(BuildCamera);
     }
 
@@ -36,7 +38,7 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && (BuildCamera == null || !BuildCamera.activeSelf))
         {
-            GameObject createdProjectile = Instantiate(Projectile, gameObject.transform.position, Quaternion.identity, ProjectileParent);
+            GameObject createdProjectile = Instantiate(Projectile, FiringPoint.transform.position, Quaternion.identity, ProjectileParent);
             createdProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * Power);
         }
     }
