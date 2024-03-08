@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     Transform target;
     Rigidbody rb;
 
+
+    public GameObject ForwardMarker;
+
     // Camera
     public GameObject PlayerCamera;
     public GameObject BuildCamera;
@@ -140,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
                 if (isEquipped == false)
                 {
-                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.identity, weaponParent);
+                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), weaponParent);
                     createdWeapon.name = ("Weapon");
                     isEquipped = true;
                 }
