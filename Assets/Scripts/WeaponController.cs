@@ -42,4 +42,16 @@ public class WeaponController : MonoBehaviour
             createdProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * Power);
         }
     }
+
+    public void UpgradeDamage(int upgAmount)
+    {
+        // Weapon Damage
+        Damage += upgAmount;
+    }
+
+    public void UpgradePower(int upgAmount)
+    {
+        // Weapon Power
+        Power += upgAmount;
+    }   
 }

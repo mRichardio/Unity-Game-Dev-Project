@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     public GameObject Weapon;
     public bool isEquipped;
 
+    // Audio
+    public AudioSource Footsteps;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +48,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Basic Footstep Audio //  Very Janky
+        if (rb.velocity.magnitude > 0.1f && isSprinting == false)
+        {
+            if (!Footsteps.isPlaying)
+            {
+                Footsteps.Play();
+            }
+        }
+        else
+        {
+            Footsteps.Stop();
+        }
 
         // Camera Rotation
 
