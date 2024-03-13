@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float MovementSpeed;
     public float MaxSpeed;
     private bool isSprinting = false;
+    private bool isJumping = false;
 
     // Advanced Movement
     public int JumpPower;
@@ -34,6 +35,13 @@ public class PlayerController : MonoBehaviour
 
     // Audio
     public AudioSource Footsteps;
+    private string CurrentGroundType;
+
+    // Footstep Trail
+    public GameObject FootstepPrefab;
+    public Transform FootstepParent;
+    private float lastFootstepTime;
+    public float FootstepFrequency;
 
     // Start is called before the first frame update
     void Start()
@@ -45,25 +53,39 @@ public class PlayerController : MonoBehaviour
         isEquipped = false;
     }
 
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        {
+            CurrentGroundType = hit.collider.name;
+            if (hit.distance > 1.1f)
+            {
+                isJumping = true;
+            }
+            else { isJumping = false; }
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-
-        // Basic Footstep Audio //  Very Janky
+        // Basic Footstep Audio
         if (rb.velocity.magnitude > 0.1f && isSprinting == false)
         {
-            if (!Footsteps.isPlaying)
+            // Footstep Trail
+            if (lastFootstepTime + FootstepFrequency <= Time.time)
             {
-                Footsteps.Play();
+                lastFootstepTime = Time.time;
+                GameObject createdFootstep = Instantiate(FootstepPrefab, transform.position + Vector3.down * 0.5f, Quaternion.identity, FootstepParent);
+                Footstep f = createdFootstep.GetComponent<Footstep>();
+                f.ShrinkSpeed = UnityEngine.Random.Range(0.02f, 0.1f); // Had to use "UnityEngine here as without it Random.Range doesnt work here for some reason..."
             }
         }
-        else
-        {
-            Footsteps.Stop();
-        }
+
 
         // Camera Rotation
-
         {
             float h = Input.GetAxis("Mouse X");
             target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
@@ -110,7 +132,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Jump
-            if (Input.GetKeyDown(KeyCode.Space) && BuildCamera.active == false)
+            if (Input.GetKeyDown(KeyCode.Space) && BuildCamera.active == false && isJumping == false)
             {
                 rb.velocity += transform.up * JumpPower;
             }
