@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
     // Audio
     public AudioSource Footsteps;
     private string CurrentGroundType;
+    public AudioMixerSnapshot StoneSnapshot;
+    public AudioMixerSnapshot MudSnapshot;
 
     // Footstep Trail
     public GameObject FootstepPrefab;
@@ -74,11 +77,21 @@ public class PlayerController : MonoBehaviour
         // Basic Footstep Audio
         if (rb.velocity.magnitude > 0.1f && isSprinting == false)
         {
+            // Sets the audio snapshot depending on the ground type
+            if (CurrentGroundType == "Stone")
+            {
+                StoneSnapshot.TransitionTo(1);
+            }
+            if (CurrentGroundType == "Mud")
+            {
+                MudSnapshot.TransitionTo(1);
+            }
+
             // Footstep Trail
             if (lastFootstepTime + FootstepFrequency <= Time.time)
             {
                 lastFootstepTime = Time.time;
-                GameObject createdFootstep = Instantiate(FootstepPrefab, transform.position + Vector3.down * 0.5f, Quaternion.identity, FootstepParent);
+                GameObject createdFootstep = Instantiate(FootstepPrefab, transform.position + Vector3.down * 0.7f, Quaternion.identity, FootstepParent);
                 Footstep f = createdFootstep.GetComponent<Footstep>();
                 f.ShrinkSpeed = UnityEngine.Random.Range(0.02f, 0.1f); // Had to use "UnityEngine here as without it Random.Range doesnt work here for some reason..."
             }

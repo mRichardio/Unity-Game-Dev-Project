@@ -1740,6 +1740,8 @@ MonoBehaviour:
   Weapon: {fileID: 6262986123301899059, guid: 8e26553eb7bc8f84e87ad5cbe258d7a2, type: 3}
   isEquipped: 0
   Footsteps: {fileID: 0}
+  StoneSnapshot: {fileID: 24500006, guid: 8f896d09097233b41a0b57c2f9c91002, type: 2}
+  MudSnapshot: {fileID: 5879380884855346912, guid: 8f896d09097233b41a0b57c2f9c91002, type: 2}
   FootstepPrefab: {fileID: 8212249789040074559, guid: 1c7775e4316e0704180abe355a810832, type: 3}
   FootstepParent: {fileID: 1717753699}
   FootstepFrequency: 0.3
@@ -3088,7 +3090,7 @@ GameObject:
   - component: {fileID: 752513410}
   - component: {fileID: 752513409}
   m_Layer: 0
-  m_Name: Floor (2)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3971,7 +3973,7 @@ GameObject:
   - component: {fileID: 901323457}
   - component: {fileID: 901323456}
   m_Layer: 0
-  m_Name: Floor (4)
+  m_Name: Mud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4160,7 +4162,7 @@ GameObject:
   - component: {fileID: 1025257423}
   - component: {fileID: 1025257422}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5865,7 +5867,7 @@ GameObject:
   - component: {fileID: 1361089009}
   - component: {fileID: 1361089008}
   m_Layer: 0
-  m_Name: Floor (3)
+  m_Name: Mud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
