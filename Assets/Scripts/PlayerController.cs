@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     public bool isEquipped;
 
     // Audio
-    public AudioSource Footsteps;
     private string CurrentGroundType;
     public AudioMixerSnapshot StoneSnapshot;
     public AudioMixerSnapshot MudSnapshot;
@@ -90,10 +89,14 @@ public class PlayerController : MonoBehaviour
             // Footstep Trail
             if (lastFootstepTime + FootstepFrequency <= Time.time)
             {
-                lastFootstepTime = Time.time;
-                GameObject createdFootstep = Instantiate(FootstepPrefab, transform.position + Vector3.down * 0.7f, Quaternion.identity, FootstepParent);
-                Footstep f = createdFootstep.GetComponent<Footstep>();
-                f.ShrinkSpeed = UnityEngine.Random.Range(0.02f, 0.1f); // Had to use "UnityEngine here as without it Random.Range doesnt work here for some reason..."
+                if (isJumping == false)
+                {
+                    lastFootstepTime = Time.time;
+                    GameObject createdFootstep = Instantiate(FootstepPrefab, transform.position + Vector3.down * 0.7f, Quaternion.identity, FootstepParent);
+                    Footstep f = createdFootstep.GetComponent<Footstep>();
+                    f.ShrinkSpeed = UnityEngine.Random.Range(0.02f, 0.1f); // Had to use "UnityEngine here as without it Random.Range doesnt work here for some reason..."
+
+                }
             }
         }
 

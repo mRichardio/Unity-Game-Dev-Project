@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public GameObject Weapon;
+    public GameObject ShopPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +18,11 @@ public class ShopManager : MonoBehaviour
         
     }
 
-    public void UpgradeWeapon()
+    public void DisplayShop()
     {
-
+        if (ShopPanel != null)
+        {
+            ShopPanel.SetActive(!ShopPanel.activeSelf);
+        }
     }
 }
