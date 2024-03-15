@@ -8,12 +8,14 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerController : MonoBehaviour
 {
     // Base
-
     Transform target;
     Rigidbody rb;
-
-
     public GameObject ForwardMarker;
+
+    // Player
+    private int playerPrestige;
+    public int BaseHealth;
+    private int currentHealth;
 
     // Camera
     public GameObject PlayerCamera;
@@ -31,7 +33,10 @@ public class PlayerController : MonoBehaviour
     public float MaxVelocity = 1.5f;
 
     // Weapons
-    public GameObject Weapon;
+    public GameObject BasicWeapon;
+    public GameObject MediumWeapon;
+    public GameObject EpicWeapon;
+    private int weaponPrestige;
     public bool isEquipped;
 
     // Audio
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         BuildCamera.SetActive(false);
         PlayerCamera.SetActive(true);
+        weaponPrestige = 0;
         isEquipped = false;
     }
 
@@ -197,10 +203,33 @@ public class PlayerController : MonoBehaviour
 
                 if (isEquipped == false)
                 {
-                    GameObject createdWeapon = Instantiate(Weapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    // 
-                    createdWeapon.name = ("Weapon");
-                    isEquipped = true;
+                    // Ensure that the weaponPrestige is within the correct range
+                    Debug.Assert(weaponPrestige == 0 || weaponPrestige == 1 || weaponPrestige == 2);
+
+                    // Basic Weapon
+                    if (weaponPrestige == 0)
+                    {
+                        GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                        createdWeapon.name = ("Weapon");
+                        isEquipped = true;
+                    }
+
+                    // Medium Weapon
+                    if (weaponPrestige == 1)
+                    {
+                        GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                        createdWeapon.name = ("Weapon");
+                        isEquipped = true;
+                    }
+
+                    // Epic Weapon
+                    if (weaponPrestige == 2)
+                    {
+                        GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                        createdWeapon.name = ("Weapon");
+                        isEquipped = true;
+                    }
+
                 }
                 else
                 {
@@ -209,13 +238,13 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            // Fire Weapon
+            // Fire Weapon // I think obsolete???
             if (Input.GetMouseButtonDown(0))
             {
-                if (Weapon != null)
-                {
+                //if (Weapon != null)
+                //{
                     
-                }
+                //}
             }
         }
 
@@ -236,5 +265,40 @@ public class PlayerController : MonoBehaviour
                 Rigidbody rbNew = collision.gameObject.AddComponent<Rigidbody>();
             }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            Time.timeScale = 0;
+            Debug.Log("You Died!");
+        }
+    }
+
+    public void UpgradeHealth(int upgAmount)
+    {
+        // Player Health
+        BaseHealth += upgAmount;
+    }
+
+    public void UpgradeSpeed(int upgAmount)
+    {
+        // Player Speed
+        MovementSpeed += upgAmount;
+    }
+    
+    public void PresitgeWeapon(int upgAmount)
+    {
+        // Weapon Prestige
+        weaponPrestige += upgAmount;
+    }
+    
+    public void PrestigePlayer(int upgAmount)
+    {
+        // Player Prestige
+        playerPrestige += upgAmount;
     }
 }

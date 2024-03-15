@@ -22,6 +22,7 @@ public class ShopManager : MonoBehaviour
     {
         if (ShopPanel != null)
         {
+            Debug.Log(ShopPanel.name);
             ShopPanel.SetActive(!ShopPanel.activeSelf);
         }
     }
