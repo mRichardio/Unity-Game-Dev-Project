@@ -14,7 +14,7 @@ public class WeaponController : MonoBehaviour
 
     // Projectile Related
     public GameObject Projectile;
-    public GameObject FiringPoint;
+    private GameObject FiringPoint;
     Transform ProjectileParent;
 
     // Weapon Stats
@@ -30,7 +30,6 @@ public class WeaponController : MonoBehaviour
 
         ProjectileParent = GameObject.Find("Projectiles").transform;
         FiringPoint = gameObject.transform.GetChild(0).gameObject;
-        Debug.Log(BuildCamera);
     }
 
     // Update is called once per frame

@@ -2091,6 +2091,7 @@ MonoBehaviour:
   MediumWeapon: {fileID: 2548421307829038991, guid: a976c1b6e1a7097458bb2765bcb0ab4d, type: 3}
   EpicWeapon: {fileID: 4260819330917749670, guid: 3b4b27421c2a6de4f88b36cc36531976, type: 3}
   isEquipped: 0
+  prestigeWeaponBtn: {fileID: 1765841831}
   StoneSnapshot: {fileID: 24500006, guid: 8f896d09097233b41a0b57c2f9c91002, type: 2}
   MudSnapshot: {fileID: 5879380884855346912, guid: 8f896d09097233b41a0b57c2f9c91002, type: 2}
   FootstepPrefab: {fileID: 8212249789040074559, guid: 1c7775e4316e0704180abe355a810832, type: 3}

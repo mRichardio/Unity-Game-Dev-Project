@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
@@ -13,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ForwardMarker;
 
     // Player
-    private int playerPrestige;
+    private int playerPrestige; // Needs implementing <----------------
     public int BaseHealth;
     private int currentHealth;
 
@@ -36,8 +38,9 @@ public class PlayerController : MonoBehaviour
     public GameObject BasicWeapon;
     public GameObject MediumWeapon;
     public GameObject EpicWeapon;
-    private int weaponPrestige;
+    private int weaponPrestige; // Will need to multiply weapon stats by the weaponPrestige // IMPORTANT <----------------
     public bool isEquipped;
+    public Button prestigeWeaponBtn;
 
     // Audio
     private string CurrentGroundType;
@@ -121,12 +124,7 @@ public class PlayerController : MonoBehaviour
                 ResetSpeed();
             }
 
-            // Clamp Velocity
-            // REFERENCE: https://www.youtube.com/watch?v=7NMsVub5NZM
-            if (rb.velocity.magnitude > MaxSpeed)
-            {
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, MaxSpeed);
-            }
+            ClampVelocity();
         }
 
         // Basic Movement
@@ -171,81 +169,13 @@ public class PlayerController : MonoBehaviour
         // Build Mode
 
         {
-            // Toggle Build Mode
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                if (BuildCamera.activeSelf == true)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-
-                    BuildCamera.SetActive(false);
-                    PlayerCamera.SetActive(true);
-                }
-                else
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-
-                    BuildCamera.SetActive(true);
-                    PlayerCamera.SetActive(false);
-                }
-            }
+            ToggleBuildMode();
         }
 
         // Weapon Handling
 
         {
-            // Equip Weapon
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Transform weaponParent = GameObject.Find("WeaponAttatch").transform;
-
-                if (isEquipped == false)
-                {
-                    // Ensure that the weaponPrestige is within the correct range
-                    Debug.Assert(weaponPrestige == 0 || weaponPrestige == 1 || weaponPrestige == 2);
-
-                    // Basic Weapon
-                    if (weaponPrestige == 0)
-                    {
-                        GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                        createdWeapon.name = ("Weapon");
-                        isEquipped = true;
-                    }
-
-                    // Medium Weapon
-                    if (weaponPrestige == 1)
-                    {
-                        GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                        createdWeapon.name = ("Weapon");
-                        isEquipped = true;
-                    }
-
-                    // Epic Weapon
-                    if (weaponPrestige == 2)
-                    {
-                        GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                        createdWeapon.name = ("Weapon");
-                        isEquipped = true;
-                    }
-
-                }
-                else
-                {
-                    Destroy(GameObject.Find("Weapon"));
-                    isEquipped = false;
-                }
-            }
-
-            // Fire Weapon // I think obsolete???
-            if (Input.GetMouseButtonDown(0))
-            {
-                //if (Weapon != null)
-                //{
-                    
-                //}
-            }
+            HandleWeaponEquip();
         }
 
     }
@@ -254,17 +184,6 @@ public class PlayerController : MonoBehaviour
     {
         MovementSpeed = 20;
         MaxSpeed = 10;
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.name == "Demo")
-        {
-            if (collision.gameObject.GetComponent<Rigidbody>() == null)
-            {
-                Rigidbody rbNew = collision.gameObject.AddComponent<Rigidbody>();
-            }
-        }
     }
 
     public void TakeDamage(int damage)
@@ -284,18 +203,105 @@ public class PlayerController : MonoBehaviour
         BaseHealth += upgAmount;
     }
 
+    public void ToggleBuildMode()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (BuildCamera.activeSelf == true)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+
+                BuildCamera.SetActive(false);
+                PlayerCamera.SetActive(true);
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                BuildCamera.SetActive(true);
+                PlayerCamera.SetActive(false);
+            }
+        }
+    }
+
     public void UpgradeSpeed(int upgAmount)
     {
         // Player Speed
         MovementSpeed += upgAmount;
     }
-    
+
     public void PresitgeWeapon(int upgAmount)
     {
+        Debug.Log(weaponPrestige);
         // Weapon Prestige
-        weaponPrestige += upgAmount;
+        if (weaponPrestige >= 2) // This has to be 2 as the weaponPrestige is 0, 1, 2
+        {
+            prestigeWeaponBtn.interactable = false;
+            prestigeWeaponBtn.transform.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Max Prestige";
+        }
+        else
+        {
+            weaponPrestige += upgAmount;
+            Destroy(GameObject.Find("Weapon"));
+            isEquipped = false;
+        }
+    }
+
+    public void ClampVelocity()
+    {
+        // Clamp Velocity
+        // REFERENCE: https://www.youtube.com/watch?v=7NMsVub5NZM
+        if (rb.velocity.magnitude > MaxSpeed)
+        {
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, MaxSpeed);
+        }
     }
     
+    public void HandleWeaponEquip()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Transform weaponParent = GameObject.Find("WeaponAttatch").transform;
+
+            if (isEquipped == false)
+            {
+                // Ensure that the weaponPrestige is within the correct range
+                Debug.Assert(weaponPrestige == 0 || weaponPrestige == 1 || weaponPrestige == 2);
+
+                // Basic Weapon
+                if (weaponPrestige == 0)
+                {
+                    GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                    createdWeapon.name = ("Weapon");
+                    isEquipped = true;
+                }
+
+                // Medium Weapon
+                if (weaponPrestige == 1)
+                {
+                    GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                    createdWeapon.name = ("Weapon");
+                    isEquipped = true;
+                }
+
+                // Epic Weapon
+                if (weaponPrestige == 2)
+                {
+                    GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                    createdWeapon.name = ("Weapon");
+                    isEquipped = true;
+                }
+            }
+            else
+            {
+                Destroy(GameObject.Find("Weapon"));
+                isEquipped = false;
+            }
+        }
+    }
+
     public void PrestigePlayer(int upgAmount)
     {
         // Player Prestige
