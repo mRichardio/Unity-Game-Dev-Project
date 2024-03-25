@@ -18,7 +18,6 @@ public class WeaponController : MonoBehaviour
     Transform ProjectileParent;
 
     // Weapon Stats
-    public float Damage;
     public float Power;
 
     // Start is called before the first frame update
@@ -38,19 +37,7 @@ public class WeaponController : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && (BuildCamera == null || !BuildCamera.activeSelf))
         {
             GameObject createdProjectile = Instantiate(Projectile, FiringPoint.transform.position, Quaternion.identity, ProjectileParent);
-            createdProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * Power);
+            //createdProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * Power);
         }
     }
-
-    public void UpgradeDamage(int upgAmount)
-    {
-        // Weapon Damage
-        Damage += upgAmount;
-    }
-
-    public void UpgradePower(int upgAmount)
-    {
-        // Weapon Power
-        Power += upgAmount;
-    }   
 }
