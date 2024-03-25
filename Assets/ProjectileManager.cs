@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
+    // Weapon
+    GameObject Weapon;
+
     // Projectile Stats
     public int Damage = 10;
     public int Speed = 1000;
@@ -26,12 +29,16 @@ public class ProjectileManager : MonoBehaviour
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
 
+        // Get parent // TOO TIRED TO DO THS RN, MAKE THIS GET THE NAME OF THE WEAPON THAT IT IS FIRING FROM :) ATM IT IS JUST GETTING THE PARENT OF THE PROJECTILES
+        Weapon = transform.parent.gameObject;
+        Debug.Log("Weapon: " + Weapon.name);
+
         // Set the destroy time
         nextDestroyTime = Time.time + DestroyInterval;
         
         {
             // Add force to the projectile
-            rb.AddForce(transform.forward * Speed);
+            FirepProjectile(Speed);
         }
     }
 
@@ -75,5 +82,10 @@ public class ProjectileManager : MonoBehaviour
     {
         // Weapon Power
         Speed += upgAmount;
+    }
+
+    public void FirepProjectile(int speed)
+    {
+        rb.AddForce(transform.forward * speed * BasicMultiplier);
     }
 }

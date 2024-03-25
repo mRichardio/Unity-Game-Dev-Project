@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
                 if (weaponPrestige == 0)
                 {
                     GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("Weapon");
+                    createdWeapon.name = ("WeaponBasic");
                     isEquipped = true;
                 }
 
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
                 if (weaponPrestige == 1)
                 {
                     GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("Weapon");
+                    createdWeapon.name = ("WeaponMedium");
                     isEquipped = true;
                 }
 
@@ -289,13 +289,15 @@ public class PlayerController : MonoBehaviour
                 if (weaponPrestige == 2)
                 {
                     GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("Weapon");
+                    createdWeapon.name = ("WeaponEpic");
                     isEquipped = true;
                 }
             }
             else
             {
-                Destroy(GameObject.Find("Weapon"));
+                Destroy(GameObject.Find("WeaponBasic"));
+                Destroy(GameObject.Find("WeaponMedium"));
+                Destroy(GameObject.Find("WeaponEpic"));
                 isEquipped = false;
             }
         }
