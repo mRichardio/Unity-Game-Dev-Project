@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             weaponPrestige += upgAmount;
-            Destroy(GameObject.Find("Weapon"));
+            DestroyWeapon();
             isEquipped = false;
         }
     }
@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Transform weaponParent = GameObject.Find("WeaponAttatch").transform;
+            Transform weaponParent = GameObject.Find("WeaponAttach").transform;
 
             if (isEquipped == false)
             {
@@ -295,12 +295,17 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Destroy(GameObject.Find("WeaponBasic"));
-                Destroy(GameObject.Find("WeaponMedium"));
-                Destroy(GameObject.Find("WeaponEpic"));
+                DestroyWeapon();
+
                 isEquipped = false;
             }
         }
+    }
+
+    public void DestroyWeapon()
+    {
+        GameObject Weapon = gameObject.transform.Find("WeaponAttach").transform.GetChild(0).gameObject;
+        Destroy(Weapon);
     }
 
     public void PrestigePlayer(int upgAmount)

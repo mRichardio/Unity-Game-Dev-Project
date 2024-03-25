@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class ProjectileManager : MonoBehaviour
     public int Speed = 1000;
 
     // Weapon Multipliers
-    public int BasicMultiplier = 1;
-    public int MediumMultiplier = 2;
-    public int EpicMultiplier = 3;
+    public float BasicMultiplier = 1;
+    public float MediumMultiplier = 2;
+    public float EpicMultiplier = 3;
 
     // Destroy Interval
     public float DestroyInterval = 3.0f;
@@ -29,16 +30,30 @@ public class ProjectileManager : MonoBehaviour
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
 
-        // Get parent // TOO TIRED TO DO THS RN, MAKE THIS GET THE NAME OF THE WEAPON THAT IT IS FIRING FROM :) ATM IT IS JUST GETTING THE PARENT OF THE PROJECTILES
-        Weapon = transform.parent.gameObject;
-        Debug.Log("Weapon: " + Weapon.name);
+        // Get parent Weapon
+        GameObject player = GameObject.Find("Player");
+        Transform weaponAttach = player.transform.Find("WeaponAttach");
+        Weapon = weaponAttach.GetChild(0).gameObject;
+
+        Debug.Log("Weapon : " + Weapon.name);
 
         // Set the destroy time
         nextDestroyTime = Time.time + DestroyInterval;
         
         {
             // Add force to the projectile
-            FirepProjectile(Speed);
+            if (Weapon.name == "BasicWeapon")
+            {
+                FirepProjectile(Speed, BasicMultiplier);
+            }
+            if (Weapon.name == "MediumWeapon")
+            {
+                FirepProjectile(Speed, MediumMultiplier);
+            }
+            if (Weapon.name == "EpicWeapon")
+            {
+                FirepProjectile(Speed, EpicMultiplier);
+            }
         }
     }
 
@@ -84,8 +99,8 @@ public class ProjectileManager : MonoBehaviour
         Speed += upgAmount;
     }
 
-    public void FirepProjectile(int speed)
+    public void FirepProjectile(int speed, float multiplier)
     {
-        rb.AddForce(transform.forward * speed * BasicMultiplier);
+        rb.AddForce(transform.forward * speed * multiplier);
     }
 }
