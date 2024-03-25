@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         // Camera Rotation
         {
             float h = Input.GetAxis("Mouse X");

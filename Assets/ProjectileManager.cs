@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +53,16 @@ public class ProjectileManager : MonoBehaviour
             }
         }
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Enemy")
+        {
+            Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
+            // Damage the enemy
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
+            Destroy(gameObject);
+        }
     }
 
     public void UpgradeDamage(int upgAmount)

@@ -20,6 +20,10 @@ public class WeaponController : MonoBehaviour
     // Weapon Stats
     public float Power;
 
+    // Fire Interval
+    public float FiringInterval = .5f;
+    private float nextFireTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +40,25 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0) && (BuildCamera == null || !BuildCamera.activeSelf))
         {
-            GameObject createdProjectile = Instantiate(Projectile, FiringPoint.transform.position, Quaternion.identity, ProjectileParent);
-            //createdProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * Power);
+            if (Time.time >= nextFireTime)
+            {
+                //GameObject createdProjectile = Instantiate(Projectile, FiringPoint.transform.position, Quaternion.identity, ProjectileParent);
+                FireProjectile();
+                nextFireTime = Time.time + FiringInterval;
+            }
         }
+    }
+
+    void FireProjectile()
+    {
+        // Instantiate projectile
+        GameObject projectileObject = Instantiate(Projectile, transform.position, Quaternion.identity, ProjectileParent);
+
+        // Calculate direction based on player's forward vector
+        Vector3 playerForward = transform.forward;
+
+        // Set the projectile's velocity in the direction of the player's forward vector
+        Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
+        projectileRigidbody.velocity = playerForward * Power;
     }
 }
