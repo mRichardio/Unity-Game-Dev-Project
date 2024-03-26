@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ForwardMarker;
 
     // Player
-    private int playerPrestige; // Needs implementing <----------------
+    public int DefaultHealth;
     public int BaseHealth;
     private int currentHealth;
 
@@ -302,12 +302,6 @@ public class PlayerController : MonoBehaviour
     {
         GameObject Weapon = gameObject.transform.Find("WeaponAttach").transform.GetChild(0).gameObject;
         Destroy(Weapon);
-    }
-
-    public void PrestigePlayer(int upgAmount)
-    {
-        // Player Prestige
-        playerPrestige += upgAmount;
     }
 
     private void MovePlayerCamera()
