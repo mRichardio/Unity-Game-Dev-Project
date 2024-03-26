@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class ProjectileManager : MonoBehaviour
 {
     // Weapon
-    GameObject Weapon;
+    private GameObject Weapon;
 
     // Projectile Stats
-    public int Damage = 10;
-    public int Speed = 1000;
+    public float Damage; // Current Damage
+    public float DefaultDamage;
+    public float Power;// Current Power
+    public float DefaultPower;
 
-    // Weapon Multipliers
+    // Weapon Damage Multipliers
     public float BasicMultiplier = 1;
     public float MediumMultiplier = 2;
     public float EpicMultiplier = 3;
@@ -21,6 +24,8 @@ public class ProjectileManager : MonoBehaviour
     // Destroy Interval
     public float DestroyInterval = 3.0f;
     private float nextDestroyTime = 0.0f;
+
+    // Error Message
 
     Rigidbody rb;
 
@@ -35,26 +40,8 @@ public class ProjectileManager : MonoBehaviour
         Transform weaponAttach = player.transform.Find("WeaponAttach");
         Weapon = weaponAttach.GetChild(0).gameObject;
 
-        Debug.Log("Weapon : " + Weapon.name);
-
         // Set the destroy time
         nextDestroyTime = Time.time + DestroyInterval;
-        
-        {
-            // Add force to the projectile
-            if (Weapon.name == "BasicWeapon")
-            {
-                FirepProjectile(Speed, BasicMultiplier);
-            }
-            if (Weapon.name == "MediumWeapon")
-            {
-                FirepProjectile(Speed, MediumMultiplier);
-            }
-            if (Weapon.name == "EpicWeapon")
-            {
-                FirepProjectile(Speed, EpicMultiplier);
-            }
-        }
     }
 
     // Update is called once per frame
@@ -76,6 +63,7 @@ public class ProjectileManager : MonoBehaviour
         }
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Enemy")
@@ -87,20 +75,70 @@ public class ProjectileManager : MonoBehaviour
         }
     }
 
+    private GameObject GetWeapon()
+    {
+        GameObject player = GameObject.Find("Player");
+        Transform weaponAttach = player.transform.Find("WeaponAttach");
+        return weaponAttach.GetChild(0).gameObject;
+    }
+
+    public void ResetProjectileValues()
+    {
+        GameObject player = GameObject.Find("Player");
+        if (player.GetComponent<PlayerController>().weaponPrestige == 0)
+        {
+            Damage = DefaultDamage;
+            Power = DefaultPower;
+        }
+    }
+
     public void UpgradeDamage(int upgAmount)
     {
-        // Weapon Damage
-        Damage += upgAmount;
+        Weapon = GetWeapon();
+
+        float multiplier = BasicMultiplier; // Default multiplier
+
+        if (Weapon != null)
+        {
+            if (Weapon.name == "WeaponBasic")
+            {
+                multiplier = BasicMultiplier;
+            }
+            else if (Weapon.name == "WeaponMedium")
+            {
+                multiplier = MediumMultiplier;
+            }
+            else if (Weapon.name == "WeaponEpic")
+            {
+                multiplier = EpicMultiplier;
+            }
+        }
+
+        Damage += upgAmount * multiplier;
     }
 
     public void UpgradePower(int upgAmount)
     {
-        // Weapon Power
-        Speed += upgAmount;
-    }
+        Weapon = GetWeapon();
 
-    public void FirepProjectile(int speed, float multiplier)
-    {
-        rb.AddForce(transform.forward * speed * multiplier);
+        float multiplier = BasicMultiplier; // Default multiplier
+
+        if (Weapon != null)
+        {
+            if (Weapon.name == "WeaponBasic")
+            {
+                multiplier = BasicMultiplier;
+            }
+            else if (Weapon.name == "WeaponMedium")
+            {
+                multiplier = MediumMultiplier;
+            }
+            else if (Weapon.name == "WeaponEpic")
+            {
+                multiplier = EpicMultiplier;
+            }
+        }
+
+        Power += upgAmount * multiplier;
     }
 }

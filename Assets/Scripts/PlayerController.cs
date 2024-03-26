@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     public GameObject BasicWeapon;
     public GameObject MediumWeapon;
     public GameObject EpicWeapon;
-    private int weaponPrestige; // Will need to multiply weapon stats by the weaponPrestige // IMPORTANT <----------------
+    public int weaponPrestige;
     public bool isEquipped;
     public Button prestigeWeaponBtn;
 
@@ -265,44 +265,35 @@ public class PlayerController : MonoBehaviour
 
     public void HandleWeaponEquip()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        Transform weaponParent = GameObject.Find("WeaponAttach").transform;
+
+        if (isEquipped == false)
         {
-            Transform weaponParent = GameObject.Find("WeaponAttach").transform;
+            // Ensure that the weaponPrestige is within the correct range
+            Debug.Assert(weaponPrestige == 0 || weaponPrestige == 1 || weaponPrestige == 2);
 
-            if (isEquipped == false)
+            // Basic Weapon
+            if (weaponPrestige == 0)
             {
-                // Ensure that the weaponPrestige is within the correct range
-                Debug.Assert(weaponPrestige == 0 || weaponPrestige == 1 || weaponPrestige == 2);
-
-                // Basic Weapon
-                if (weaponPrestige == 0)
-                {
-                    GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("WeaponBasic");
-                    isEquipped = true;
-                }
-
-                // Medium Weapon
-                if (weaponPrestige == 1)
-                {
-                    GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("WeaponMedium");
-                    isEquipped = true;
-                }
-
-                // Epic Weapon
-                if (weaponPrestige == 2)
-                {
-                    GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
-                    createdWeapon.name = ("WeaponEpic");
-                    isEquipped = true;
-                }
+                GameObject createdWeapon = Instantiate(BasicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                createdWeapon.name = ("WeaponBasic");
+                isEquipped = true;
             }
-            else
-            {
-                DestroyWeapon();
 
-                isEquipped = false;
+            // Medium Weapon
+            if (weaponPrestige == 1)
+            {
+                GameObject createdWeapon = Instantiate(MediumWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                createdWeapon.name = ("WeaponMedium");
+                isEquipped = true;
+            }
+
+            // Epic Weapon
+            if (weaponPrestige == 2)
+            {
+                GameObject createdWeapon = Instantiate(EpicWeapon, weaponParent.transform.position, Quaternion.LookRotation(ForwardMarker.transform.position - transform.position), weaponParent);
+                createdWeapon.name = ("WeaponEpic");
+                isEquipped = true;
             }
         }
     }

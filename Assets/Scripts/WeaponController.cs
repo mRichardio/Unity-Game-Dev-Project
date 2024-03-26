@@ -14,12 +14,15 @@ public class WeaponController : MonoBehaviour
     GameObject BuildCamera;
 
     // Projectile Related
+    public ProjectileManager ProjectileManager;
     public GameObject Projectile;
     private GameObject FiringPoint;
     Transform ProjectileParent;
 
-    // Weapon Stats
-    public float Power;
+    // Weapon Speed Multipliers
+    public float BasicMultiplier = 1;
+    public float MediumMultiplier = 2;
+    public float EpicMultiplier = 3;
 
     // Fire Interval
     public float FiringInterval = .5f;
@@ -34,6 +37,8 @@ public class WeaponController : MonoBehaviour
 
         ProjectileParent = GameObject.Find("Projectiles").transform;
         FiringPoint = gameObject.transform.GetChild(0).gameObject;
+
+        ProjectileManager.ResetProjectileValues();
     }
 
     // Update is called once per frame
@@ -73,14 +78,14 @@ public class WeaponController : MonoBehaviour
 
             // Velocity
             Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
-            projectileRigidbody.velocity = direction * Power;
+            projectileRigidbody.velocity = direction * ProjectileManager.Power;
         }
         else
         {
             // Fires straight ahead if no hit
             GameObject projectileObject = Instantiate(Projectile, transform.position, Quaternion.identity, ProjectileParent);
             Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
-            projectileRigidbody.velocity = transform.forward * Power;
+            projectileRigidbody.velocity = transform.forward * ProjectileManager.Power;
         }
     }
 

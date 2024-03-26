@@ -1,28 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
-    // Weapon Related
-    public int weaponDamage;
-    public int weaponVelocity;
-    public int currentWeaponPrestige;
+//public class GameManager : MonoBehaviour
+//{
+//    // Upgrades
+//    public int ProjectileUpgradeAmount = 10;
+//    public ProjectileManager ProjectileManager;
 
-    // Player Related
-    public int playerHealth;
-    public int playerSpeed;
-    public int currentPlayerPrestige;
-
-    // Start is called before the first frame update
-    void Start()
-    {
+//    // Start is called before the first frame update
+//    void Start()
+//    {
         
-    }
+//    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+
+
+//    public void UpgradeDamage()
+//    {
+//        // Check if weapon is equipped
+//        bool weaponEquipped = (ProjectileManager.Weapon != null);
+
+//        // Call UpgradeDamage method with the upgrade amount and weapon equipped status
+//        ProjectileManager.UpgradeDamage(ProjectileUpgradeAmount, weaponEquipped);
+//    }
+//}

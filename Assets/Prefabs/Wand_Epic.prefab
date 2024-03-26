@@ -97,10 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b224173d14a4847b57b333136fe1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectileManager: {fileID: 570068047054214960, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
   Projectile: {fileID: 3579300663716552388, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
-  FiringPoint: {fileID: 0}
-  Damage: 0
   Power: 500
+  BasicMultiplier: 1
+  MediumMultiplier: 2
+  EpicMultiplier: 3
+  FiringInterval: 0.5
 --- !u!1 &5040848657894854388
 GameObject:
   m_ObjectHideFlags: 0
