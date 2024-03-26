@@ -315,4 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a693e537cd2b36d4eb23b9cb392c760a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 10
+  Speed: 1000
+  BasicMultiplier: 1
+  MediumMultiplier: 2
+  EpicMultiplier: 3
   DestroyInterval: 0.75

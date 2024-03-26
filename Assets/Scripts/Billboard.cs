@@ -10,7 +10,7 @@ public class Billboard : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
-        Debug.Log("Player" + player);
+        //Debug.Log("Player" + player);
         Camera playerCamera = player.GetComponentInChildren<Camera>();
         cam = playerCamera.transform;
     }

@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     // Advanced Movement
     public int JumpPower;
     public int RotationSpeed;
+    public float Sensitivity;
+    private Vector2 PlayerMouseInput;
+    private float xRot;
     public float MaxVelocity = 1.5f;
 
     // Weapons
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // Basic Footstep Audio
         if (rb.velocity.magnitude > 0.1f && isSprinting == false)
         {
@@ -111,8 +115,9 @@ public class PlayerController : MonoBehaviour
 
         // Camera Rotation
         {
-            float h = Input.GetAxis("Mouse X");
-            target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
+
+            PlayerMouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            MovePlayerCamera();
         }
 
         {
@@ -128,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         // Basic Movement
 
-        { 
+        {
             // Move Forward/Back
             if (Input.GetKey(KeyCode.W) && BuildCamera.active == false)
             {
@@ -257,7 +262,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, MaxSpeed);
         }
     }
-    
+
     public void HandleWeaponEquip()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -312,5 +317,22 @@ public class PlayerController : MonoBehaviour
     {
         // Player Prestige
         playerPrestige += upgAmount;
+    }
+
+    private void MovePlayerCamera()
+    {
+        // Reference: https://www.youtube.com/watch?v=b1uoLBp2I1w Only used for camera rotation
+        xRot = Mathf.Clamp(xRot, -15f, 40f);
+        xRot -= PlayerMouseInput.y * Sensitivity;
+
+        transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);      
+        PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+    }
+
+    // Leaving this here to go back to if needed <----------------
+    private void OldCameraMovement()
+    {
+        float h = Input.GetAxis("Mouse X");
+        target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
     }
 }
