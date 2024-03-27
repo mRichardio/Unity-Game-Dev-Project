@@ -18,7 +18,7 @@ public class CameraScript : MonoBehaviour
     {
         //Vector3 point = new Vector3();
         Event currentEvent = Event.current;
-        Debug.Log(currentEvent);
+        //Debug.Log(currentEvent);
         Vector2 mousePos = new Vector2();
 
         // Get the mouse position from Event.

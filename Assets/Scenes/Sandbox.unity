@@ -8856,7 +8856,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12f317f13403a44cb66f072ffe28c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: {fileID: 3704251855290491307, guid: ff34338241107ec40a384682739cf5d0, type: 3}
+  Tower: {fileID: 3704251855290491307, guid: ff34338241107ec40a384682739cf5d0, type: 3}
+  PreviewTowerPrefab: {fileID: 3704251855290491307, guid: ff34338241107ec40a384682739cf5d0, type: 3}
   TowerParent: {fileID: 0}
 --- !u!114 &1792767071
 MonoBehaviour:
