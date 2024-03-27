@@ -63,7 +63,6 @@ public class PrefabBuilder : MonoBehaviour
         {
             if (previewTowerInstance == null)
             {
-                
                 previewTowerInstance = Instantiate(PreviewTowerPrefab, new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z), Quaternion.identity, TowerParent);
             }
             else

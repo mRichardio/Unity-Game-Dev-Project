@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   Damage: 10
-  ShrinkSpeed: 0.24125163
+  ShrinkSpeed: 0.30024797
   Turret: {fileID: 6159631527493237164}
   LaserProjectile: {fileID: 7515266505040626008, guid: ca5141fb5302fd64890e8f7146ba9f88, type: 3}
   detectionInterval: 1
