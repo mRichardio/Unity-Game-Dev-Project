@@ -44,9 +44,9 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.rotation = Quaternion.identity;
-        if (Input.GetKey(KeyCode.Mouse0) && (BuildCamera == null || !BuildCamera.activeSelf))
-        {
+        //transform.rotation = Quaternion.identity; // Doesnt fire when holding alt
+            if (Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
+            {
             if (Time.time >= nextFireTime)
             {
                 FireProjectile();

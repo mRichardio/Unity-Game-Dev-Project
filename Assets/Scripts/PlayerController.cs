@@ -113,6 +113,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
+        // Hold to enable mouse cursor when build mode isnt active
+        if (Input.GetKey(KeyCode.LeftAlt) && BuildCamera.active == false)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         // Camera Rotation
         {
 
@@ -174,6 +187,12 @@ public class PlayerController : MonoBehaviour
 
         {
             ToggleBuildMode();
+            // sets cursor to be visible initially
+            if (BuildCamera.active == true)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
 
         // Weapon Handling
