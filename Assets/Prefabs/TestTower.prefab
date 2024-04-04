@@ -171,7 +171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/5
+  m_text: 0/4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -466,7 +466,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6328245287364001903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8842185137842819206}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: UpgradeTower
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2255224651509495763
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +954,8 @@ MonoBehaviour:
   LaserProjectile: {fileID: 7515266505040626008, guid: ca5141fb5302fd64890e8f7146ba9f88, type: 3}
   detectionInterval: 1
   FiringInterval: 0.5
+  towerCanvas: {fileID: 0}
+  UpgCount: {fileID: 3078385200117344828}
 --- !u!1 &3839066144631700587
 GameObject:
   m_ObjectHideFlags: 0

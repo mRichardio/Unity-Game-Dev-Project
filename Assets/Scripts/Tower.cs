@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
@@ -14,6 +16,7 @@ public class Tower : MonoBehaviour
     public float Health = 100f;
     public float Damage = 10.0f;
     public float ShrinkSpeed = .3f;
+    private int upgradeCount = 0;
 
     public GameObject Turret;
     public GameObject LaserProjectile;
@@ -28,11 +31,21 @@ public class Tower : MonoBehaviour
     public float FiringInterval = .5f;
     private float nextFireTime = 0.0f;
 
+    // UI
+    public Canvas towerCanvas;
+    public TextMeshProUGUI UpgCount;
+
     // Start is called before the first frame update
     void Start()
     {
         Turret = transform.GetChild(1).gameObject;
         Target = GameObject.Find("Player");
+
+        // UI Event Camera
+        towerCanvas = GetComponentInChildren<Canvas>();
+        GameObject playerCameraObj = GameObject.Find("PlayerCamera");
+        Camera playerCamera = playerCameraObj.GetComponent<Camera>();
+        towerCanvas.worldCamera = playerCamera;
     }
 
     // Update is called once per frame
@@ -151,6 +164,28 @@ public class Tower : MonoBehaviour
             GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), LaserParent);
             createdLaser.name = ("Laser");
         }
+    }
+
+    public void UpgradeTower(int upgAmount)
+    {
+        Debug.Log("Herro I have been called");
+        int maxHealth = 500;
+        int maxDamage = 50;
+
+        if (Health < maxHealth)
+        {
+            Health += upgAmount;
+        }
+        if (Damage < maxDamage) 
+        {
+            Damage += upgAmount;
+        }
+        if (upgradeCount < 4)
+        {
+            upgradeCount++;
+        }
+
+        UpgCount.text = $"{upgradeCount}/4";
     }
 
     // for debugging purposes
