@@ -241,11 +241,7 @@ MonoBehaviour:
   Damage: 10
   MovementSpeed: 5
   ShrinkSpeed: 0.3
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  checkpoints: []
   healthBar: {fileID: 1808990716789352651}
 --- !u!1 &4340834087192840610
 GameObject:
