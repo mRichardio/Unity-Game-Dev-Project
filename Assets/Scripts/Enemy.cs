@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    GameManager gameManager;
     public float maxHealth = 100;
     public float currentHealth;
 
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour
             if (transform.localScale.x <= 0.01f)
             {
                 Destroy(gameObject);
+                gameManager.Enemies.Remove(gameObject); // Removes the enemy from the enemies list
             }
         }
     }

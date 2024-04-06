@@ -6,31 +6,41 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Parents
-    public GameObject enemyParent;
+    public GameObject SpawnPoint_A;
+    public GameObject SpawnPoint_B;
+    public GameObject SpawnPoint_C;
+    public GameObject SpawnPoint_D;
 
+    // Prefab Parents
+    public GameObject EnemyParent;
+    
     // Prefabs
-    public GameObject enemyPrefab;
+    public GameObject BasicEnemyPrefab;
+
+    // Collections
+    public List<GameObject> Enemies = new List<GameObject>();
 
     // Spawn Interval
-    public float SpawnInterval = 3.0f;
-    private float nextSpawnTime = 0.0f;
+    public float SpawnInterval;
+    private float nextSpawnTime;
 
-    // Rounds
-    public bool isPreparing;
-    public bool isPlaying;
+    // Waves
+    public int Wave;
+    private bool isPreparing;
+    private bool isPlaying;
 
     // Round UI
-    public TextMeshProUGUI BattleStarted;
-    public TextMeshProUGUI BattleEnded;
-    public TextMeshProUGUI PreperationStarted;
-    public TextMeshProUGUI PreperationEnded;
-
+    public TextMeshProUGUI WaveText;
+    public TextMeshProUGUI PreperationText;
 
     // Start is called before the first frame update
     void Start()
     {
         isPreparing = true;
         isPlaying = false;
+
+        WaveText.gameObject.active = false;
+        PreperationText.gameObject.active = false;
 
         // Set spawn time
         nextSpawnTime = Time.time + SpawnInterval;
@@ -39,54 +49,83 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ready Up // TEMP A SWITCH BUT ROUNDS WILL END WHEN ENEMY COUNT IS 0 AND WILL BEGIN WHEN G IS PRESSED
-        if (isPreparing)
+        // Dev Tools
         {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                isPreparing = false;
-                isPlaying = true;
-            }
-        }
-        else if (isPlaying)
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                isPreparing = true;
-                isPlaying = false;
-            }
-        }
-
-        // Press a button to check state
-        if (Input.GetKeyDown(KeyCode.H))
-        {
+            // Ready Up // TEMP A SWITCH BUT ROUNDS WILL END WHEN ENEMY COUNT IS 0 AND WILL BEGIN WHEN G IS PRESSED
             if (isPreparing)
             {
-                Debug.Log("Preparing");
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    isPreparing = false;
+                    isPlaying = true;
+                }
             }
             else if (isPlaying)
             {
-                Debug.Log("Playing");
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    isPreparing = true;
+                    isPlaying = false;
+                }
+            }
+
+            // Press a button to check state
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                if (isPreparing)
+                {
+                    Debug.Log("Preparing");
+                    PreperationText.gameObject.active = true;
+                    WaveText.gameObject.active = false;
+                }
+                else if (isPlaying)
+                {
+                    Debug.Log("Playing");
+                    PreperationText.gameObject.active = false;
+                    WaveText.gameObject.active = true;
+                }
+            }
+        }
+
+        {
+            // UI Text
+            if (isPreparing)
+            {
+                PreperationText.gameObject.active = true;
+                WaveText.gameObject.active = false;
+            }
+            else if (isPlaying)
+            {
+                PreperationText.gameObject.active = false;
+                WaveText.gameObject.active = true;
             }
         }
 
         // Spawn an enemy
-        if (isPlaying)
         {
-            SpawnEnemy("Basic");
+            if (isPlaying)
+            {
+                SpawnEnemy("Basic", SpawnPoint_A);
+            }
         }
     }
 
-    public void SpawnEnemy(string type)
+    public void SpawnEnemy(string type, GameObject spawnPoint)
     {
         if (type == "Basic")
         {
             if (Time.time >= nextSpawnTime)
             {
                 // Instantiate the enemy
-                GameObject enemy = Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity, enemyParent.transform);
+                GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                Enemies.Add(enemy); // Might need to add a check to see if the enemy is dead and remove it from the list
                 nextSpawnTime = Time.time + SpawnInterval;
             }
         }
     }
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        Enemies.Remove(enemy);
+    }   
 }
