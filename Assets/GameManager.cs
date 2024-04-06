@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,12 @@ public class GameManager : MonoBehaviour
     // Rounds
     public bool isPreparing;
     public bool isPlaying;
+
+    // Round UI
+    public TextMeshProUGUI BattleStarted;
+    public TextMeshProUGUI BattleEnded;
+    public TextMeshProUGUI PreperationStarted;
+    public TextMeshProUGUI PreperationEnded;
 
 
     // Start is called before the first frame update
