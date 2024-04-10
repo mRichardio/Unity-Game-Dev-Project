@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI WaveText;
     public TextMeshProUGUI PreperationText;
 
+    // Pause
+    bool IsPaused;
+    public GameObject PauseCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +91,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Pause/Unpause
+        {
+            PauseHandler();
+        }
+
         {
             // UI Text
             if (isPreparing)
@@ -128,4 +137,15 @@ public class GameManager : MonoBehaviour
     {
         Enemies.Remove(enemy);
     }   
+
+    public void PauseHandler()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            IsPaused = !IsPaused;
+            PauseCanvas.SetActive(IsPaused);
+
+            Time.timeScale = IsPaused ? 0 : 1;
+        }
+    }
 }
