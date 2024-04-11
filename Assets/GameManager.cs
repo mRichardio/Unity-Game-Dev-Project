@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     // Waves
     public int Wave;
     public int WaveEnemyCount;
+    public int EnemiesSpawnedThisWave;
     public bool allSpawned;
     private bool isPreparing;
     private bool isPlaying;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Enemies = new List<GameObject>();
         isPreparing = true;
         isPlaying = false;
 
@@ -51,7 +53,12 @@ public class GameManager : MonoBehaviour
         // Set spawn time
         nextSpawnTime = Time.time + SpawnInterval;
 
-        SetWaveEnemyCount(5);
+        SetWaveEnemyCount(1);
+    }
+
+    void Awake()
+    {
+        Enemies = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -117,7 +124,10 @@ public class GameManager : MonoBehaviour
 
         // Spawn an enemy
         {
-            if (isPlaying && Enemies.Count < WaveEnemyCount)
+            // Stop spawning a new enemy after 1 has died
+
+
+            if (isPlaying && EnemiesSpawnedThisWave < WaveEnemyCount)
             {
                 SpawnEnemy("Basic", SpawnPoint_A);
             }
@@ -140,6 +150,7 @@ public class GameManager : MonoBehaviour
                 enemy.name = "Enemy"; // Might wanna change this to basic, medium etc.
                 Enemies.Add(enemy); // Might need to add a check to see if the enemy is dead and remove it from the list
                 nextSpawnTime = Time.time + SpawnInterval;
+                EnemiesSpawnedThisWave++;
             }
         }
     }
@@ -157,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (Enemies.Count == 0 && Wave > 1)
+        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveEnemyCount)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;

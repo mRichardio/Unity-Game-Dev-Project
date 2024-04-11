@@ -23,10 +23,23 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
         SetEnemyCheckpoints("Checkpoints_A");
+
+
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager is not assigned.");
+            return;
+        }
+        else
+        {
+            Debug.Log("Enemy list: " + gameManager.Enemies.Count);
+        }
+
     }
 
     // Update is called once per frame
@@ -54,12 +67,16 @@ public class Enemy : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            MovementSpeed = 0;
+            gameManager.Enemies.Remove(gameObject); // Removes the enemy from the enemies list
+            Debug.Log("Enemies After Removing: " + gameManager.Enemies.Count);
+
             transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
 
+            // Shrink the enemy
             if (transform.localScale.x <= 0.01f)
             {
                 Destroy(gameObject);
-                gameManager.Enemies.Remove(gameObject); // Removes the enemy from the enemies list
             }
         }
     }
