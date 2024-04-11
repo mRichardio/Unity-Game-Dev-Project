@@ -68,7 +68,7 @@ public class ProjectileManager : MonoBehaviour
     {
         if (collision.gameObject.name == "Enemy")
         {
-            Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
+            //Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
             // Damage the enemy
             collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);

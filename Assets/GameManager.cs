@@ -66,21 +66,17 @@ public class GameManager : MonoBehaviour
     {
         // Dev Tools
         {
-            // Ready Up // TEMP A SWITCH BUT ROUNDS WILL END WHEN ENEMY COUNT IS 0 AND WILL BEGIN WHEN G IS PRESSED
-            if (isPreparing)
+            // Ready Up
+            if (Input.GetKeyDown(KeyCode.G))
             {
-                if (Input.GetKeyDown(KeyCode.G))
+                if (isPreparing && !isPlaying) // Check if the wave is ready to start
                 {
                     isPreparing = false;
                     isPlaying = true;
-                }
-            }
-            else if (isPlaying)
-            {
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    isPreparing = true;
-                    isPlaying = false;
+                    Debug.Log("Playing, Wave:  " + Wave);
+                    
+                    EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
+                    // I can do things like setting wave-specific conditions here, such as increasing enemy count, changing types, etc....
                 }
             }
 
@@ -89,14 +85,13 @@ public class GameManager : MonoBehaviour
             {
                 if (isPreparing)
                 {
-                    Debug.Log("Preparing"); // Check state
-                    Debug.Log("Wave " + Wave); // Check the current wave
+                    Debug.Log("Preparing, Wave:  " + Wave); // Check state
                     PreperationText.gameObject.active = true;
                     WaveText.gameObject.active = false;
                 }
                 else if (isPlaying)
                 {
-                    Debug.Log("Playing"); // Check state
+                    Debug.Log("Playing, Wave:  " + Wave); // Check state
                     PreperationText.gameObject.active = false;
                     WaveText.gameObject.active = true;
                 }
@@ -109,7 +104,7 @@ public class GameManager : MonoBehaviour
         }
 
         {
-            // UI Text
+            // UI Text Toggle
             if (isPreparing)
             {
                 PreperationText.gameObject.active = true;
@@ -124,16 +119,13 @@ public class GameManager : MonoBehaviour
 
         // Spawn an enemy
         {
-            // Stop spawning a new enemy after 1 has died
-
-
             if (isPlaying && EnemiesSpawnedThisWave < WaveEnemyCount)
             {
                 SpawnEnemy("Basic", SpawnPoint_A);
             }
         }
 
-        // Next wave
+        // Next Wave
         {
             NextWave();
         }   
@@ -168,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveEnemyCount)
+        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveEnemyCount && !isPreparing)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;

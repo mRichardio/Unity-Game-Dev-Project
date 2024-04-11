@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
         SetEnemyCheckpoints("Checkpoints_A");
 
-
+        // Check if the GameManager is assigned
         if (gameManager == null)
         {
             Debug.LogError("GameManager is not assigned.");
@@ -69,7 +69,6 @@ public class Enemy : MonoBehaviour
         {
             MovementSpeed = 0;
             gameManager.Enemies.Remove(gameObject); // Removes the enemy from the enemies list
-            Debug.Log("Enemies After Removing: " + gameManager.Enemies.Count);
 
             transform.localScale -= Vector3.one * Time.deltaTime * ShrinkSpeed;
 
