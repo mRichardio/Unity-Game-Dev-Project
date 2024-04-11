@@ -13,6 +13,10 @@ public class Tower : MonoBehaviour
     // Health Bar: https://opengameart.org/content/health-bar
     // Heart: https://opengameart.org/content/heart-1616
 
+    // Cameras
+    public Transform BuildCam;
+    private GameObject buildCamParent;
+
     public float Health = 100f;
     public float Damage = 10.0f;
     public float ShrinkSpeed = .3f;
@@ -41,16 +45,33 @@ public class Tower : MonoBehaviour
         Turret = transform.GetChild(1).gameObject;
         Target = GameObject.Find("Player");
 
+        // Sets the build camera
+        buildCamParent = GameObject.Find("BuildCameraParent");
+        Camera _BuildCam = buildCamParent.GetComponentInChildren<Camera>();
+        BuildCam = _BuildCam.transform;
+
         // UI Event Camera
-        towerCanvas = GetComponentInChildren<Canvas>();
-        GameObject playerCameraObj = GameObject.Find("PlayerCamera");
-        Camera playerCamera = playerCameraObj.GetComponent<Camera>();
-        towerCanvas.worldCamera = playerCamera;
+        if (!BuildCam.transform.gameObject.active)
+        {
+            towerCanvas = GetComponentInChildren<Canvas>();
+            GameObject playerCameraObj = GameObject.Find("PlayerCamera");
+            Camera playerCamera = playerCameraObj.GetComponent<Camera>();
+            towerCanvas.worldCamera = playerCamera;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Sets event camera if build camera is not active
+        if (!BuildCam.transform.gameObject.active)
+        {
+            towerCanvas = GetComponentInChildren<Canvas>();
+            GameObject playerCameraObj = GameObject.Find("PlayerCamera");
+            Camera playerCamera = playerCameraObj.GetComponent<Camera>();
+            towerCanvas.worldCamera = playerCamera;
+        }
+
         // Enemy Detection Interval
 
         {

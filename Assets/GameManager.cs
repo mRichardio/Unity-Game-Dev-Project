@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour
     // Collections
     public List<GameObject> Enemies = new List<GameObject>();
 
-    // Spawn Interval
+    // Spawn
     public float SpawnInterval;
     private float nextSpawnTime;
 
     // Waves
     public int Wave;
+    public int WaveEnemyCount;
+    public bool allSpawned;
     private bool isPreparing;
     private bool isPlaying;
 
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
 
         // Set spawn time
         nextSpawnTime = Time.time + SpawnInterval;
+
+        SetWaveEnemyCount(5);
     }
 
     // Update is called once per frame
@@ -78,13 +82,14 @@ public class GameManager : MonoBehaviour
             {
                 if (isPreparing)
                 {
-                    Debug.Log("Preparing");
+                    Debug.Log("Preparing"); // Check state
+                    Debug.Log("Wave " + Wave); // Check the current wave
                     PreperationText.gameObject.active = true;
                     WaveText.gameObject.active = false;
                 }
                 else if (isPlaying)
                 {
-                    Debug.Log("Playing");
+                    Debug.Log("Playing"); // Check state
                     PreperationText.gameObject.active = false;
                     WaveText.gameObject.active = true;
                 }
@@ -112,11 +117,16 @@ public class GameManager : MonoBehaviour
 
         // Spawn an enemy
         {
-            if (isPlaying)
+            if (isPlaying && Enemies.Count < WaveEnemyCount)
             {
                 SpawnEnemy("Basic", SpawnPoint_A);
             }
         }
+
+        // Next wave
+        {
+            NextWave();
+        }   
     }
 
     public void SpawnEnemy(string type, GameObject spawnPoint)
@@ -127,16 +137,12 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                enemy.name = "Enemy"; // Might wanna change this to basic, medium etc.
                 Enemies.Add(enemy); // Might need to add a check to see if the enemy is dead and remove it from the list
                 nextSpawnTime = Time.time + SpawnInterval;
             }
         }
     }
-
-    public void RemoveEnemy(GameObject enemy)
-    {
-        Enemies.Remove(enemy);
-    }   
 
     public void PauseHandler()
     {
@@ -147,5 +153,21 @@ public class GameManager : MonoBehaviour
 
             Time.timeScale = IsPaused ? 0 : 1;
         }
+    }
+
+    public void NextWave()
+    {
+        if (Enemies.Count == 0)
+        {
+            Wave++;
+            WaveText.text = "Wave " + Wave;
+            isPreparing = true;
+            isPlaying = false;
+        }
+    }
+
+    public void SetWaveEnemyCount(int count)
+    {
+        WaveEnemyCount = count;
     }
 }
