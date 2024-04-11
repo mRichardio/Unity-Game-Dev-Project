@@ -16,6 +16,16 @@ public class BillboardGeneral : MonoBehaviour
         cam = playerCamera.transform;
     }
 
+    private void Update()
+    {
+        if (cam == null)
+        {
+            player = GameObject.Find("Player");
+            Camera playerCamera = player.GetComponentInChildren<Camera>();
+            cam = playerCamera.transform;
+        }
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
