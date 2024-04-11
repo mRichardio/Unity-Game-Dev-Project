@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (Enemies.Count == 0)
+        if (Enemies.Count == 0 && Wave > 1)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;
