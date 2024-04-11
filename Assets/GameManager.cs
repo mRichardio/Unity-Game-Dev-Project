@@ -26,9 +26,8 @@ public class GameManager : MonoBehaviour
 
     // Waves
     public int Wave;
-    public int WaveEnemyCount;
-    public int EnemiesSpawnedThisWave;
-    public bool allSpawned;
+    private int WaveEnemyCount;
+    private int EnemiesSpawnedThisWave;
     private bool isPreparing;
     private bool isPlaying;
 
