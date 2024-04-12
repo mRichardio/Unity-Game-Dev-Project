@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour
     public GameObject SpawnPoint_C;
     public GameObject SpawnPoint_D;
 
+    // Shader
+    public Material GridMaterial;
+    public float duration = 2.0f; // Duration of the transition in seconds
+
+    private float initialThickness = 0.0003f;
+    private float targetThickness = 0.1f;
+    private float elapsed = 0f;
+
     // Prefab Parents
     public GameObject EnemyParent;
     
@@ -53,6 +61,9 @@ public class GameManager : MonoBehaviour
         nextSpawnTime = Time.time + SpawnInterval;
 
         SetWaveEnemyCount(1);
+
+        // Set the initial grid line thickness
+        GridMaterial.SetFloat("_GridLineThickness", initialThickness);
     }
 
     void Awake()
@@ -76,6 +87,27 @@ public class GameManager : MonoBehaviour
                     
                     EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
                     // I can do things like setting wave-specific conditions here, such as increasing enemy count, changing types, etc....
+                    if (Wave == 1)
+                    {
+                        SetWaveEnemyCount(5);
+                        // need to add other enemy types
+                    }
+                    else if (Wave == 2)
+                    {
+                        SetWaveEnemyCount(10);
+                    }
+                    else if (Wave == 3)
+                    {
+                        SetWaveEnemyCount(15);
+                    }
+                    else if (Wave == 4)
+                    {
+                        SetWaveEnemyCount(20);
+                    }
+                    else if (Wave == 5)
+                    {
+                        SetWaveEnemyCount(25);
+                    }
                 }
             }
 
@@ -157,8 +189,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void HandleGridLineThickness()
+    {
+        float newThickness;
+
+        if (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            newThickness = Mathf.Lerp(targetThickness, initialThickness, elapsed / duration);
+            GridMaterial.SetFloat("_GridLineThickness", newThickness);
+        }
+    }
+
     public void NextWave()
     {
+        //HandleGridLineThickness();
         if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveEnemyCount && !isPreparing)
         {
             Wave++;
