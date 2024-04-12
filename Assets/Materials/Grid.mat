@@ -15,7 +15,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -29,10 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.553
-    - _GridLineThickness: 0.00006
-    - _GridSize: 0.01
-    - _Intensity: 0
+    - _Alpha: 1
+    - _GridLineThickness: 0.0003
+    - _GridSize: 0.017
+    - _Intensity: 1.68
     m_Colors:
-    - _GridColour: {r: Infinity, g: NaN, b: Infinity, a: 1}
+    - _GridColour: {r: 1000.25366, g: 0, b: 470.82205, a: 1}
   m_BuildTextureStacks: []

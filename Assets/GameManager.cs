@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
                     if (Wave == 1)
                     {
                         SetWaveEnemyCount(5);
+
                         // need to add other enemy types
                     }
                     else if (Wave == 2)
