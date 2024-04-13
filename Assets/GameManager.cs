@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
 
     // Shader
     public Material GridMaterial;
-    public float duration = 2.0f; // Duration of the transition in seconds
-
+    private float duration = 2.0f; // Duration of the transition in seconds
     private float initialThickness = 0.0003f;
     private float targetThickness = 0.1f;
     private float elapsed = 0f;
@@ -23,7 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject EnemyParent;
     
     // Prefabs
+    public GameObject LightEnemyPrefab;
     public GameObject BasicEnemyPrefab;
+    public GameObject HeavyEnemyPrefab;
 
     // Collections
     public List<GameObject> Enemies = new List<GameObject>();
@@ -34,7 +35,15 @@ public class GameManager : MonoBehaviour
 
     // Waves
     public int Wave;
-    private int WaveEnemyCount;
+
+    private int WaveLightEnemyCount; // Limits
+    private int WaveBasicEnemyCount;
+    private int WaveHeavyEnemyCount;
+
+    private int countBasicEnemiesSpawned = 0; // Count Tracker
+    private int countHeavyEnemiesSpawned = 0;
+    private int countLightEnemiesSpawned = 0;
+
     private int EnemiesSpawnedThisWave;
     private bool isPreparing;
     private bool isPlaying;
@@ -60,8 +69,6 @@ public class GameManager : MonoBehaviour
         // Set spawn time
         nextSpawnTime = Time.time + SpawnInterval;
 
-        SetWaveEnemyCount(1);
-
         // Set the initial grid line thickness
         GridMaterial.SetFloat("_GridLineThickness", initialThickness);
     }
@@ -76,42 +83,6 @@ public class GameManager : MonoBehaviour
     {
         // Dev Tools
         {
-            // Ready Up
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                if (isPreparing && !isPlaying) // Check if the wave is ready to start
-                {
-                    isPreparing = false;
-                    isPlaying = true;
-                    Debug.Log("Playing, Wave:  " + Wave);
-                    
-                    EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
-                    // I can do things like setting wave-specific conditions here, such as increasing enemy count, changing types, etc....
-                    if (Wave == 1)
-                    {
-                        SetWaveEnemyCount(5);
-
-                        // need to add other enemy types
-                    }
-                    else if (Wave == 2)
-                    {
-                        SetWaveEnemyCount(10);
-                    }
-                    else if (Wave == 3)
-                    {
-                        SetWaveEnemyCount(15);
-                    }
-                    else if (Wave == 4)
-                    {
-                        SetWaveEnemyCount(20);
-                    }
-                    else if (Wave == 5)
-                    {
-                        SetWaveEnemyCount(25);
-                    }
-                }
-            }
-
             // Press a button to check state
             if (Input.GetKeyDown(KeyCode.H))
             {
@@ -127,6 +98,21 @@ public class GameManager : MonoBehaviour
                     PreperationText.gameObject.active = false;
                     WaveText.gameObject.active = true;
                 }
+            }
+        }
+
+        // Ready Up
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (isPreparing && !isPlaying) // Check if the wave is ready to start
+            {
+                isPreparing = false;
+                isPlaying = true;
+                Debug.Log("Playing, Wave:  " + Wave);
+
+                EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
+
+                InitialiseWaves(); // Sets up the parameters for the waves
             }
         }
 
@@ -151,9 +137,32 @@ public class GameManager : MonoBehaviour
 
         // Spawn an enemy
         {
-            if (isPlaying && EnemiesSpawnedThisWave < WaveEnemyCount)
+            if (isPlaying && EnemiesSpawnedThisWave < WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount)
             {
-                SpawnEnemy("Basic", SpawnPoint_A);
+                // Spawn enemy types randomly
+                int spawnType = Random.Range(0, 3);
+
+                switch (spawnType)
+                {
+                    case 0:
+                        if (countBasicEnemiesSpawned < WaveBasicEnemyCount)
+                        {
+                            SpawnEnemy("Basic", SpawnPoint_A);
+                        }
+                        break;
+                    case 1:
+                        if (countLightEnemiesSpawned < WaveLightEnemyCount)
+                        {
+                            SpawnEnemy("Light", SpawnPoint_A);
+                        }
+                        break;
+                    case 2:
+                        if (countHeavyEnemiesSpawned < WaveHeavyEnemyCount)
+                        {
+                            SpawnEnemy("Heavy", SpawnPoint_A);
+                        }
+                        break;
+                }
             }
         }
 
@@ -171,10 +180,46 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
-                enemy.name = "Enemy"; // Might wanna change this to basic, medium etc.
-                Enemies.Add(enemy); // Might need to add a check to see if the enemy is dead and remove it from the list
+                enemy.name = "Enemy Basic";
+                Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
+
+                // Overall Couter
                 EnemiesSpawnedThisWave++;
+                // Type Counter
+                countBasicEnemiesSpawned++;
+            }
+        }
+        if (type == "Light")
+        {
+            if (Time.time >= nextSpawnTime)
+            {
+                // Instantiate the enemy
+                GameObject enemy = Instantiate(LightEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                enemy.name = "Enemy Light";
+                Enemies.Add(enemy);
+                nextSpawnTime = Time.time + SpawnInterval;
+                
+                // Overall Couter
+                EnemiesSpawnedThisWave++;
+                // Type Counter
+                countLightEnemiesSpawned++;
+            }
+        }
+        if (type == "Heavy")
+        {
+            if (Time.time >= nextSpawnTime)
+            {
+                // Instantiate the enemy
+                GameObject enemy = Instantiate(HeavyEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                enemy.name = "Enemy Heavy";
+                Enemies.Add(enemy);
+                nextSpawnTime = Time.time + SpawnInterval;
+
+                // Overall Couter
+                EnemiesSpawnedThisWave++;
+                // Type Counter
+                countHeavyEnemiesSpawned++;
             }
         }
     }
@@ -187,6 +232,42 @@ public class GameManager : MonoBehaviour
             PauseCanvas.SetActive(IsPaused);
 
             Time.timeScale = IsPaused ? 0 : 1;
+        }
+    }
+
+    private void InitialiseWaves()
+    {
+        if (Wave == 1)
+        {
+            SetWaveEnemyCount("Light", 5);
+            SetWaveEnemyCount("Basic", 5);
+            SetWaveEnemyCount("Heavy", 5);
+
+            // need to add other enemy types
+        }
+        else if (Wave == 2)
+        {
+            SetWaveEnemyCount("Light", 10);
+            SetWaveEnemyCount("Basic", 10);
+            SetWaveEnemyCount("Heavy", 10);
+        }
+        else if (Wave == 3)
+        {
+            SetWaveEnemyCount("Light", 15);
+            SetWaveEnemyCount("Basic", 15);
+            SetWaveEnemyCount("Heavy", 15);
+        }
+        else if (Wave == 4)
+        {
+            SetWaveEnemyCount("Light", 20);
+            SetWaveEnemyCount("Basic", 20);
+            SetWaveEnemyCount("Heavy", 20);
+        }
+        else if (Wave == 5)
+        {
+            SetWaveEnemyCount("Light", 25);
+            SetWaveEnemyCount("Basic", 25);
+            SetWaveEnemyCount("Heavy", 25);
         }
     }
 
@@ -205,7 +286,7 @@ public class GameManager : MonoBehaviour
     public void NextWave()
     {
         //HandleGridLineThickness();
-        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveEnemyCount && !isPreparing)
+        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount && !isPreparing)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;
@@ -214,8 +295,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetWaveEnemyCount(int count)
+    public void SetWaveEnemyCount(string type, int count)
     {
-        WaveEnemyCount = count;
+        if (type == "Basic")
+        {
+            WaveBasicEnemyCount = count;
+        }
+        if (type == "Light")
+        {
+            WaveLightEnemyCount = count;
+        }
+        if (type == "Heavy")
+        {
+            WaveHeavyEnemyCount = count;
+        }
     }
 }
