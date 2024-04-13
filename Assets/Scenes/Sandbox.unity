@@ -2566,9 +2566,10 @@ MonoBehaviour:
   SpawnPoint_C: {fileID: 0}
   SpawnPoint_D: {fileID: 0}
   GridMaterial: {fileID: 2100000, guid: 1bc4bc773e514ff41bdc41c662006808, type: 2}
-  duration: 2
   EnemyParent: {fileID: 1167794617}
+  LightEnemyPrefab: {fileID: 3915464888714168282, guid: b2c5de5d7de63084089942a0b52ce09b, type: 3}
   BasicEnemyPrefab: {fileID: 3915464888714168282, guid: 4849ba5be0bf8ea46b4afbc14b451fb3, type: 3}
+  HeavyEnemyPrefab: {fileID: 3915464888714168282, guid: cc4d61a88091d8248b50de1892e6a639, type: 3}
   Enemies: []
   SpawnInterval: 3
   Wave: 1
