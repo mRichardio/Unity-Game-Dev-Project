@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Stats
+    PlayerController playerController;
+
+    public int Money;
+    public int Health;
+    public int TowerCount;
+
     // Parents
     public GameObject SpawnPoint_A;
     public GameObject SpawnPoint_B;
@@ -52,6 +60,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI WaveText;
     public TextMeshProUGUI PreperationText;
 
+    // HUD UI
+    public TextMeshProUGUI MoneyText;
+    public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI TowerCountText;
+
     // Pause
     bool IsPaused;
     public GameObject PauseCanvas;
@@ -71,6 +84,9 @@ public class GameManager : MonoBehaviour
 
         // Set the initial grid line thickness
         GridMaterial.SetFloat("_GridLineThickness", initialThickness);
+
+        // Gets the player controller
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     void Awake()
@@ -99,6 +115,11 @@ public class GameManager : MonoBehaviour
                     WaveText.gameObject.active = true;
                 }
             }
+        }
+
+        // Update UI
+        {
+            UpdateUI();
         }
 
         // Ready Up
@@ -309,5 +330,10 @@ public class GameManager : MonoBehaviour
         {
             WaveHeavyEnemyCount = count;
         }
+    }
+
+    public void UpdateUI()
+    {
+        HealthText.text = playerController.GetHealth().ToString();
     }
 }

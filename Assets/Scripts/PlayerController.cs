@@ -15,9 +15,8 @@ public class PlayerController : MonoBehaviour
     public GameObject ForwardMarker;
 
     // Player
-    public int DefaultHealth;
     public int BaseHealth;
-    private int currentHealth;
+    public int currentHealth;
 
     // Camera
     public GameObject PlayerCamera;
@@ -65,6 +64,8 @@ public class PlayerController : MonoBehaviour
         PlayerCamera.SetActive(true);
         weaponPrestige = 0;
         isEquipped = false;
+        BaseHealth = 100;
+        currentHealth = BaseHealth;
     }
 
     private void FixedUpdate()
@@ -224,6 +225,11 @@ public class PlayerController : MonoBehaviour
     {
         // Player Health
         BaseHealth += upgAmount;
+    }
+
+    public int GetHealth()
+    {
+        return currentHealth;
     }
 
     public void ToggleBuildMode()
