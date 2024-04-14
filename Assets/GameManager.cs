@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public int Wave;
     public int WaveCap;
     public bool GameOver;
+    public bool isFightingBoss;
     public bool BossDefeated;
 
     private int WaveLightEnemyCount; // Limits
@@ -58,8 +59,8 @@ public class GameManager : MonoBehaviour
     private int countLightEnemiesSpawned = 0;
 
     private int EnemiesSpawnedThisWave;
-    private bool isPreparing;
-    private bool isPlaying;
+    public bool isPreparing { get; set; }
+    public bool isPlaying { get; set;}
 
     // Round UI
     public TextMeshProUGUI WaveText;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
         Enemies = new List<GameObject>();
         isPreparing = true;
         isPlaying = false;
+        isFightingBoss = false;
 
         WaveText.gameObject.active = false;
         PreperationText.gameObject.active = false;
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
 
         // Gets the player controller
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
     }
 
     void Awake()
@@ -339,6 +342,7 @@ public class GameManager : MonoBehaviour
 
             if (Wave >= WaveCap)
             {
+                isFightingBoss = true;
                 GameOver = true;
                 PreperationText.text = "Boss Fight!";
                 SpawnEnemy("Boss", SpawnPoint_A);

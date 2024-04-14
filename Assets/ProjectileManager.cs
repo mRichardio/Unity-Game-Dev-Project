@@ -84,7 +84,6 @@ public class ProjectileManager : MonoBehaviour
         {
             Transform enemyComponent = collision.gameObject.transform.parent;
             Enemy script = enemyComponent.GetComponent<Enemy>();
-            Debug.Log("Parent: " + enemyComponent.name);
             if (enemyComponent != null)
             {
                 script.TakeDamage(Damage);
@@ -95,10 +94,8 @@ public class ProjectileManager : MonoBehaviour
         if (collision.gameObject.name == "CritPoint")
         {
             Enemy enemyComponent = collision.gameObject.transform.parent.GetComponent<Enemy>();
-            Debug.Log("Parent: " + enemyComponent.name);
             if (enemyComponent != null)
             {
-                Debug.Log("Crit Damage: " + Damage * CritMultiplier);
                 enemyComponent.TakeDamage(Damage * CritMultiplier);
             }
             Destroy(gameObject);

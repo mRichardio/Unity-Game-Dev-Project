@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     // Base
     Transform target;
     Rigidbody rb;
+    GameManager gameManager;
+
     public GameObject ForwardMarker;
 
     // Player
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
         BaseMoney = 0;
         currentHealth = BaseHealth;
         CurrentMoney = BaseMoney;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void FixedUpdate()
@@ -238,9 +241,10 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleBuildMode()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        // NEED TO FORCE PLAYER CAM WHEN ROUNDS STARTS
+        if (Input.GetKeyDown(KeyCode.V) || gameManager.isPreparing || gameManager.isPlaying)
         {
-            if (BuildCamera.activeSelf == true)
+            if (BuildCamera.activeSelf == true && gameManager.isPlaying)
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -248,7 +252,7 @@ public class PlayerController : MonoBehaviour
                 BuildCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
             }
-            else
+            if (BuildCamera.activeSelf == false && gameManager.isPreparing && !gameManager.isFightingBoss)
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
