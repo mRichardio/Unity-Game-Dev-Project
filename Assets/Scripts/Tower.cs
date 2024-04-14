@@ -19,6 +19,7 @@ public class Tower : MonoBehaviour
 
     public float Health = 100f;
     public float Damage = 10.0f;
+    public float price = 100.0f;
     public float ShrinkSpeed = .3f;
     private int upgradeCount = 0;
 

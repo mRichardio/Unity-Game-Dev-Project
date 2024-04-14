@@ -336,5 +336,6 @@ public class GameManager : MonoBehaviour
     {
         HealthText.text = playerController.GetHealth().ToString();
         MoneyText.text = playerController.CurrentMoney.ToString();
+        // NEED TO ADD TOWER COUNT
     }
 }

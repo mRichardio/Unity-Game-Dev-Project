@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,9 @@ public class PrefabBuilder : MonoBehaviour
     // REFERENCE
     // Tutorial: https://www.youtube.com/watch?v=JfpMIUDa-Mk
     // Documentation: https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html && https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+
+    PlayerController player;
+    Tower tower;
 
     public GameObject Tower = null;
     public GameObject PreviewTowerPrefab = null;
@@ -22,7 +26,9 @@ public class PrefabBuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;    
+        cam = Camera.main;
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        tower = Tower.GetComponent<Tower>();
     }
 
     // Update is called once per frame
@@ -36,17 +42,26 @@ public class PrefabBuilder : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-
-            int layerMask = ~LayerMask.GetMask("Player");
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            if (player.CurrentMoney >= tower.price)
             {
-                Destroy(previewTowerInstance);
-                Instantiate(Tower, new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z), Quaternion.identity, TowerParent);
-                Tower t = Tower.GetComponent<Tower>();
-                t.ShrinkSpeed = Random.Range(0.2f, 0.5f);
+                player.CurrentMoney -= tower.price;
+
+                Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+                RaycastHit hit;
+
+                int layerMask = ~LayerMask.GetMask("Player");
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+                {
+                    Destroy(previewTowerInstance);
+                    Instantiate(Tower, new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z), Quaternion.identity, TowerParent);
+                    Tower t = Tower.GetComponent<Tower>();
+                    t.ShrinkSpeed = Random.Range(0.2f, 0.5f);
+                }
+            }
+            else
+            {
+                // Make error sound or text
             }
         }
     }

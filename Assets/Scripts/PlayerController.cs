@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     public GameObject ForwardMarker;
 
     // Player
-    public int BaseMoney;
-    public int CurrentMoney;
+    public float BaseMoney;
+    public float CurrentMoney;
     public int BaseHealth;
     public int currentHealth;
 
