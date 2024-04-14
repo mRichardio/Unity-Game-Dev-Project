@@ -7,6 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class ProjectileManager : MonoBehaviour
 {
+    GameManager gameManager;
+
     // Weapon
     private GameObject Weapon;
 
@@ -34,6 +36,7 @@ public class ProjectileManager : MonoBehaviour
     {
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // Get parent Weapon
         GameObject player = GameObject.Find("Player");
@@ -70,6 +73,12 @@ public class ProjectileManager : MonoBehaviour
         {
             Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
             // Damage the enemy
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.name == "Enemy Boss")
+        {
             collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);
         }

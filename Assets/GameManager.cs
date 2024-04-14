@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public int Wave;
     public int WaveCap;
     public bool GameOver;
+    public bool BossDefeated;
 
     private int WaveLightEnemyCount; // Limits
     private int WaveBasicEnemyCount;
@@ -248,6 +249,23 @@ public class GameManager : MonoBehaviour
                 countHeavyEnemiesSpawned++;
             }
         }
+
+        if (type == "Boss")
+        {
+            if (Time.time >= nextSpawnTime)
+            {
+                // Instantiate the enemy
+                GameObject enemy = Instantiate(BossEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                enemy.name = "Enemy Boss";
+                Enemies.Add(enemy);
+                nextSpawnTime = Time.time + SpawnInterval;
+
+                // Overall Couter
+                EnemiesSpawnedThisWave++;
+                // Type Counter
+                countHeavyEnemiesSpawned++;
+            }
+        }
     }
 
     public void PauseHandler()
@@ -323,6 +341,7 @@ public class GameManager : MonoBehaviour
             {
                 GameOver = true;
                 PreperationText.text = "Boss Fight!";
+                SpawnEnemy("Boss", SpawnPoint_A);
                 Debug.Log("Game Over"); 
             }
         }
@@ -350,7 +369,7 @@ public class GameManager : MonoBehaviour
         if (Wave >= WaveCap)
         {
             // Check if the boss has been defeated
-            if (Enemies.Count == 0)
+            if (Enemies.Count == 0 && BossDefeated)
             {
                 // Game Over
                 GameOver = true;

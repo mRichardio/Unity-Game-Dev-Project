@@ -83,6 +83,10 @@ public class Enemy : MonoBehaviour
                 if(gameObject.name == "Enemy Light") { GameObject c = Instantiate(SmallCollectablePrefab, transform.position, Quaternion.identity); c.name = "Small Collectable"; }
                 if(gameObject.name == "Enemy Basic") { GameObject c = Instantiate(MediumCollectablePrefab, transform.position, Quaternion.identity); c.name = "Medium Collectable"; }
                 if(gameObject.name == "Enemy Heavy") { GameObject c = Instantiate(LargeCollectablePrefab, transform.position, Quaternion.identity); c.name = "Large Collectable"; }
+                if(gameObject.name == "Enemy Boss") 
+                {
+                    gameManager.BossDefeated = true;
+                }
 
                 Destroy(gameObject);
             }
