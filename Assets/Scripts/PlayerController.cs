@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public GameObject ForwardMarker;
 
     // Player
+    public int BaseMoney;
+    public int CurrentMoney;
     public int BaseHealth;
     public int currentHealth;
 
@@ -337,12 +339,5 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);      
         PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
-    }
-
-    // Leaving this here to go back to if needed <----------------
-    private void OldCameraMovement()
-    {
-        float h = Input.GetAxis("Mouse X");
-        target.localRotation *= Quaternion.Euler(0, h, 0 * RotationSpeed);
     }
 }
