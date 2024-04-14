@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3508186908298768477}
   - component: {fileID: 6669702492017038292}
   m_Layer: 0
-  m_Name: Small Collectable
+  m_Name: Large Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 1236534433851000159}
   - component: {fileID: 6645094566908212179}
   m_Layer: 0
-  m_Name: Small Collectable
+  m_Name: Large Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 5555920559764112288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1950003984626392299}

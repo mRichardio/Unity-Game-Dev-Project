@@ -241,6 +241,9 @@ MonoBehaviour:
   Damage: 10
   MovementSpeed: 10
   ShrinkSpeed: 0.3
+  SmallCollectablePrefab: {fileID: 5555920559764112288, guid: 94818a6edc067f241acb19649ad3fdae, type: 3}
+  MediumCollectablePrefab: {fileID: 5555920559764112288, guid: 32e6c5b1431861948b7f9dd740a0fb06, type: 3}
+  LargeCollectablePrefab: {fileID: 5555920559764112288, guid: d0f7e7d453ae4274ca9d73e84b11c77c, type: 3}
   checkpoints:
   - {fileID: 0}
   healthBar: {fileID: 1808990716789352651}

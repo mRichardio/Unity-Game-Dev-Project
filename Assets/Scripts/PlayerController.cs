@@ -67,7 +67,9 @@ public class PlayerController : MonoBehaviour
         weaponPrestige = 0;
         isEquipped = false;
         BaseHealth = 100;
+        BaseMoney = 0;
         currentHealth = BaseHealth;
+        CurrentMoney = BaseMoney;
     }
 
     private void FixedUpdate()
@@ -339,5 +341,35 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);      
         PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            TakeDamage(10);
+        }
+
+        if (collision.gameObject.name == "Small Collectable")
+        {
+            Debug.Log("Small Collectable");
+            CurrentMoney += 50;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.name == "Medium Collectable")
+        {
+            Debug.Log("Medium Collectable");
+            CurrentMoney += 100;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.name == "Large Collectable")
+        {
+            Debug.Log("Large Collectable");
+            CurrentMoney += 150;
+            Destroy(collision.gameObject);
+        }
     }
 }

@@ -335,5 +335,6 @@ public class GameManager : MonoBehaviour
     public void UpdateUI()
     {
         HealthText.text = playerController.GetHealth().ToString();
+        MoneyText.text = playerController.CurrentMoney.ToString();
     }
 }

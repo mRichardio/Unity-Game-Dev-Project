@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
     public float MovementSpeed = 5f;
     public float ShrinkSpeed = .3f;
 
+    // Collectables
+    public GameObject SmallCollectablePrefab;
+    public GameObject MediumCollectablePrefab;
+    public GameObject LargeCollectablePrefab;
+
     // Checkpoint System
     public Transform[] checkpoints;
     private int currentCheckpointIndex = 0;
@@ -75,6 +80,10 @@ public class Enemy : MonoBehaviour
             // Shrink the enemy
             if (transform.localScale.x <= 0.01f)
             {
+                if(gameObject.name == "Enemy Light") { GameObject c = Instantiate(SmallCollectablePrefab, transform.position, Quaternion.identity); c.name = "Small Collectable"; }
+                if(gameObject.name == "Enemy Basic") { GameObject c = Instantiate(MediumCollectablePrefab, transform.position, Quaternion.identity); c.name = "Medium Collectable"; }
+                if(gameObject.name == "Enemy Heavy") { GameObject c = Instantiate(LargeCollectablePrefab, transform.position, Quaternion.identity); c.name = "Large Collectable"; }
+
                 Destroy(gameObject);
             }
         }
