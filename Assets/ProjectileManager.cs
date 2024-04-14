@@ -17,6 +17,7 @@ public class ProjectileManager : MonoBehaviour
     public float DefaultDamage;
     public float Power;// Current Power
     public float DefaultPower;
+    public float CritMultiplier = 3;    
 
     // Weapon Damage Multipliers
     public float BasicMultiplier = 1;
@@ -69,17 +70,37 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Debug.Log("Projectile Collision" + "- Collider:" + collision.gameObject.name);
+
         if (collision.gameObject.name == "Enemy Basic" || collision.gameObject.name == "Enemy Light" || collision.gameObject.name == "Enemy Heavy")
         {
-            Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
+            //Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
             // Damage the enemy
             collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.name == "Enemy Boss")
+        if (collision.gameObject.name == "Enemy Body")
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
+            Transform enemyComponent = collision.gameObject.transform.parent;
+            Enemy script = enemyComponent.GetComponent<Enemy>();
+            Debug.Log("Parent: " + enemyComponent.name);
+            if (enemyComponent != null)
+            {
+                script.TakeDamage(Damage);
+            }
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.name == "CritPoint")
+        {
+            Enemy enemyComponent = collision.gameObject.transform.parent.GetComponent<Enemy>();
+            Debug.Log("Parent: " + enemyComponent.name);
+            if (enemyComponent != null)
+            {
+                Debug.Log("Crit Damage: " + Damage * CritMultiplier);
+                enemyComponent.TakeDamage(Damage * CritMultiplier);
+            }
             Destroy(gameObject);
         }
     }
