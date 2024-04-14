@@ -351,23 +351,26 @@ public class PlayerController : MonoBehaviour
             TakeDamage(10);
         }
 
-        if (collision.gameObject.name == "Small Collectable")
+        if (collision.gameObject.name == "Small Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
             Debug.Log("Small Collectable");
+            collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 50;
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.name == "Medium Collectable")
+        if (collision.gameObject.name == "Medium Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
             Debug.Log("Medium Collectable");
+            collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 100;
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.name == "Large Collectable")
+        if (collision.gameObject.name == "Large Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
             Debug.Log("Large Collectable");
+            collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 150;
             Destroy(collision.gameObject);
         }
