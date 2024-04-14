@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public GameObject BasicEnemyPrefab;
     public GameObject HeavyEnemyPrefab;
 
+    public GameObject BossEnemyPrefab;
+
     // Collections
     public List<GameObject> Enemies = new List<GameObject>();
 
@@ -192,6 +194,7 @@ public class GameManager : MonoBehaviour
         // Next Wave
         {
             NextWave();
+            BossCheck();    
         }   
     }
 
@@ -319,6 +322,7 @@ public class GameManager : MonoBehaviour
             if (Wave >= WaveCap)
             {
                 GameOver = true;
+                PreperationText.text = "Boss Fight!";
                 Debug.Log("Game Over"); 
             }
         }
@@ -337,6 +341,22 @@ public class GameManager : MonoBehaviour
         if (type == "Heavy")
         {
             WaveHeavyEnemyCount = count;
+        }
+    }
+
+    // Check if the boss has been defeated
+    void BossCheck()
+    {
+        if (Wave >= WaveCap)
+        {
+            // Check if the boss has been defeated
+            if (Enemies.Count == 0)
+            {
+                // Game Over
+                GameOver = true;
+                PreperationText.text = "Game Over!";
+                Debug.Log("Game Over");
+            }
         }
     }
 
