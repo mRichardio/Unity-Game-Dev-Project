@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     // Waves
     public int Wave;
+    public int WaveCap;
+    public bool GameOver;
 
     private int WaveLightEnemyCount; // Limits
     private int WaveBasicEnemyCount;
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
         // Ready Up
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (isPreparing && !isPlaying) // Check if the wave is ready to start
+            if (isPreparing && !isPlaying && !GameOver) // Check if the wave is ready to start
             {
                 isPreparing = false;
                 isPlaying = true;
@@ -260,9 +262,9 @@ public class GameManager : MonoBehaviour
     {
         if (Wave == 1)
         {
-            SetWaveEnemyCount("Light", 5);
-            SetWaveEnemyCount("Basic", 5);
-            SetWaveEnemyCount("Heavy", 5);
+            SetWaveEnemyCount("Light", 1);
+            SetWaveEnemyCount("Basic", 1);
+            SetWaveEnemyCount("Heavy", 1);
 
             // need to add other enemy types
         }
@@ -307,12 +309,18 @@ public class GameManager : MonoBehaviour
     public void NextWave()
     {
         //HandleGridLineThickness();
-        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount && !isPreparing)
+        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount && !isPreparing && GameOver == false)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;
             isPreparing = true;
             isPlaying = false;
+
+            if (Wave >= WaveCap)
+            {
+                GameOver = true;
+                Debug.Log("Game Over"); 
+            }
         }
     }
 
