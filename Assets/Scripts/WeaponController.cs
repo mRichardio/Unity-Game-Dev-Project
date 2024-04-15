@@ -60,14 +60,14 @@ public class WeaponController : MonoBehaviour
                 FireProjectile();
                 nextFireTime = Time.time + FiringInterval;
             }
+        }
 
-            if (Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
+        if (Input.GetKeyDown(KeyCode.E) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
+        {
+            if (Time.time >= nextAbilityTime)
             {
-                if (Time.time >= nextAbilityTime)
-                {
-                    FireAbility();
-                    nextAbilityTime = Time.time + AbilityInterval;
-                }
+                FireAbility();
+                nextAbilityTime = Time.time + AbilityInterval;
             }
         }
     }

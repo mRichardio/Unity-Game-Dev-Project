@@ -20,6 +20,8 @@ public class AbilityManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        nextDestroyTime = Time.time + DestroyInterval;
     }
 
     // Update is called once per frame
@@ -54,7 +56,6 @@ public class AbilityManager : MonoBehaviour
                 if (enemyComponent != null)
                 {
                     enemyComponent.TakeDamage(Damage);
-                    Destroy(gameObject);
                 }
             }
         }
