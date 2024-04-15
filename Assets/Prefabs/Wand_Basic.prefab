@@ -130,7 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileManager: {fileID: 570068047054214960, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
   Projectile: {fileID: 3579300663716552388, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
-  Power: 59.6
+  AbilityManager: {fileID: 3950162021688686147, guid: 0036cc2d02b0a304691792c418657c23, type: 3}
+  Ability: {fileID: 3579300663716552388, guid: 0036cc2d02b0a304691792c418657c23, type: 3}
   BasicMultiplier: 1
   MediumMultiplier: 2
   EpicMultiplier: 3

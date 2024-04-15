@@ -19,6 +19,10 @@ public class WeaponController : MonoBehaviour
     private GameObject FiringPoint;
     Transform ProjectileParent;
 
+    // Ability Related
+    public AbilityManager AbilityManager;
+    public GameObject Ability;
+
     // Weapon Speed Multipliers
     public float BasicMultiplier = 1;
     public float MediumMultiplier = 2;
@@ -27,6 +31,10 @@ public class WeaponController : MonoBehaviour
     // Fire Interval
     public float FiringInterval = .5f;
     private float nextFireTime = 0.0f;
+
+    // Ability Interval
+    public float AbilityInterval = 5.0f;
+    private float nextAbilityTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,12 +53,21 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         //transform.rotation = Quaternion.identity; // Doesnt fire when holding alt
-            if (Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
-            {
+        if (Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
+        {
             if (Time.time >= nextFireTime)
             {
                 FireProjectile();
                 nextFireTime = Time.time + FiringInterval;
+            }
+
+            if (Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.LeftAlt) && (BuildCamera == null || !BuildCamera.activeSelf))
+            {
+                if (Time.time >= nextAbilityTime)
+                {
+                    FireAbility();
+                    nextAbilityTime = Time.time + AbilityInterval;
+                }
             }
         }
     }
@@ -86,6 +103,41 @@ public class WeaponController : MonoBehaviour
             GameObject projectileObject = Instantiate(Projectile, transform.position, Quaternion.identity, ProjectileParent);
             Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
             projectileRigidbody.velocity = transform.forward * ProjectileManager.Power;
+        }
+    }
+
+    // Ability fire
+    void FireAbility()
+    {
+        GameObject player = GameObject.Find("Player");
+
+        // Get the main camera
+        Camera mainCamera = player.GetComponentInChildren<Camera>();
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main camera not found!");
+            return;
+        }
+
+        // Cast a ray from the center of the screen
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject abilityObject = Instantiate(Ability, transform.position, Quaternion.identity);
+            Vector3 direction = (hit.point - transform.position).normalized; // Gets the direction from the player to the hit point
+
+            // Velocity
+            Rigidbody abilityRigidbody = abilityObject.GetComponent<Rigidbody>();
+            abilityRigidbody.velocity = direction * AbilityManager.Power;
+        }
+        else
+        {
+            // Fires straight ahead if no hit
+            GameObject abilityObject = Instantiate(Ability, transform.position, Quaternion.identity);
+            Rigidbody abilityRigidbody = abilityObject.GetComponent<Rigidbody>();
+            abilityRigidbody.velocity = transform.forward * AbilityManager.Power;
         }
     }
 
