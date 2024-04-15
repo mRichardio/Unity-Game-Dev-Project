@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _GridLineThickness: 0.0003
-    - _GridSize: 0.017
+    - _GridSize: 0.04
     - _Intensity: 5
     m_Colors:
     - _GridColour: {r: 1000.25366, g: 0, b: 470.82205, a: 1}
