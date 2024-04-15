@@ -241,10 +241,9 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleBuildMode()
     {
-        // NEED TO FORCE PLAYER CAM WHEN ROUNDS STARTS
-        if (Input.GetKeyDown(KeyCode.V) || gameManager.isPreparing || gameManager.isPlaying)
+        if (Input.GetKeyDown(KeyCode.V) && gameManager.isPreparing && !gameManager.isPlaying)
         {
-            if (BuildCamera.activeSelf == true && gameManager.isPlaying)
+            if (BuildCamera.activeSelf)
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -252,13 +251,25 @@ public class PlayerController : MonoBehaviour
                 BuildCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
             }
-            if (BuildCamera.activeSelf == false && gameManager.isPreparing && !gameManager.isFightingBoss)
+            else
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
 
                 BuildCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
+            }
+        }
+
+        if (gameManager.isPlaying)
+        {
+            if (BuildCamera.activeSelf)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+
+                BuildCamera.SetActive(false);
+                PlayerCamera.SetActive(true);
             }
         }
     }
