@@ -15,6 +15,9 @@ public class PrefabBuilder : MonoBehaviour
     Tower tower;
 
     public GameObject Tower = null;
+    public int CurrentTowerCount;
+    public int MaxTowerCount;
+    public GameObject TowerCountText;
 
     // Selectable Towers
     public GameObject Tower_A;
@@ -55,8 +58,11 @@ public class PrefabBuilder : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (player.CurrentMoney >= tower.price)
+            if (player.CurrentMoney >= tower.price && CurrentTowerCount < MaxTowerCount)
             {
+                CurrentTowerCount++;
+                TowerCountText.GetComponent<TMPro.TextMeshProUGUI>().text = CurrentTowerCount + "/" + MaxTowerCount;
+                
                 player.CurrentMoney -= tower.price;
 
                 Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
