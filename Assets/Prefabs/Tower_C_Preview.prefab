@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5767611970886983796}
   m_Layer: 6
-  m_Name: Tower Preview
+  m_Name: Tower_C_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -830,7 +830,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04a753addb1da414e916a07cc7dec93b, type: 2}
+  - {fileID: 2100000, guid: bbf7615775eb44f478fefea67ac1ccd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -935,7 +935,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04a753addb1da414e916a07cc7dec93b, type: 2}
+  - {fileID: 2100000, guid: bbf7615775eb44f478fefea67ac1ccd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1221,7 +1221,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04a753addb1da414e916a07cc7dec93b, type: 2}
+  - {fileID: 2100000, guid: bbf7615775eb44f478fefea67ac1ccd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1432,7 +1432,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04a753addb1da414e916a07cc7dec93b, type: 2}
+  - {fileID: 2100000, guid: bbf7615775eb44f478fefea67ac1ccd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1486,7 +1486,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 1, a: 1}
   m_Intensity: 6.2
   m_Range: 17.55
   m_SpotAngle: 30
@@ -1599,7 +1599,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04a753addb1da414e916a07cc7dec93b, type: 2}
+  - {fileID: 2100000, guid: bbf7615775eb44f478fefea67ac1ccd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
     // Stats
     PlayerController playerController;
 
-    public int Money;
-    public int Health;
     public int TowerCount;
 
     // Parents
@@ -70,6 +68,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI MoneyText;
     public TextMeshProUGUI HealthText;
     public TextMeshProUGUI TowerCountText;
+    public GameObject BuildPanel;
 
     // Pause
     bool IsPaused;
@@ -340,7 +339,7 @@ public class GameManager : MonoBehaviour
             isPreparing = true;
             isPlaying = false;
 
-            if (Wave >= WaveCap)
+            if (Wave > WaveCap)
             {
                 isFightingBoss = true;
                 GameOver = true;
@@ -388,5 +387,10 @@ public class GameManager : MonoBehaviour
         HealthText.text = playerController.GetHealth().ToString();
         MoneyText.text = playerController.CurrentMoney.ToString();
         // NEED TO ADD TOWER COUNT
+        if (isPreparing)
+        {
+            BuildPanel.SetActive(true);
+        }
+        else {  BuildPanel.SetActive(false); }
     }
 }

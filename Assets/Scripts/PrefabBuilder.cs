@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,18 @@ public class PrefabBuilder : MonoBehaviour
     Tower tower;
 
     public GameObject Tower = null;
-    public GameObject PreviewTowerPrefab = null;
+
+    // Selectable Towers
+    public GameObject Tower_A;
+    public GameObject Tower_B;
+    public GameObject Tower_C;
+
+    // Preview Towers
+    public GameObject PreviewTower_A;
+    public GameObject PreviewTower_B;
+    public GameObject PreviewTower_C;
+
+    public GameObject PreviewTowerPrefab = null; // Using this temp until unique towers have been made
     GameObject previewTowerInstance = null;
     Camera cam = null;
 
@@ -34,6 +46,7 @@ public class PrefabBuilder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SelectTower();
         PreviewAtMousePos();
         SpawnAtMousePos();
     }
@@ -92,6 +105,50 @@ public class PrefabBuilder : MonoBehaviour
                 Destroy(previewTowerInstance);
                 previewTowerInstance = null;
             }
+        }
+    }
+
+    // Take Keypress 1-3 and select the tower
+    public void SelectTower()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UnityEngine.Debug.Log("Tower A Selected");
+            if (PreviewTowerPrefab != PreviewTower_A)
+            {
+                ResetPreviewTower();
+                PreviewTowerPrefab = PreviewTower_A;
+                Tower = Tower_A;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            UnityEngine.Debug.Log("Tower B Selected");
+            if (PreviewTowerPrefab != PreviewTower_B)
+            {
+                ResetPreviewTower();
+                PreviewTowerPrefab = PreviewTower_B;
+                Tower = Tower_B;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UnityEngine.Debug.Log("Tower C Selected");
+            if (PreviewTowerPrefab != PreviewTower_C)
+            {
+                ResetPreviewTower();
+                PreviewTowerPrefab = PreviewTower_C;
+                Tower = Tower_C;
+            }
+        }
+    }
+
+    private void ResetPreviewTower()
+    {
+        if (previewTowerInstance != null)
+        {
+            Destroy(previewTowerInstance);
+            previewTowerInstance = null;
         }
     }
 }
