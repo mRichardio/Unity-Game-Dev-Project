@@ -137,7 +137,7 @@ public class Tower : MonoBehaviour
         {
             foreach (var hitCollider in hitColliders)
             {
-                if (hitCollider.name == "Enemy")
+                if (hitCollider.name.Contains("Enemy"))
                 {
                     float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
                     if (distanceToEnemy <= detectionRadius)
@@ -155,7 +155,7 @@ public class Tower : MonoBehaviour
             {
                 foreach (var hitCollider in hitColliders)
                 {
-                    if (hitCollider.name == "Enemy")
+                    if (hitCollider.name.Contains("Enemy"))
                     {
                         float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
                         if (distanceToEnemy <= detectionRadius)
@@ -180,7 +180,7 @@ public class Tower : MonoBehaviour
 
     void InstantiateLaser()
     {
-        if (Target != null && Target.name == "Enemy")
+        if (Target != null && Target.name.Contains("Enemy"))
         {
             Transform LaserParent = GameObject.Find("Projectiles").transform;
             GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), LaserParent);
