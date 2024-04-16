@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+
+
 
 public class Menu : MonoBehaviour
 {
@@ -24,6 +30,12 @@ public class Menu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false; // Debug
+        // Need an assembly reference to UnityEditor
+        #if UNITY_EDITOR
+                // Stops play mode in the Unity editor
+                EditorApplication.isPlaying = false;
+        #endif
+
+
     }
 }
