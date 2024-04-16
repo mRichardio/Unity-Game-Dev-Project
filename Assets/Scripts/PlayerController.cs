@@ -143,6 +143,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Screenshots
+        {
+            if (Input.GetKeyDown(KeyCode.F12))
+            {
+                string fileName = "Screenshot-" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss") + ".png";
+                ScreenCapture.CaptureScreenshot(fileName);
+                Debug.Log("Screenshot Taken");
+            }
+        }
+
 
         // Hold to enable mouse cursor when build mode isnt active
         if (Input.GetKey(KeyCode.LeftAlt) && BuildCamera.active == false)
