@@ -1718,6 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultButton: {fileID: 428762785}
   Music: {fileID: 1644073516}
+  saveManager: {fileID: 1380821766}
 --- !u!4 &1696090008
 Transform:
   m_ObjectHideFlags: 0

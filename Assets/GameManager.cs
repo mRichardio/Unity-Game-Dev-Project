@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     // Stats
     PlayerController playerController;
 
+    // Score
+    public float Score;
+
     public int TowerCount;
 
     // Parents
@@ -74,6 +77,9 @@ public class GameManager : MonoBehaviour
     bool IsPaused;
     public GameObject PauseCanvas;
 
+    // Save
+    public SaveManager saveManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,6 +100,8 @@ public class GameManager : MonoBehaviour
         // Gets the player controller
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
+        // Save Manager // Save Manager is in dontdestroyonload
+        saveManager = GameObject.Find("Save Manager").GetComponent<SaveManager>();
     }
 
     void Awake()
@@ -378,6 +386,13 @@ public class GameManager : MonoBehaviour
                 GameOver = true;
                 PreperationText.text = "Game Over!";
                 Debug.Log("Game Over");
+                if (playerController.currentHealth > 0)
+                {
+                    Score = playerController.CurrentMoney * 13; // Score Calculation (It's not amazing but should do the job)
+                    saveManager.CompleteLevel(1, Score);
+                }
+                else { saveManager.CompleteLevel(1, 0); }
+
             }
         }
     }
