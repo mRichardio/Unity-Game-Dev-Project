@@ -60,18 +60,18 @@ public class PlayerController : MonoBehaviour
     public float FootstepFrequency;
 
     // Shop
+    public GameObject HealthPriceText;
+    public GameObject WeaponDMGPriceText;
+    public GameObject WeaponPowerPriceText;
+    public GameObject WeaponPrestigeText;
+
     public int MaxHealthUpgrade;
-    public int MaxSpeedUpgrade;
-    public int MaxWeaponDMGUpgrade;
-    public int MaxWeaponPowerUpgrade;
 
     public int CurrentHealthUpgrade;
-    public int CurrentSpeedUpgrade;
     public int CurrentWeaponDMGUpgrade;
     public int CurrentWeaponPowerUpgrade;
 
     public int HealthUpgradeCost;
-    public int SpeedUpgradeCost;
     public int WeaponDMGUpgradeCost;
     public int WeaponPowerUpgradeCost;
     public int PrestigeWeaponCost;
@@ -113,6 +113,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update Shop Prices
+        UpdateShopPrices();
 
         // Basic Footstep Audio
         if (rb.velocity.magnitude > 0.1f && isSprinting == false)
@@ -324,9 +326,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            weaponPrestige += upgAmount;
-            DestroyWeapon();
-            isEquipped = false;
+            if (CurrentMoney >= PrestigeWeaponCost)
+            {
+                CurrentMoney -= PrestigeWeaponCost;
+                PrestigeWeaponCost *= PriceMultiplier;
+                weaponPrestige += upgAmount;
+                DestroyWeapon();
+                isEquipped = false;
+            }
         }
     }
 
@@ -422,5 +429,13 @@ public class PlayerController : MonoBehaviour
             CurrentMoney += 150;
             Destroy(collision.gameObject);
         }
+    }
+
+    public void UpdateShopPrices()
+    {
+        HealthPriceText.GetComponent<TextMeshProUGUI>().text = HealthUpgradeCost.ToString();
+        WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = WeaponDMGUpgradeCost.ToString();
+        WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = WeaponPowerUpgradeCost.ToString();
+        WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = PrestigeWeaponCost.ToString();
     }
 }
