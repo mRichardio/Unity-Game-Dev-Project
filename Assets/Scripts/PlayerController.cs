@@ -59,6 +59,26 @@ public class PlayerController : MonoBehaviour
     private float lastFootstepTime;
     public float FootstepFrequency;
 
+    // Shop
+    public int MaxHealthUpgrade;
+    public int MaxSpeedUpgrade;
+    public int MaxWeaponDMGUpgrade;
+    public int MaxWeaponPowerUpgrade;
+
+    public int CurrentHealthUpgrade;
+    public int CurrentSpeedUpgrade;
+    public int CurrentWeaponDMGUpgrade;
+    public int CurrentWeaponPowerUpgrade;
+
+    public int HealthUpgradeCost;
+    public int SpeedUpgradeCost;
+    public int WeaponDMGUpgradeCost;
+    public int WeaponPowerUpgradeCost;
+    public int PrestigeWeaponCost;
+
+    public int PriceMultiplier;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -231,8 +251,26 @@ public class PlayerController : MonoBehaviour
     public void UpgradeHealth(int upgAmount)
     {
         // Player Health
-        BaseHealth += upgAmount;
+        if (BaseHealth < 150 && MaxHealthUpgrade > CurrentHealthUpgrade && CurrentMoney >= HealthUpgradeCost)
+        {
+            CurrentMoney -= HealthUpgradeCost;
+            HealthUpgradeCost *= PriceMultiplier;
+            CurrentHealthUpgrade++;
+            BaseHealth += upgAmount;
+        }
     }
+
+    //public void UpgradeSpeed(int upgAmount)
+    //{
+    //    // Player Speed
+    //    if (MovementSpeed < 25 && MaxSpeedUpgrade > CurrentSpeedUpgrade && CurrentMoney >= SpeedUpgradeCost)
+    //    {
+    //        CurrentMoney -= SpeedUpgradeCost;
+    //        SpeedUpgradeCost *= PriceMultiplier;
+    //        CurrentSpeedUpgrade++;
+    //        MaxSpeed += upgAmount;
+    //    }
+    //}
 
     public int GetHealth()
     {
@@ -274,11 +312,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void UpgradeSpeed(int upgAmount)
-    {
-        // Player Speed
-        MovementSpeed += upgAmount;
-    }
 
     public void PresitgeWeapon(int upgAmount)
     {
