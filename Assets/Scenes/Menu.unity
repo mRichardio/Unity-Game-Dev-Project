@@ -1848,6 +1848,7 @@ MonoBehaviour:
   Music: {fileID: 1644073516}
   BattleMusic: {fileID: 312188828}
   saveManager: {fileID: 1380821766}
+  MenuManager: {fileID: 1696090006}
 --- !u!4 &1696090008
 Transform:
   m_ObjectHideFlags: 0

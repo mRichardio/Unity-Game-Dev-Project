@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     // Stats
     PlayerController playerController;
     Crystal crystal;
+    Menu menu;
 
     // Score
     public float Score;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
     public AudioSource PlayMusic;
 
     // Pause
-    bool IsPaused;
+    public bool IsPaused;
     public GameObject PauseCanvas;
 
     // Save
@@ -327,6 +329,11 @@ public class GameManager : MonoBehaviour
             PauseCanvas.SetActive(IsPaused);
 
             Time.timeScale = IsPaused ? 0 : 1;
+
+            // Switch sensitivity between 4 and 0
+            playerController.Sensitivity = IsPaused ? 0 : 4;
+            Cursor.lockState = IsPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = IsPaused ? true : false;
         }
     }
 
@@ -450,5 +457,25 @@ public class GameManager : MonoBehaviour
             PrepMusic.enabled = false;
             PlayMusic.enabled = true;
         }
+    }
+
+    public void LoadScene(string scene)
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+
+        // Destroy Loaded Objects
+        Destroy(GameObject.Find("Music"));
+        Destroy(GameObject.Find("BattleMusic"));
+        Destroy(GameObject.Find("Save Manager"));
+        Destroy(GameObject.Find("Menu Manager"));
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+        #if UNITY_EDITOR
+                // Stops play mode in the Unity editor
+                EditorApplication.isPlaying = false;
+        #endif
     }
 }

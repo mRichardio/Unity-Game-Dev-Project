@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
     public GameObject Music;
     public GameObject BattleMusic;
     public SaveManager saveManager;
+    public GameObject MenuManager;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class Menu : MonoBehaviour
         DontDestroyOnLoad(Music);
         DontDestroyOnLoad(BattleMusic);
         DontDestroyOnLoad(saveManager);
+        DontDestroyOnLoad(MenuManager);
     }
 
     public void Quit()

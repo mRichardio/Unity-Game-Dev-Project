@@ -233,6 +233,12 @@ public class PlayerController : MonoBehaviour
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
+
+            if (gameManager.IsPaused == true)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
 
         // Weapon Handling
