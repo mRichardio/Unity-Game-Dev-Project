@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.035604183, g: 0.012501281, b: 0.120821975, a: 1}
+  m_IndirectSpecularColor: {r: 0.035604343, g: 0.012501698, b: 0.120821975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2509,6 +2509,7 @@ MonoBehaviour:
   BossDefeated: 0
   WaveText: {fileID: 1836734975}
   PreperationText: {fileID: 2085564277}
+  PauseText: {fileID: 1252936321}
   MoneyText: {fileID: 627743748}
   HealthText: {fileID: 1114176551}
   TowerCountText: {fileID: 38376513}

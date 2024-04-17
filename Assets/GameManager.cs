@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     // Round UI
     public TextMeshProUGUI WaveText;
     public TextMeshProUGUI PreperationText;
+    public TextMeshProUGUI PauseText;
 
     // HUD UI
     public TextMeshProUGUI MoneyText;
@@ -173,11 +174,40 @@ public class GameManager : MonoBehaviour
             {
                 PreperationText.gameObject.active = true;
                 WaveText.gameObject.active = false;
+                if (crystal.isAlive == false)
+                {
+                    Debug.Log("herro 1 " + crystal.isAlive);
+                    PreperationText.text = "You lose... Your crystal died.";
+
+                    IsPaused = true;
+                    PauseCanvas.SetActive(IsPaused);
+
+                    Time.timeScale = 0;
+                    PauseText.text = "Game Over!, Your crystal died....";
+                    //playerController.GetComponent<PlayerCokntroller>().enabled = false;
+                    playerController.Sensitivity = 0;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             }
-            else if (isPlaying)
+            if (isPlaying)
             {
                 PreperationText.gameObject.active = false;
                 WaveText.gameObject.active = true;
+                if (crystal.isAlive == false)
+                {
+                    Debug.Log("herro 2 " + crystal.isAlive);
+                    WaveText.text = "You lose... Your crystal died.";
+                    IsPaused = true;
+                    PauseCanvas.SetActive(IsPaused);
+
+                    Time.timeScale = 0;
+                    PauseText.text = "Game Over!, Your crystal died....";
+                    //playerController.GetComponent<PlayerController>().enabled = false;
+                    playerController.Sensitivity = 0;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             }
         }
 

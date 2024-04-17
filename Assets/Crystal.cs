@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Crystal : MonoBehaviour
 {
@@ -12,16 +13,44 @@ public class Crystal : MonoBehaviour
     public int CurrentHealthUpgrade;
     public int HealthUpgradeCost;
     public int PriceMultiplier;
+    public bool isAlive;
 
     // Damage Interval
     public float DamageInterval = 3.0f;
     private float nextDamageTime = 0.0f;
+
+    // Enemy damage
+    public int DamagePerEnemy = 1000;
+
+    // List of enemies currently inside the trigger
+    private List<Collider> enemiesInTrigger = new List<Collider>();
 
     // Start is called before the first frame update
     void Start()
     {
         // Set the damage time
         nextDamageTime = Time.time + DamageInterval;
+
+        isAlive = true;
+    }
+
+    private void Update()
+    {
+        DetectEnemies();
+
+        if (Time.time >= nextDamageTime)
+        {
+            foreach (var enemy in enemiesInTrigger)
+            {
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    TakeDamage(DamagePerEnemy);
+                }
+            }
+            // Set the next damage time
+            nextDamageTime = Time.time + DamageInterval;
+        }
     }
 
     public int GetHealth()
@@ -48,42 +77,32 @@ public class Crystal : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             Destroy(gameObject);
-            Time.timeScale = 0;
+            isAlive = false;
             Debug.Log("Your crystal has Died!");
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void DetectEnemies()
     {
-         // <----
-        if (collision.gameObject.name.Contains("Enemy"))
+        Vector3 detectionCenter = transform.position;
+        float detectionRadius = transform.localScale.y * 10;
+        Collider[] hitColliders = Physics.OverlapSphere(detectionCenter, detectionRadius);
+        List<Collider> currentEnemies = new List<Collider>();
+
+        foreach (var hitCollider in hitColliders)
         {
-            if (Time.time >= nextDamageTime)
+            if (hitCollider.name.Contains("Enemy"))
             {
-                TakeDamage(10);
-                nextDamageTime = Time.time + DamageInterval;
+                float distanceToEnemy = Vector3.Distance(transform.position, hitCollider.transform.position);
+                if (distanceToEnemy <= detectionRadius)
+                {
+                    currentEnemies.Add(hitCollider);
+                }
             }
         }
 
-        //SphereCollider collider = GetComponent<SphereCollider>();
-        //collider.radius = 3.5f;
-
-        //Collider[] hitColliders = Physics.OverlapSphere(transform.position, collider.radius);
-        //foreach (var hitCollider in hitColliders)
-        //{
-        //    if (hitCollider.name.Contains("Enemy"))
-        //    {
-        //        Enemy enemyComponent = hitCollider.GetComponent<Enemy>();
-        //        if (enemyComponent != null)
-        //        {
-        //            if (Time.time >= nextDamageTime)
-        //            {
-        //                enemyComponent.TakeDamage(10);
-        //                nextDamageTime = Time.time + DamageInterval;
-        //            }
-
-        //        }
-        //    }
-        //}
+        // Update enemies in range
+        enemiesInTrigger = currentEnemies;
     }
+
 }
