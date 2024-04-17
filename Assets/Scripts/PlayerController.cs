@@ -269,6 +269,7 @@ public class PlayerController : MonoBehaviour
             HealthUpgradeCost *= PriceMultiplier;
             CurrentHealthUpgrade++;
             BaseHealth += upgAmount;
+            currentHealth += upgAmount;
         }
     }
 
