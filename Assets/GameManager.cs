@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI TowerCountText;
     public GameObject BuildPanel;
 
+    // Music
+    public AudioSource PrepMusic;
+    public AudioSource PlayMusic;
+
     // Pause
     bool IsPaused;
     public GameObject PauseCanvas;
@@ -102,6 +106,9 @@ public class GameManager : MonoBehaviour
 
         // Save Manager // Save Manager is in dontdestroyonload
         saveManager = GameObject.Find("Save Manager").GetComponent<SaveManager>();
+
+        PrepMusic = GameObject.Find("Music").GetComponent<AudioSource>();
+        PlayMusic = GameObject.Find("BattleMusic").GetComponent<AudioSource>();
     }
 
     void Awake()
@@ -206,6 +213,7 @@ public class GameManager : MonoBehaviour
         {
             NextWave();
             BossCheck();    
+            UpdateMusic();
         }   
     }
 
@@ -391,7 +399,7 @@ public class GameManager : MonoBehaviour
                     Score = playerController.CurrentMoney * 13; // Score Calculation (It's not amazing but should do the job)
                     saveManager.CompleteLevel(1, Score);
                 }
-                else { saveManager.CompleteLevel(1, 200); } // Handles save
+                else { saveManager.CompleteLevel(1, 100); } // Handles save
 
             }
         }
@@ -407,5 +415,19 @@ public class GameManager : MonoBehaviour
             BuildPanel.SetActive(true);
         }
         else {  BuildPanel.SetActive(false); }
+    }
+
+    public void UpdateMusic()
+    {
+        if (isPreparing)
+        {
+            PrepMusic.enabled = true;
+            PlayMusic.enabled = false;
+        }
+        if (isPlaying)
+        {
+            PrepMusic.enabled = false;
+            PlayMusic.enabled = true;
+        }
     }
 }

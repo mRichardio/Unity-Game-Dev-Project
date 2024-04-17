@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
 {
     public Button DefaultButton;
     public GameObject Music;
+    public GameObject BattleMusic;
     public SaveManager saveManager;
 
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
         DontDestroyOnLoad(Music);
+        DontDestroyOnLoad(BattleMusic);
         DontDestroyOnLoad(saveManager);
     }
 
