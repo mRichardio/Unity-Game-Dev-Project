@@ -391,7 +391,7 @@ public class GameManager : MonoBehaviour
                     Score = playerController.CurrentMoney * 13; // Score Calculation (It's not amazing but should do the job)
                     saveManager.CompleteLevel(1, Score);
                 }
-                else { saveManager.CompleteLevel(1, 0); }
+                else { saveManager.CompleteLevel(1, 200); } // Handles save
 
             }
         }
@@ -402,7 +402,7 @@ public class GameManager : MonoBehaviour
         HealthText.text = playerController.GetHealth().ToString();
         MoneyText.text = playerController.CurrentMoney.ToString();
         // NEED TO ADD TOWER COUNT
-        if (isPreparing)
+        if (isPreparing && !isFightingBoss)
         {
             BuildPanel.SetActive(true);
         }
