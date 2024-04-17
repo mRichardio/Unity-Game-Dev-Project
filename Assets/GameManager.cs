@@ -410,12 +410,12 @@ public class GameManager : MonoBehaviour
 
     public void UpdateMusic()
     {
-        if (isPreparing)
+        if (isPreparing && !isFightingBoss)
         {
             PrepMusic.enabled = true;
             PlayMusic.enabled = false;
         }
-        if (isPlaying)
+        if (isPlaying && isFightingBoss)
         {
             PrepMusic.enabled = false;
             PlayMusic.enabled = true;
