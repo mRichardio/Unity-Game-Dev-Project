@@ -69,8 +69,7 @@ Shader "Unlit/Grid"
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 gridColour = (_GridColour * GridTest(i.uv)) + tex2D(_MainTex, i.uv);
-                gridColour = float4(gridColour.r, gridColour.g, gridColour.b, _Alpha);
-                return float4(gridColour);
+                return float4(gridColour.r, gridColour.g, gridColour.b, _Alpha);
             }
             ENDCG
         }

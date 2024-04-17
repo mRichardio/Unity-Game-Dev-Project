@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     // Stats
     PlayerController playerController;
+    Crystal crystal;
 
     // Score
     public float Score;
@@ -109,6 +110,8 @@ public class GameManager : MonoBehaviour
 
         PrepMusic = GameObject.Find("Music").GetComponent<AudioSource>();
         PlayMusic = GameObject.Find("BattleMusic").GetComponent<AudioSource>();
+
+        crystal = GameObject.Find("Crystal").GetComponent<Crystal>();
     }
 
     void Awake()
@@ -333,18 +336,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandleGridLineThickness()
-    {
-        float newThickness;
-
-        if (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            newThickness = Mathf.Lerp(targetThickness, initialThickness, elapsed / duration);
-            GridMaterial.SetFloat("_GridLineThickness", newThickness);
-        }
-    }
-
     public void NextWave()
     {
         //HandleGridLineThickness();
@@ -407,7 +398,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        HealthText.text = playerController.GetHealth().ToString();
+        HealthText.text = crystal.GetHealth().ToString();
         MoneyText.text = playerController.CurrentMoney.ToString();
         // NEED TO ADD TOWER COUNT
         if (isPreparing && !isFightingBoss)

@@ -114,12 +114,12 @@ public class Enemy : MonoBehaviour
             transform.position += movementDirection * MovementSpeed * Time.deltaTime;
         }
 
-        // I have this here for now because it looks cool
-        if (currentCheckpointIndex >= checkpoints.Length)
-        {
-            transform.position = checkpoints[0].position;
-            currentCheckpointIndex = 0;
-        }
+        // Can be used to loop enemies back through the checkpoints if needed
+        //if (currentCheckpointIndex >= checkpoints.Length)
+        //{
+        //    transform.position = checkpoints[0].position;
+        //    currentCheckpointIndex = 0;
+        //}
     }
 
     // Sets the checkpoints for the enemy to follow

@@ -20,7 +20,10 @@ public class Menu : MonoBehaviour
     {
         saveManager.LoadGame();
         SaveData saveData = saveManager.GetSaveData(); // Access loaded SaveData
-        Debug.Log("Level Complete: " + saveData.Level1Complete);
+        if (saveData != null)
+        {
+            Debug.Log("Level Complete: " + saveData.Level1Complete);
+        }
         DefaultButton.Select();
     }
 

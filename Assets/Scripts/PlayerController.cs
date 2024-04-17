@@ -249,47 +249,6 @@ public class PlayerController : MonoBehaviour
         MaxSpeed = 10;
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-            Time.timeScale = 0;
-            Debug.Log("You Died!");
-        }
-    }
-
-    public void UpgradeHealth(int upgAmount)
-    {
-        // Player Health
-        if (BaseHealth < 150 && MaxHealthUpgrade > CurrentHealthUpgrade && CurrentMoney >= HealthUpgradeCost)
-        {
-            CurrentMoney -= HealthUpgradeCost;
-            HealthUpgradeCost *= PriceMultiplier;
-            CurrentHealthUpgrade++;
-            BaseHealth += upgAmount;
-            currentHealth += upgAmount;
-        }
-    }
-
-    //public void UpgradeSpeed(int upgAmount)
-    //{
-    //    // Player Speed
-    //    if (MovementSpeed < 25 && MaxSpeedUpgrade > CurrentSpeedUpgrade && CurrentMoney >= SpeedUpgradeCost)
-    //    {
-    //        CurrentMoney -= SpeedUpgradeCost;
-    //        SpeedUpgradeCost *= PriceMultiplier;
-    //        CurrentSpeedUpgrade++;
-    //        MaxSpeed += upgAmount;
-    //    }
-    //}
-
-    public int GetHealth()
-    {
-        return currentHealth;
-    }
-
     public void ToggleBuildMode()
     {
         if (Input.GetKeyDown(KeyCode.V) && gameManager.isPreparing && !gameManager.isPlaying)
@@ -324,7 +283,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     public void PresitgeWeapon(int upgAmount)
     {
@@ -408,15 +366,16 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);      
         PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
     }
+    public void UpdateShopPrices()
+    {
+        HealthPriceText.GetComponent<TextMeshProUGUI>().text = HealthUpgradeCost.ToString();
+        WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = WeaponDMGUpgradeCost.ToString();
+        WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = WeaponPowerUpgradeCost.ToString();
+        WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = PrestigeWeaponCost.ToString();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.tag == "Enemy")
-        {
-            TakeDamage(10);
-        }
-
         if (collision.gameObject.name == "Small Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
             Debug.Log("Small Collectable");
@@ -442,11 +401,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void UpdateShopPrices()
-    {
-        HealthPriceText.GetComponent<TextMeshProUGUI>().text = HealthUpgradeCost.ToString();
-        WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = WeaponDMGUpgradeCost.ToString();
-        WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = WeaponPowerUpgradeCost.ToString();
-        WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = PrestigeWeaponCost.ToString();
-    }
 }
