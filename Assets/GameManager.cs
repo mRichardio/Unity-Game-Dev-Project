@@ -254,6 +254,18 @@ public class GameManager : MonoBehaviour
             enemy.name = "Enemy Basic";
             Enemies.Add(enemy);
 
+            // Set Checkpoints
+            if (spawnPoint.name == SpawnPoint_A.name)
+            {
+                string checkpointName = "Checkpoints_A";
+                enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+            }
+            if (spawnPoint.name == SpawnPoint_B.name)
+            {
+                string checkpointName = "Checkpoints_B";
+                enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+            }
+
             // Update counters
             EnemiesSpawnedThisWave++;
             countBasicEnemiesSpawned++;
@@ -269,6 +281,18 @@ public class GameManager : MonoBehaviour
                 enemy.name = "Enemy Light";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
+
+                // Set Checkpoints
+                if (spawnPoint.name == SpawnPoint_A.name)
+                {
+                    string checkpointName = "Checkpoints_A";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
+                if (spawnPoint.name == SpawnPoint_B.name)
+                {
+                    string checkpointName = "Checkpoints_B";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
 
                 // Overall Couter
                 EnemiesSpawnedThisWave++;
@@ -287,6 +311,18 @@ public class GameManager : MonoBehaviour
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
 
+                // Set Checkpoints
+                if (spawnPoint.name == SpawnPoint_A.name)
+                {
+                    string checkpointName = "Checkpoints_A";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
+                if (spawnPoint.name == SpawnPoint_B.name)
+                {
+                    string checkpointName = "Checkpoints_B";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
+
                 // Overall Couter
                 EnemiesSpawnedThisWave++;
                 // Type Counter
@@ -302,6 +338,18 @@ public class GameManager : MonoBehaviour
                 enemy.name = "Enemy Boss";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
+
+                // Set Checkpoints
+                if (spawnPoint.name == SpawnPoint_A.name)
+                {
+                    string checkpointName = "Checkpoints_A";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
+                if (spawnPoint.name == SpawnPoint_B.name)
+                {
+                    string checkpointName = "Checkpoints_B";
+                    enemy.transform.GetComponent<Enemy>().SetEnemyCheckpoints(checkpointName);
+                }
 
                 // Overall Couter
                 EnemiesSpawnedThisWave++;

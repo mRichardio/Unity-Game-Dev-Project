@@ -34,8 +34,6 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        SetEnemyCheckpoints("Checkpoints_A");
-
         // Check if the GameManager is assigned
         if (gameManager == null)
         {
@@ -56,7 +54,20 @@ public class Enemy : MonoBehaviour
         CheckHealth();
     }
 
-    
+    // Sets the checkpoints for the enemy to follow
+    public void SetEnemyCheckpoints(string checkpointName)
+    {
+        GameObject checkpointParent = GameObject.Find("Checkpoints");
+        // Find the child called Checkpoint_A
+        Transform Checkpoint = checkpointParent.transform.Find(checkpointName);
+        // Get all the children of the Checkpoint_A and use each of their transforms as checkpoints
+        checkpoints = new Transform[Checkpoint.childCount];
+        for (int i = 0; i < Checkpoint.childCount; i++)
+        {
+            checkpoints[i] = Checkpoint.GetChild(i).transform;
+        }
+    }
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -122,19 +133,5 @@ public class Enemy : MonoBehaviour
         //    transform.position = checkpoints[0].position;
         //    currentCheckpointIndex = 0;
         //}
-    }
-
-    // Sets the checkpoints for the enemy to follow
-    void SetEnemyCheckpoints(string checkpointName)
-    {
-        GameObject checkpointParent = GameObject.Find("Checkpoints");
-        // Find the child called Checkpoint_A
-        Transform Checkpoint = checkpointParent.transform.Find(checkpointName);
-        // Get all the children of the Checkpoint_A and use each of their transforms as checkpoints
-        checkpoints = new Transform[Checkpoint.childCount];
-        for (int i = 0; i < Checkpoint.childCount; i++)
-        {
-            checkpoints[i] = Checkpoint.GetChild(i).transform;
-        }
     }
 }
