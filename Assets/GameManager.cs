@@ -27,10 +27,6 @@ public class GameManager : MonoBehaviour
     public GameObject SpawnPoint_C;
     public GameObject SpawnPoint_D;
 
-    // Shader
-    public Material GridMaterial;
-    private float initialThickness = 0.0003f;
-
     // Prefab Parents
     public GameObject EnemyParent;
     
@@ -105,9 +101,6 @@ public class GameManager : MonoBehaviour
         // Set spawn time
         nextSpawnTime = Time.time + SpawnInterval;
 
-        // Set the initial grid line thickness
-        GridMaterial.SetFloat("_GridLineThickness", initialThickness);
-
         // Gets the player controller
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
@@ -172,7 +165,6 @@ public class GameManager : MonoBehaviour
 
                     Time.timeScale = 0;
                     PauseText.text = "Game Over!, Your crystal died....";
-                    //playerController.GetComponent<PlayerCokntroller>().enabled = false;
                     playerController.Sensitivity = 0;
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
@@ -201,32 +193,44 @@ public class GameManager : MonoBehaviour
         }
 
         // Spawn an enemy
+        if (isPlaying && EnemiesSpawnedThisWave < WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount)
         {
-            if (isPlaying && EnemiesSpawnedThisWave < WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount)
+            if (Time.time >= nextSpawnTime)
             {
                 // Spawn enemy types randomly
                 int spawnType = Random.Range(0, 3);
+
+                bool spawnA = false, spawnB = false;
 
                 switch (spawnType)
                 {
                     case 0:
                         if (countBasicEnemiesSpawned < WaveBasicEnemyCount)
                         {
-                            SpawnEnemy("Basic", SpawnPoint_A);
+                            spawnA = SpawnEnemy("Basic", SpawnPoint_A);
+                            spawnB = SpawnEnemy("Basic", SpawnPoint_B);
                         }
                         break;
                     case 1:
                         if (countLightEnemiesSpawned < WaveLightEnemyCount)
                         {
-                            SpawnEnemy("Light", SpawnPoint_A);
+                            spawnA = SpawnEnemy("Light", SpawnPoint_A);
+                            spawnB = SpawnEnemy("Light", SpawnPoint_B);
                         }
                         break;
                     case 2:
                         if (countHeavyEnemiesSpawned < WaveHeavyEnemyCount)
                         {
-                            SpawnEnemy("Heavy", SpawnPoint_A);
+                            spawnA = SpawnEnemy("Heavy", SpawnPoint_A);
+                            spawnB = SpawnEnemy("Heavy", SpawnPoint_B);
                         }
                         break;
+                }
+
+                // Update next spawn time if any enemy was spawned
+                if (spawnA || spawnB)
+                {
+                    nextSpawnTime = Time.time + SpawnInterval;
                 }
             }
         }
@@ -239,23 +243,21 @@ public class GameManager : MonoBehaviour
         }   
     }
 
-    public void SpawnEnemy(string type, GameObject spawnPoint)
+    // Returns true if an enemy is spawned
+    public bool SpawnEnemy(string type, GameObject spawnPoint)
     {
-        if (type == "Basic")
+        if (type == "Basic" && countBasicEnemiesSpawned < WaveBasicEnemyCount)
         {
-            if (Time.time >= nextSpawnTime)
-            {
-                // Instantiate the enemy
-                GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
-                enemy.name = "Enemy Basic";
-                Enemies.Add(enemy);
-                nextSpawnTime = Time.time + SpawnInterval;
+            // Instantiate the enemy at spawnPoint
+            GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+            Debug.Log("Spawning " + type + " at " + spawnPoint.name);
+            enemy.name = "Enemy Basic";
+            Enemies.Add(enemy);
 
-                // Overall Couter
-                EnemiesSpawnedThisWave++;
-                // Type Counter
-                countBasicEnemiesSpawned++;
-            }
+            // Update counters
+            EnemiesSpawnedThisWave++;
+            countBasicEnemiesSpawned++;
+            return true; // Indicate that an enemy was spawned
         }
         if (type == "Light")
         {
@@ -263,10 +265,11 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(LightEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                Debug.Log("Spawning " + type + " at " + spawnPoint.name);
                 enemy.name = "Enemy Light";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
-                
+
                 // Overall Couter
                 EnemiesSpawnedThisWave++;
                 // Type Counter
@@ -279,6 +282,7 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(HeavyEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
+                Debug.Log("Spawning " + type + " at " + spawnPoint.name);
                 enemy.name = "Enemy Heavy";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
@@ -289,7 +293,6 @@ public class GameManager : MonoBehaviour
                 countHeavyEnemiesSpawned++;
             }
         }
-
         if (type == "Boss")
         {
             if (Time.time >= nextSpawnTime)
@@ -306,6 +309,8 @@ public class GameManager : MonoBehaviour
                 countHeavyEnemiesSpawned++;
             }
         }
+
+        return false; // No enemy spawned
     }
 
     public void PauseHandler()
@@ -328,9 +333,9 @@ public class GameManager : MonoBehaviour
     {
         if (Wave == 1)
         {
-            SetWaveEnemyCount("Light", 1);
-            SetWaveEnemyCount("Basic", 1);
-            SetWaveEnemyCount("Heavy", 1);
+            SetWaveEnemyCount("Light", 10);
+            SetWaveEnemyCount("Basic", 10);
+            SetWaveEnemyCount("Heavy", 10);
         }
         else if (Wave == 2)
         {
