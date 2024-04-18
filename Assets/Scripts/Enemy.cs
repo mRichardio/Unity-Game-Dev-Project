@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float ShrinkSpeed = .3f;
 
     // Collectables
+    public Transform CollectableParent;
     public GameObject SmallCollectablePrefab;
     public GameObject MediumCollectablePrefab;
     public GameObject LargeCollectablePrefab;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        CollectableParent = GameObject.Find("Collectables").transform;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
@@ -80,9 +82,9 @@ public class Enemy : MonoBehaviour
             // Shrink the enemy
             if (transform.localScale.x <= 0.01f)
             {
-                if(gameObject.name == "Enemy Light") { GameObject c = Instantiate(SmallCollectablePrefab, transform.position, Quaternion.identity); c.name = "Small Collectable"; }
-                if(gameObject.name == "Enemy Basic") { GameObject c = Instantiate(MediumCollectablePrefab, transform.position, Quaternion.identity); c.name = "Medium Collectable"; }
-                if(gameObject.name == "Enemy Heavy") { GameObject c = Instantiate(LargeCollectablePrefab, transform.position, Quaternion.identity); c.name = "Large Collectable"; }
+                if(gameObject.name == "Enemy Light") { GameObject c = Instantiate(SmallCollectablePrefab, transform.position, Quaternion.identity, CollectableParent); c.name = "Small Collectable"; }
+                if(gameObject.name == "Enemy Basic") { GameObject c = Instantiate(MediumCollectablePrefab, transform.position, Quaternion.identity, CollectableParent); c.name = "Medium Collectable"; }
+                if(gameObject.name == "Enemy Heavy") { GameObject c = Instantiate(LargeCollectablePrefab, transform.position, Quaternion.identity, CollectableParent); c.name = "Large Collectable"; }
                 if(gameObject.name == "Enemy Boss") { gameManager.BossDefeated = true; }
 
                 Destroy(gameObject);
