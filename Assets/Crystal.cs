@@ -26,6 +26,7 @@ public class Crystal : MonoBehaviour
     // List of enemies currently inside the trigger
     private List<Collider> enemiesInTrigger = new List<Collider>();
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,7 +98,7 @@ public class Crystal : MonoBehaviour
     public void UpgradeHealth(int upgAmount)
     {
         // Player Health
-        if (BaseHealth < 150 && playerController.MaxHealthUpgrade > playerController.CurrentHealthUpgrade && playerController.CurrentMoney >= playerController.HealthUpgradeCost)
+        if (BaseHealth < 550 && playerController.MaxHealthUpgrade > playerController.CurrentHealthUpgrade && playerController.CurrentMoney >= playerController.HealthUpgradeCost)
         {
             playerController.CurrentMoney -= playerController.HealthUpgradeCost;
             playerController.HealthUpgradeCost *= PriceMultiplier;
