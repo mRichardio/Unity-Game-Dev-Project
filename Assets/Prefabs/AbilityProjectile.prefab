@@ -317,5 +317,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 200
   Power: 100
-  ExpandedRadius: 15
+  ExpandedRadius: 7.5
   DestroyInterval: 3
