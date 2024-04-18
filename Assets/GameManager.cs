@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     private int WaveBasicEnemyCount;
     private int WaveHeavyEnemyCount;
 
+    private int TotalEnemyCount;
+
     private int countBasicEnemiesSpawned = 0; // Count Tracker
     private int countHeavyEnemiesSpawned = 0;
     private int countLightEnemiesSpawned = 0;
@@ -379,6 +381,8 @@ public class GameManager : MonoBehaviour
 
     private void InitialiseWaves()
     {
+        ResetSpawnCounters();
+
         if (Wave == 1)
         {
             SetWaveEnemyCount("Light", 4);
@@ -413,7 +417,9 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount && !isPreparing && GameOver == false)
+        Debug.Log("Enemies Spawned this wave: " + EnemiesSpawnedThisWave);
+        Debug.Log("Enemies Count: " + TotalEnemyCount);
+        if (Enemies.Count == 0 && EnemiesSpawnedThisWave == TotalEnemyCount && !isPreparing && GameOver == false)
         {
             Wave++;
             WaveText.text = "Wave " + Wave;
@@ -444,6 +450,16 @@ public class GameManager : MonoBehaviour
         {
             WaveHeavyEnemyCount = count;
         }
+
+        // total enemy count
+        TotalEnemyCount = WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount;
+    }
+
+    private void ResetSpawnCounters()
+    {
+        countBasicEnemiesSpawned = 0;
+        countLightEnemiesSpawned = 0;
+        countHeavyEnemiesSpawned = 0;
     }
 
     // Check if the boss has been defeated
@@ -517,6 +533,7 @@ public class GameManager : MonoBehaviour
         Destroy(GameObject.Find("Save Manager"));
         Destroy(GameObject.Find("Menu Manager"));
     }
+
 
     public void Quit()
     {

@@ -3875,7 +3875,7 @@ MonoBehaviour:
   CurrentMoney: 200
   BaseHealth: 100
   currentHealth: 0
-  Damage: 10
+  Damage: 30
   DefaultDamage: 0
   Power: 100
   PlayerCamera: {fileID: 940372303}

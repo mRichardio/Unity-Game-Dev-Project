@@ -949,7 +949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildCam: {fileID: 0}
   Health: 100
-  Damage: 10
+  Damage: 60
   price: 100
   ShrinkSpeed: 0.30024797
   Turret: {fileID: 6159631527493237164}

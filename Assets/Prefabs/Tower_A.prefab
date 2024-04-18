@@ -947,8 +947,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4e391336a0c264b89c716a3b94366a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildCam: {fileID: 0}
   Health: 100
-  Damage: 10
+  Damage: 60
+  price: 100
   ShrinkSpeed: 0.30024797
   Turret: {fileID: 6159631527493237164}
   LaserProjectile: {fileID: 7515266505040626008, guid: ca5141fb5302fd64890e8f7146ba9f88, type: 3}
@@ -2097,7 +2099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52954452e13b1104286a3df54c8bef17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  Cam: {fileID: 0}
+  BuildCam: {fileID: 0}
 --- !u!1 &7065992785214467104
 GameObject:
   m_ObjectHideFlags: 0
