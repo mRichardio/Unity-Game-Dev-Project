@@ -252,6 +252,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Disable camera movement when cursor is on screen
+        {
+            if (Cursor.visible == true && Cursor.lockState == CursorLockMode.None)
+            {
+                Sensitivity = 0;
+            }
+            else
+            {
+                Sensitivity = 4;
+            }
+
+        }
+
         // Weapon Handling
 
         {
