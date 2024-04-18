@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Transform target;
     Rigidbody rb;
     GameManager gameManager;
+    ProjectileManager projectileManager;
 
     public GameObject ForwardMarker;
 
@@ -21,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public float CurrentMoney;
     public int BaseHealth;
     public int currentHealth;
+    public float Damage; // Current Damage
+    public float DefaultDamage;
+    public float Power;// Current Power
 
     // Camera
     public GameObject PlayerCamera;
@@ -58,6 +62,11 @@ public class PlayerController : MonoBehaviour
     public Transform FootstepParent;
     private float lastFootstepTime;
     public float FootstepFrequency;
+
+    // Weapon Damage Multipliers
+    public float BasicMultiplier = 1;
+    public float MediumMultiplier = 2;
+    public float EpicMultiplier = 3;
 
     // Shop
     public GameObject HealthPriceText;
@@ -248,7 +257,6 @@ public class PlayerController : MonoBehaviour
         {
             HandleWeaponEquip();
         }
-
     }
 
     void ResetSpeed()
@@ -303,6 +311,72 @@ public class PlayerController : MonoBehaviour
             weaponPrestige += upgAmount;
             DestroyWeapon();
             isEquipped = false;
+        }
+    }
+
+    public void UpgradeDamage(int upgAmount)
+    {
+        GameObject player = GameObject.Find("Player");
+        Transform weaponAttach = player.transform.Find("WeaponAttach");
+        string weaponName = weaponAttach.GetChild(0).gameObject.name;
+
+        float multiplier = BasicMultiplier; // Default multiplier
+
+        if (weaponName == "WeaponBasic")
+        {
+            multiplier = BasicMultiplier;
+        }
+        else if (weaponName == "WeaponMedium")
+        {
+            multiplier = MediumMultiplier;
+        }
+        else if (weaponName == "WeaponEpic")
+        {
+            multiplier = EpicMultiplier;
+        }
+
+
+        if (CurrentMoney >= WeaponDMGUpgradeCost && CurrentWeaponDMGUpgrade < MaxWeaponDMGUpgrade)
+        {
+            CurrentMoney -= WeaponDMGUpgradeCost;
+            WeaponDMGUpgradeCost *= PriceMultiplier;
+            CurrentWeaponDMGUpgrade++;
+            Damage += upgAmount * multiplier;
+
+            UpdateShopPrices();
+        }
+    }
+
+    public void UpgradePower(int upgAmount)
+    {
+        GameObject player = GameObject.Find("Player");
+        Transform weaponAttach = player.transform.Find("WeaponAttach");
+        string weaponName = weaponAttach.GetChild(0).gameObject.name;
+
+        float multiplier = BasicMultiplier; // Default multiplier
+
+        if (weaponName == "WeaponBasic")
+        {
+            multiplier = BasicMultiplier;
+        }
+        else if (weaponName == "WeaponMedium")
+        {
+            multiplier = MediumMultiplier;
+        }
+        else if (weaponName == "WeaponEpic")
+        {
+            multiplier = EpicMultiplier;
+        }
+
+
+        if (CurrentMoney >= WeaponPowerUpgradeCost && CurrentWeaponPowerUpgrade < MaxWeaponPowerUpgrade)
+        {
+            CurrentMoney -= WeaponPowerUpgradeCost;
+            WeaponPowerUpgradeCost *= PriceMultiplier;
+            CurrentWeaponPowerUpgrade++;
+            Power += upgAmount * multiplier;
+
+            UpdateShopPrices();
         }
     }
 

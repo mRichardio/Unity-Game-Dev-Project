@@ -39,6 +39,7 @@ public class ProjectileManager : MonoBehaviour
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
         // Get parent Weapon
         GameObject player = GameObject.Find("Player");
@@ -67,6 +68,25 @@ public class ProjectileManager : MonoBehaviour
             }
         }
 
+        // Update Damage and Power
+        if (Weapon != null)
+        {
+            if (Weapon.name == "WeaponBasic")
+            {
+                Damage = playerController.Damage * BasicMultiplier;
+                Power = playerController.Power * BasicMultiplier;
+            }
+            else if (Weapon.name == "WeaponMedium")
+            {
+                Damage = playerController.Damage * MediumMultiplier;
+                Power = playerController.Power * MediumMultiplier;
+            }
+            else if (Weapon.name == "WeaponEpic")
+            {
+                Damage = playerController.Damage * EpicMultiplier;
+                Power = playerController.Power * EpicMultiplier;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -107,6 +127,7 @@ public class ProjectileManager : MonoBehaviour
     {
         GameObject player = GameObject.Find("Player");
         Transform weaponAttach = player.transform.Find("WeaponAttach");
+        Debug.Log("Weasadasdpon: " + weaponAttach.GetChild(0).gameObject.name);
         return weaponAttach.GetChild(0).gameObject;
     }
 
@@ -118,60 +139,5 @@ public class ProjectileManager : MonoBehaviour
             Damage = DefaultDamage;
             Power = DefaultPower;
         }
-    }
-
-    public void UpgradeDamage(int upgAmount)
-    {
-        Weapon = GetWeapon();
-
-        float multiplier = BasicMultiplier; // Default multiplier
-
-        if (Weapon != null)
-        {
-            if (Weapon.name == "WeaponBasic")
-            {
-                multiplier = BasicMultiplier;
-            }
-            else if (Weapon.name == "WeaponMedium")
-            {
-                multiplier = MediumMultiplier;
-            }
-            else if (Weapon.name == "WeaponEpic")
-            {
-                multiplier = EpicMultiplier;
-            }
-        }
-
-        //if (playerController.CurrentMoney >= UpgradeDamageCost)
-        //{
-        //    playerController.CurrentMoney -= UpgradeDamageCost;
-        //    UpgradeDamageCost *= PriceMultiplier;
-        //    Damage += upgAmount * multiplier;
-        //}
-    }
-
-    public void UpgradePower(int upgAmount)
-    {
-        Weapon = GetWeapon();
-
-        float multiplier = BasicMultiplier; // Default multiplier
-
-        if (Weapon != null)
-        {
-            if (Weapon.name == "WeaponBasic")
-            {
-                multiplier = BasicMultiplier;
-            }
-            else if (Weapon.name == "WeaponMedium")
-            {
-                multiplier = MediumMultiplier;
-            }
-            else if (Weapon.name == "WeaponEpic")
-            {
-                multiplier = EpicMultiplier;
-            }
-        }
-
-        Power += upgAmount * multiplier;
     }
 }

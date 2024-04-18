@@ -2321,10 +2321,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForwardMarker: {fileID: 1743714051}
-  BaseMoney: 0
-  CurrentMoney: 0
+  BaseMoney: 90000
+  CurrentMoney: 90000
   BaseHealth: 100
   currentHealth: 0
+  Damage: 10
+  DefaultDamage: 0
+  Power: 100
   PlayerCamera: {fileID: 940372303}
   BuildCamera: {fileID: 1792767065}
   MovementSpeed: 20
@@ -2344,6 +2347,9 @@ MonoBehaviour:
   FootstepPrefab: {fileID: 8212249789040074559, guid: 1c7775e4316e0704180abe355a810832, type: 3}
   FootstepParent: {fileID: 1717753699}
   FootstepFrequency: 0.3
+  BasicMultiplier: 1
+  MediumMultiplier: 2
+  EpicMultiplier: 3
   HealthPriceText: {fileID: 589782866}
   WeaponDMGPriceText: {fileID: 1428364417}
   WeaponPowerPriceText: {fileID: 585776034}
@@ -4579,8 +4585,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 570068047054214960, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
+      - m_Target: {fileID: 371311589}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: UpgradeDamage
         m_Mode: 3
         m_Arguments:
@@ -7579,8 +7585,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 570068047054214960, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
-        m_TargetAssemblyTypeName: ProjectileManager, Assembly-CSharp
+      - m_Target: {fileID: 371311589}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: UpgradePower
         m_Mode: 3
         m_Arguments:
