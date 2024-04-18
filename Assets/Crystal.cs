@@ -68,7 +68,6 @@ public class Crystal : MonoBehaviour
         {
             Destroy(gameObject);
             isAlive = false;
-            Debug.Log("Your crystal has Died!");
         }
     }
 

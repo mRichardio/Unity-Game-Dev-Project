@@ -130,26 +130,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Dev Tools
-        {
-            // Press a button to check state
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                if (isPreparing)
-                {
-                    Debug.Log("Preparing, Wave:  " + Wave); // Check state
-                    PreperationText.gameObject.active = true;
-                    WaveText.gameObject.active = false;
-                }
-                else if (isPlaying)
-                {
-                    Debug.Log("Playing, Wave:  " + Wave); // Check state
-                    PreperationText.gameObject.active = false;
-                    WaveText.gameObject.active = true;
-                }
-            }
-        }
-
         // Update UI
         {
             UpdateUI();
@@ -162,7 +142,6 @@ public class GameManager : MonoBehaviour
             {
                 isPreparing = false;
                 isPlaying = true;
-                Debug.Log("Playing, Wave:  " + Wave);
 
                 EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
 
@@ -183,7 +162,6 @@ public class GameManager : MonoBehaviour
                 WaveText.gameObject.active = false;
                 if (crystal.isAlive == false)
                 {
-                    Debug.Log("herro 1 " + crystal.isAlive);
                     PreperationText.text = "You lose... Your crystal died.";
 
                     IsPaused = true;
@@ -206,7 +184,6 @@ public class GameManager : MonoBehaviour
                 WaveText.gameObject.active = true;
                 if (crystal.isAlive == false)
                 {
-                    Debug.Log("herro 2 " + crystal.isAlive);
                     WaveText.text = "You lose... Your crystal died.";
                     IsPaused = true;
                     PauseCanvas.SetActive(IsPaused);
@@ -352,10 +329,8 @@ public class GameManager : MonoBehaviour
         if (Wave == 1)
         {
             SetWaveEnemyCount("Light", 1);
-            //SetWaveEnemyCount("Basic", 1);
-            //SetWaveEnemyCount("Heavy", 1);
-
-            // need to add other enemy types
+            SetWaveEnemyCount("Basic", 1);
+            SetWaveEnemyCount("Heavy", 1);
         }
         else if (Wave == 2)
         {
@@ -385,7 +360,6 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        //HandleGridLineThickness();
         if (Enemies.Count == 0 && EnemiesSpawnedThisWave == WaveLightEnemyCount + WaveBasicEnemyCount + WaveHeavyEnemyCount && !isPreparing && GameOver == false)
         {
             Wave++;
@@ -399,7 +373,6 @@ public class GameManager : MonoBehaviour
                 GameOver = true;
                 PreperationText.text = "Boss Fight!";
                 SpawnEnemy("Boss", SpawnPoint_A);
-                Debug.Log("Game Over"); 
             }
         }
     }
@@ -460,7 +433,6 @@ public class GameManager : MonoBehaviour
     {
         HealthText.text = crystal.GetHealth().ToString();
         MoneyText.text = playerController.CurrentMoney.ToString();
-        // NEED TO ADD TOWER COUNT
         if (isPreparing && !isFightingBoss)
         {
             BuildPanel.SetActive(true);
@@ -474,13 +446,11 @@ public class GameManager : MonoBehaviour
         {
             PrepMusic.enabled = true;
             PlayMusic.enabled = false;
-            Debug.Log("Prep Music");
         }
         if (isPlaying || isFightingBoss)
         {
             PrepMusic.enabled = false;
             PlayMusic.enabled = true;
-            Debug.Log("Playing Music");
         }
     }
 

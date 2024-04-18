@@ -26,7 +26,6 @@ public class Tower : MonoBehaviour
     public GameObject Turret;
     public GameObject LaserProjectile;
     GameObject Target;
-    //public float RotationSpeed;
 
     // Enemy detection
     public float detectionInterval = 1.0f;
@@ -74,7 +73,6 @@ public class Tower : MonoBehaviour
         }
 
         // Enemy Detection Interval
-
         {
             // Sets an interval for detecting enemies, better for performance
             if (Time.time >= nextDetectionTime)
@@ -85,7 +83,6 @@ public class Tower : MonoBehaviour
         }
 
         // Destroy Tower
-
         {
             // Destroy the turret if its health is 0    
             if (Health <= 0)
@@ -100,7 +97,6 @@ public class Tower : MonoBehaviour
         }
 
         // Turret Aiming
-
         {
             if (Target != null)
             {
@@ -109,7 +105,6 @@ public class Tower : MonoBehaviour
         }
 
         // Turret Firing
-
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -175,8 +170,6 @@ public class Tower : MonoBehaviour
             Target = null;
         }
     }
-
-
 
     void InstantiateLaser()
     {

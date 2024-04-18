@@ -164,7 +164,6 @@ public class PlayerController : MonoBehaviour
             {
                 string fileName = "Screenshot-" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss") + ".png";
                 ScreenCapture.CaptureScreenshot(fileName);
-                Debug.Log("Screenshot Taken");
             }
         }
 
@@ -322,7 +321,6 @@ public class PlayerController : MonoBehaviour
 
     public void PresitgeWeapon(int upgAmount)
     {
-        Debug.Log(weaponPrestige);
         // Weapon Prestige
         if (CurrentMoney >= PrestigeWeaponCost && weaponPrestige < 2)
         {
@@ -479,7 +477,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "Small Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
-            Debug.Log("Small Collectable");
+            // Small Collectable
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 50;
             // play collectable sound
@@ -489,7 +487,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Medium Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
-            Debug.Log("Medium Collectable");
+            // Medium Collectable
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 100;
             // play collectable sound
@@ -499,7 +497,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Large Collectable" && !collision.gameObject.GetComponent<Collectable>().isCollected)
         {
-            Debug.Log("Large Collectable");
+            // Large Collectable
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 150;
             // play collectable sound

@@ -91,11 +91,8 @@ public class ProjectileManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Projectile Collision" + "- Collider:" + collision.gameObject.name);
-
         if (collision.gameObject.name == "Enemy Basic" || collision.gameObject.name == "Enemy Light" || collision.gameObject.name == "Enemy Heavy")
         {
-            //Debug.Log("Enemy Hit Collision" + "- Collider:" + collision.gameObject.name);
             // Damage the enemy
             collision.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);
@@ -121,14 +118,6 @@ public class ProjectileManager : MonoBehaviour
             }
             Destroy(gameObject);
         }
-    }
-
-    private GameObject GetWeapon()
-    {
-        GameObject player = GameObject.Find("Player");
-        Transform weaponAttach = player.transform.Find("WeaponAttach");
-        Debug.Log("Weasadasdpon: " + weaponAttach.GetChild(0).gameObject.name);
-        return weaponAttach.GetChild(0).gameObject;
     }
 
     public void ResetProjectileValues()
