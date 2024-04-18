@@ -27,11 +27,14 @@ public class ShopManager : MonoBehaviour
         }
 
         // UI Event Camera
-        shopCanvas = GetComponentInChildren<Canvas>();
-        GameObject playerCameraObj = GameObject.Find("PlayerCamera");
+        //shopCanvas = GetComponentInChildren<Canvas>();
+        GameObject player = GameObject.Find("Player");
+        GameObject playerCameraObj = player.transform.Find("PlayerCamera").gameObject;
         Camera playerCamera = playerCameraObj.GetComponent<Camera>();
+        Debug.Log("Yo: " + playerCamera.name);
         shopCanvas.worldCamera = playerCamera;
     }
+
     // Update is called once per frame
     void Update()
     {

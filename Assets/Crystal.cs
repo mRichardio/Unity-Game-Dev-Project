@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -31,6 +32,8 @@ public class Crystal : MonoBehaviour
         // Set the damage time
         nextDamageTime = Time.time + DamageInterval;
 
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
         isAlive = true;
     }
 
@@ -56,19 +59,6 @@ public class Crystal : MonoBehaviour
     public int GetHealth()
     {
         return CurrentHealth;
-    }
-
-    public void UpgradeHealth(int upgAmount)
-    {
-        // Player Health
-        if (BaseHealth < 150 && MaxHealthUpgrade > CurrentHealthUpgrade && playerController.CurrentMoney >= HealthUpgradeCost)
-        {
-            playerController.CurrentMoney -= HealthUpgradeCost;
-            HealthUpgradeCost *= PriceMultiplier;
-            CurrentHealthUpgrade++;
-            BaseHealth += upgAmount;
-            CurrentHealth += upgAmount;
-        }
     }
 
     public void TakeDamage(int damage)
@@ -103,6 +93,20 @@ public class Crystal : MonoBehaviour
 
         // Update enemies in range
         enemiesInTrigger = currentEnemies;
+    }
+
+    public void UpgradeHealth(int upgAmount)
+    {
+        // Player Health
+        if (BaseHealth < 150 && playerController.MaxHealthUpgrade > playerController.CurrentHealthUpgrade && playerController.CurrentMoney >= playerController.HealthUpgradeCost)
+        {
+            playerController.CurrentMoney -= playerController.HealthUpgradeCost;
+            playerController.HealthUpgradeCost *= PriceMultiplier;
+            playerController.CurrentHealthUpgrade++;
+            BaseHealth += upgAmount;
+            CurrentHealth += upgAmount;
+        }
+        playerController.UpdateShopPrices();
     }
 
 }

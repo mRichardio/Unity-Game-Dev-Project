@@ -8,6 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public class ProjectileManager : MonoBehaviour
 {
     GameManager gameManager;
+    PlayerController playerController;
 
     // Weapon
     private GameObject Weapon;
@@ -141,7 +142,12 @@ public class ProjectileManager : MonoBehaviour
             }
         }
 
-        Damage += upgAmount * multiplier;
+        //if (playerController.CurrentMoney >= UpgradeDamageCost)
+        //{
+        //    playerController.CurrentMoney -= UpgradeDamageCost;
+        //    UpgradeDamageCost *= PriceMultiplier;
+        //    Damage += upgAmount * multiplier;
+        //}
     }
 
     public void UpgradePower(int upgAmount)

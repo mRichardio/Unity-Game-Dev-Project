@@ -2349,6 +2349,8 @@ MonoBehaviour:
   WeaponPowerPriceText: {fileID: 585776034}
   WeaponPrestigeText: {fileID: 494817090}
   MaxHealthUpgrade: 5
+  MaxWeaponDMGUpgrade: 5
+  MaxWeaponPowerUpgrade: 5
   CurrentHealthUpgrade: 0
   CurrentWeaponDMGUpgrade: 0
   CurrentWeaponPowerUpgrade: 0
@@ -8430,7 +8432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShopPanel: {fileID: 1489774381}
   UICanvas: {fileID: 0}
-  shopCanvas: {fileID: 0}
+  shopCanvas: {fileID: 2025178851}
 --- !u!114 &1489774384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8554,8 +8556,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 371311589}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3380363029655146875}
+        m_TargetAssemblyTypeName: Crystal, Assembly-CSharp
         m_MethodName: UpgradeHealth
         m_Mode: 3
         m_Arguments:
@@ -12050,6 +12052,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6760883990727046855, guid: 7ca92773d563f3b4d86f9e289fa91825, type: 3}
+      propertyPath: shopCanvas
+      value: 
+      objectReference: {fileID: 2025178851}
     - target: {fileID: 9000600159415902323, guid: 7ca92773d563f3b4d86f9e289fa91825, type: 3}
       propertyPath: m_Name
       value: Shop
@@ -12059,6 +12065,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca92773d563f3b4d86f9e289fa91825, type: 3}
+--- !u!223 &2025178851 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 158134373808453385, guid: 7ca92773d563f3b4d86f9e289fa91825, type: 3}
+  m_PrefabInstance: {fileID: 2025178850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2045261809
 GameObject:
   m_ObjectHideFlags: 0
@@ -12914,3 +12925,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15de09aa2e7f47142a9bf885b6093828, type: 3}
+--- !u!114 &3380363029655146875 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6703470954906284239, guid: 15de09aa2e7f47142a9bf885b6093828, type: 3}
+  m_PrefabInstance: {fileID: 3380363029655146874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b257b8fbb313744ad05f00554b4cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

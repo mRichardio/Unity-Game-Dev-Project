@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
     public GameObject WeaponPrestigeText;
 
     public int MaxHealthUpgrade;
+    public int MaxWeaponDMGUpgrade;
+    public int MaxWeaponPowerUpgrade;
 
     public int CurrentHealthUpgrade;
     public int CurrentWeaponDMGUpgrade;
@@ -294,21 +296,13 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log(weaponPrestige);
         // Weapon Prestige
-        if (weaponPrestige >= 2) // This has to be 2 as the weaponPrestige is 0, 1, 2
+        if (CurrentMoney >= PrestigeWeaponCost && weaponPrestige < 2)
         {
-            prestigeWeaponBtn.interactable = false;
-            prestigeWeaponBtn.transform.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Max Prestige";
-        }
-        else
-        {
-            if (CurrentMoney >= PrestigeWeaponCost)
-            {
-                CurrentMoney -= PrestigeWeaponCost;
-                PrestigeWeaponCost *= PriceMultiplier;
-                weaponPrestige += upgAmount;
-                DestroyWeapon();
-                isEquipped = false;
-            }
+            CurrentMoney -= PrestigeWeaponCost;
+            PrestigeWeaponCost *= PriceMultiplier;
+            weaponPrestige += upgAmount;
+            DestroyWeapon();
+            isEquipped = false;
         }
     }
 
@@ -374,10 +368,17 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdateShopPrices()
     {
-        HealthPriceText.GetComponent<TextMeshProUGUI>().text = HealthUpgradeCost.ToString();
-        WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = WeaponDMGUpgradeCost.ToString();
-        WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = WeaponPowerUpgradeCost.ToString();
-        WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = PrestigeWeaponCost.ToString();
+        if (CurrentHealthUpgrade >= MaxHealthUpgrade) { HealthPriceText.GetComponent<TextMeshProUGUI>().text = "Maxed"; }
+        else { HealthPriceText.GetComponent<TextMeshProUGUI>().text = HealthUpgradeCost.ToString(); }
+
+        if (CurrentWeaponDMGUpgrade >= MaxWeaponDMGUpgrade) { WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = "Maxed"; }
+        else { WeaponDMGPriceText.GetComponent<TextMeshProUGUI>().text = WeaponDMGUpgradeCost.ToString(); }
+
+        if (CurrentWeaponPowerUpgrade >= MaxWeaponPowerUpgrade) { WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = "Maxed"; }
+        else { WeaponPowerPriceText.GetComponent<TextMeshProUGUI>().text = WeaponPowerUpgradeCost.ToString(); }
+
+        if (weaponPrestige >= 2) { WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = "Maxed"; }
+        else { WeaponPrestigeText.GetComponent<TextMeshProUGUI>().text = PrestigeWeaponCost.ToString(); }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -2122,6 +2122,7 @@ MonoBehaviour:
   saveManager: {fileID: 1380821766}
   MenuManager: {fileID: 1696090006}
   Level1CompleteText: {fileID: 552388943}
+  Level1ScoreText: {fileID: 10206047}
 --- !u!4 &1696090008
 Transform:
   m_ObjectHideFlags: 0
