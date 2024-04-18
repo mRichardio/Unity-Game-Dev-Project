@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject ForwardMarker;
 
+    // Sounds
+    public AudioClip JumpSound;
+    public AudioClip CollectablePickupSound;
+
     // Player
     public float BaseMoney;
     public float CurrentMoney;
@@ -223,6 +227,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && BuildCamera.active == false && isJumping == false)
             {
                 rb.velocity += transform.up * JumpPower;
+
+                // Play jump sound
+                AudioSource.PlayClipAtPoint(JumpSound, transform.position);
             }
 
             // Sprint
@@ -475,6 +482,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Small Collectable");
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 50;
+            // play collectable sound
+            AudioSource.PlayClipAtPoint(CollectablePickupSound, transform.position);
             Destroy(collision.gameObject);
         }
 
@@ -483,6 +492,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Medium Collectable");
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 100;
+            // play collectable sound
+            AudioSource.PlayClipAtPoint(CollectablePickupSound, transform.position);
             Destroy(collision.gameObject);
         }
 
@@ -491,6 +502,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Large Collectable");
             collision.gameObject.GetComponent<Collectable>().isCollected = true;
             CurrentMoney += 150;
+            // play collectable sound
+            AudioSource.PlayClipAtPoint(CollectablePickupSound, transform.position);
             Destroy(collision.gameObject);
         }
     }

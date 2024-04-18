@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b224173d14a4847b57b333136fe1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponFireSound: {fileID: 8300000, guid: 612eebed2edd5a447b39ebbece49794d, type: 3}
   ProjectileManager: {fileID: 570068047054214960, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
   Projectile: {fileID: 3579300663716552388, guid: 6f52d9efd47b4854e94619011fc79567, type: 3}
   AbilityManager: {fileID: 3950162021688686147, guid: 0036cc2d02b0a304691792c418657c23, type: 3}
@@ -136,3 +137,4 @@ MonoBehaviour:
   MediumMultiplier: 2
   EpicMultiplier: 3
   FiringInterval: 0.25
+  AbilityInterval: 5

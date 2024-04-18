@@ -2321,6 +2321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForwardMarker: {fileID: 1743714051}
+  JumpSound: {fileID: 8300000, guid: a28bc43cb636ea24da5d2b643b1d4801, type: 3}
+  CollectablePickupSound: {fileID: 8300000, guid: 1b68379a0c4bc4c4ba9c84726879628c, type: 3}
   BaseMoney: 90000
   CurrentMoney: 90000
   BaseHealth: 100
@@ -2630,6 +2632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915a089a62217c34ab00df6b55f71cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverSound: {fileID: 8300000, guid: f2e073f0ab093de468915e7f315c11fc, type: 3}
+  GameCompleteSound: {fileID: 8300000, guid: 85a21e47d511aa242b26096d1492e350, type: 3}
   Score: 0
   TowerCount: 0
   SpawnPoint_A: {fileID: 2065701452}

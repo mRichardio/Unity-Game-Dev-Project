@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     Crystal crystal;
     Menu menu;
 
+    // Sounds
+    public AudioClip GameOverSound;
+    public AudioClip GameCompleteSound;
+
     // Score
     public float Score;
 
@@ -93,6 +97,8 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         isFightingBoss = false;
 
+        Time.timeScale = 1;
+
         WaveText.gameObject.active = false;
         PreperationText.gameObject.active = false;
 
@@ -108,9 +114,11 @@ public class GameManager : MonoBehaviour
         // Save Manager // Save Manager is in dontdestroyonload
         saveManager = GameObject.Find("Save Manager").GetComponent<SaveManager>();
 
+        // Music
         PrepMusic = GameObject.Find("Music").GetComponent<AudioSource>();
         PlayMusic = GameObject.Find("BattleMusic").GetComponent<AudioSource>();
 
+        // Crystal
         crystal = GameObject.Find("Crystal").GetComponent<Crystal>();
     }
 
@@ -181,6 +189,9 @@ public class GameManager : MonoBehaviour
                     IsPaused = true;
                     PauseCanvas.SetActive(IsPaused);
 
+                    // Play game over sound
+                    AudioSource.PlayClipAtPoint(GameOverSound, Camera.main.transform.position);
+
                     Time.timeScale = 0;
                     PauseText.text = "Game Over!, Your crystal died....";
                     //playerController.GetComponent<PlayerCokntroller>().enabled = false;
@@ -200,9 +211,11 @@ public class GameManager : MonoBehaviour
                     IsPaused = true;
                     PauseCanvas.SetActive(IsPaused);
 
+                    // Play game over sound
+                    AudioSource.PlayClipAtPoint(GameOverSound, transform.position);
+
                     Time.timeScale = 0;
                     PauseText.text = "Game Over!, Your crystal died....";
-                    //playerController.GetComponent<PlayerController>().enabled = false;
                     playerController.Sensitivity = 0;
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
@@ -339,8 +352,8 @@ public class GameManager : MonoBehaviour
         if (Wave == 1)
         {
             SetWaveEnemyCount("Light", 1);
-            SetWaveEnemyCount("Basic", 1);
-            SetWaveEnemyCount("Heavy", 1);
+            //SetWaveEnemyCount("Basic", 1);
+            //SetWaveEnemyCount("Heavy", 1);
 
             // need to add other enemy types
         }
@@ -418,7 +431,20 @@ public class GameManager : MonoBehaviour
                 // Game Over
                 GameOver = true;
                 PreperationText.text = "Game Over!";
-                Debug.Log("Game Over");
+
+                WaveText.text = "Level Complete";
+                IsPaused = true;
+                PauseCanvas.SetActive(IsPaused);
+
+                // Play level complete sound
+                AudioSource.PlayClipAtPoint(GameCompleteSound, transform.position);
+                Time.timeScale = 0;
+                PauseText.text = "Level Complete!";
+                //playerController.GetComponent<PlayerController>().enabled = false;
+                playerController.Sensitivity = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
                 if (playerController.currentHealth > 0)
                 {
                     Score = playerController.CurrentMoney * 13; // Score Calculation (It's not amazing but should do the job)
@@ -448,11 +474,13 @@ public class GameManager : MonoBehaviour
         {
             PrepMusic.enabled = true;
             PlayMusic.enabled = false;
+            Debug.Log("Prep Music");
         }
-        if (isPlaying && isFightingBoss)
+        if (isPlaying || isFightingBoss)
         {
             PrepMusic.enabled = false;
             PlayMusic.enabled = true;
+            Debug.Log("Playing Music");
         }
     }
 

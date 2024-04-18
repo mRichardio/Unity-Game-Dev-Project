@@ -13,6 +13,9 @@ public class WeaponController : MonoBehaviour
     GameObject BuildCamerParent;
     GameObject BuildCamera;
 
+    // Sounds
+    public AudioClip WeaponFireSound;
+
     // Projectile Related
     public ProjectileManager ProjectileManager;
     public GameObject Projectile;
@@ -92,6 +95,8 @@ public class WeaponController : MonoBehaviour
         {
             GameObject projectileObject = Instantiate(Projectile, transform.position, Quaternion.identity, ProjectileParent);
             Vector3 direction = (hit.point - transform.position).normalized; // Gets the direction from the player to the hit point
+            // Play weapon fire sound
+            AudioSource.PlayClipAtPoint(WeaponFireSound, transform.position);
 
             // Velocity
             Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
@@ -103,6 +108,8 @@ public class WeaponController : MonoBehaviour
             GameObject projectileObject = Instantiate(Projectile, transform.position, Quaternion.identity, ProjectileParent);
             Rigidbody projectileRigidbody = projectileObject.GetComponent<Rigidbody>();
             projectileRigidbody.velocity = transform.forward * ProjectileManager.Power;
+            // Play weapon fire sound
+            AudioSource.PlayClipAtPoint(WeaponFireSound, transform.position);
         }
     }
 
