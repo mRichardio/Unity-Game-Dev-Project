@@ -25,10 +25,7 @@ public class GameManager : MonoBehaviour
 
     // Shader
     public Material GridMaterial;
-    private float duration = 2.0f; // Duration of the transition in seconds
     private float initialThickness = 0.0003f;
-    private float targetThickness = 0.1f;
-    private float elapsed = 0f;
 
     // Prefab Parents
     public GameObject EnemyParent;

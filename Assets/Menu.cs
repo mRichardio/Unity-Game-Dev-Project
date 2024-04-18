@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,6 +17,8 @@ public class Menu : MonoBehaviour
     public GameObject BattleMusic;
     public SaveManager saveManager;
     public GameObject MenuManager;
+    public TextMeshProUGUI Level1CompleteText;
+    public TextMeshProUGUI Level1ScoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,11 @@ public class Menu : MonoBehaviour
         SaveData saveData = saveManager.GetSaveData(); // Access loaded SaveData
         if (saveData != null)
         {
+            if (saveData.Level1Complete)
+            {
+                Level1CompleteText.text = "Complete";
+                Level1ScoreText.text = "Highscore: " + saveData.Level1HighScore;
+            }
             Debug.Log("Level Complete: " + saveData.Level1Complete);
         }
         DefaultButton.Select();
