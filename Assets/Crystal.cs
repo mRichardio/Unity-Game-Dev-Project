@@ -98,7 +98,7 @@ public class Crystal : MonoBehaviour
     public void UpgradeHealth(int upgAmount)
     {
         // Player Health
-        if (BaseHealth < 550 && playerController.MaxHealthUpgrade > playerController.CurrentHealthUpgrade && playerController.CurrentMoney >= playerController.HealthUpgradeCost)
+        if (playerController.MaxHealthUpgrade > playerController.CurrentHealthUpgrade && playerController.CurrentMoney >= playerController.HealthUpgradeCost)
         {
             playerController.CurrentMoney -= playerController.HealthUpgradeCost;
             playerController.HealthUpgradeCost *= PriceMultiplier;

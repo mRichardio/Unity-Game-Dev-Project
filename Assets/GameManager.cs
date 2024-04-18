@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     PlayerController playerController;
     Crystal crystal;
     Menu menu;
+    public PrefabBuilder prefabBuilder;
 
     // Sounds
     public AudioClip GameOverSound;
@@ -138,6 +139,8 @@ public class GameManager : MonoBehaviour
                 isPreparing = false;
                 isPlaying = true;
 
+                prefabBuilder.isInBuildMode = false;
+
                 EnemiesSpawnedThisWave = 0; // Reset the enemies spawned tracker
 
                 InitialiseWaves(); // Sets up the parameters for the waves
@@ -252,7 +255,6 @@ public class GameManager : MonoBehaviour
         {
             // Instantiate the enemy at spawnPoint
             GameObject enemy = Instantiate(BasicEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
-            Debug.Log("Spawning " + type + " at " + spawnPoint.name);
             enemy.name = "Enemy Basic";
             Enemies.Add(enemy);
 
@@ -279,7 +281,6 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(LightEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
-                Debug.Log("Spawning " + type + " at " + spawnPoint.name);
                 enemy.name = "Enemy Light";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
@@ -308,7 +309,6 @@ public class GameManager : MonoBehaviour
             {
                 // Instantiate the enemy
                 GameObject enemy = Instantiate(HeavyEnemyPrefab, spawnPoint.transform.position, Quaternion.identity, EnemyParent.transform);
-                Debug.Log("Spawning " + type + " at " + spawnPoint.name);
                 enemy.name = "Enemy Heavy";
                 Enemies.Add(enemy);
                 nextSpawnTime = Time.time + SpawnInterval;
@@ -417,8 +417,6 @@ public class GameManager : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.Log("Enemies Spawned this wave: " + EnemiesSpawnedThisWave);
-        Debug.Log("Enemies Count: " + TotalEnemyCount);
         if (Enemies.Count == 0 && EnemiesSpawnedThisWave == TotalEnemyCount && !isPreparing && GameOver == false)
         {
             Wave++;

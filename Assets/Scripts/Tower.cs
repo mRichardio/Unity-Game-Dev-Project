@@ -178,6 +178,8 @@ public class Tower : MonoBehaviour
             Transform LaserParent = GameObject.Find("Projectiles").transform;
             GameObject createdLaser = Instantiate(LaserProjectile, Turret.transform.position, Quaternion.LookRotation(Target.transform.position - Turret.transform.position), LaserParent);
             createdLaser.name = ("Laser");
+            // Delete laser after 2 seconds
+            Destroy(createdLaser, 2.0f);
         }
     }
 

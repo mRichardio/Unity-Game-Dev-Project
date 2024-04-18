@@ -4243,6 +4243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915a089a62217c34ab00df6b55f71cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabBuilder: {fileID: 1792767070}
   GameOverSound: {fileID: 8300000, guid: f2e073f0ab093de468915e7f315c11fc, type: 3}
   GameCompleteSound: {fileID: 8300000, guid: 85a21e47d511aa242b26096d1492e350, type: 3}
   Score: 0
@@ -9989,7 +9990,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 57.1, y: 0}
-  m_SizeDelta: {x: 68.7, y: 30}
+  m_SizeDelta: {x: 84.53, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1114176551
 MonoBehaviour:
@@ -13587,7 +13588,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10
+          m_IntArgument: 500
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16994,7 +16995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12f317f13403a44cb66f072ffe28c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tower: {fileID: 3704251855290491307, guid: ff34338241107ec40a384682739cf5d0, type: 3}
+  Tower: {fileID: 3704251855290491307, guid: 24da199f168d5a049b9583aec1b67874, type: 3}
   CurrentTowerCount: 0
   MaxTowerCount: 10
   TowerCountText: {fileID: 38376511}
@@ -17337,7 +17338,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -18788,7 +18789,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -45.6}
-  m_SizeDelta: {x: 335.6, y: 50}
+  m_SizeDelta: {x: 395.45, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085564277
 MonoBehaviour:
@@ -18810,7 +18811,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Preperation Phase Press "G" to start...
+  m_text: "[Preparation Phase] \n\n(Press V to toggle build mode)\n\nPress \"G\"
+    to start..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18843,7 +18845,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -19760,11 +19762,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6703470954906284239, guid: 15de09aa2e7f47142a9bf885b6093828, type: 3}
       propertyPath: BaseHealth
-      value: 500
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 6703470954906284239, guid: 15de09aa2e7f47142a9bf885b6093828, type: 3}
       propertyPath: CurrentHealth
-      value: 500
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
