@@ -123,7 +123,7 @@ public class Tower : MonoBehaviour
     {
         // REFERENCE: https://forum.unity.com/threads/physics-overlapsphere.476277/
         Vector3 detectionCenter = transform.position;
-        float detectionRadius = transform.localScale.y * 10;
+        float detectionRadius = transform.localScale.y * 40;
 
         var isCurrentTargetInRange = false;
 

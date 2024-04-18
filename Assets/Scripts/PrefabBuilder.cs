@@ -15,6 +15,8 @@ public class PrefabBuilder : MonoBehaviour
     public int MaxTowerCount;
     public GameObject TowerCountText;
 
+    public bool isInBuildMode;
+
     // Selectable Towers
     public GameObject Tower_A;
     public GameObject Tower_B;
@@ -91,13 +93,16 @@ public class PrefabBuilder : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity,layerMask))
         {
-            if (previewTowerInstance == null)
+            if (isInBuildMode)
             {
-                previewTowerInstance = Instantiate(PreviewTowerPrefab, new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z), Quaternion.identity, TowerParent);
-            }
-            else
-            {
-                previewTowerInstance.transform.position = new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z);
+                if (previewTowerInstance == null)
+                {
+                    previewTowerInstance = Instantiate(PreviewTowerPrefab, new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z), Quaternion.identity, TowerParent);
+                }
+                else
+                {
+                    previewTowerInstance.transform.position = new Vector3(hit.point.x, hit.point.y + towerOffset, hit.point.z);
+                }
             }
         }
         else
@@ -145,7 +150,7 @@ public class PrefabBuilder : MonoBehaviour
         }
     }
 
-    private void ResetPreviewTower()
+    public void ResetPreviewTower()
     {
         if (previewTowerInstance != null)
         {

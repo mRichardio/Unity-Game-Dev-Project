@@ -381,33 +381,33 @@ public class GameManager : MonoBehaviour
     {
         if (Wave == 1)
         {
-            SetWaveEnemyCount("Light", 10);
-            SetWaveEnemyCount("Basic", 10);
-            SetWaveEnemyCount("Heavy", 10);
+            SetWaveEnemyCount("Light", 4);
+            SetWaveEnemyCount("Basic", 4);
+            SetWaveEnemyCount("Heavy", 4);
         }
         else if (Wave == 2)
         {
-            SetWaveEnemyCount("Light", 10);
-            SetWaveEnemyCount("Basic", 10);
-            SetWaveEnemyCount("Heavy", 10);
+            SetWaveEnemyCount("Light", 8);
+            SetWaveEnemyCount("Basic", 8);
+            SetWaveEnemyCount("Heavy", 8);
         }
         else if (Wave == 3)
         {
-            SetWaveEnemyCount("Light", 15);
-            SetWaveEnemyCount("Basic", 15);
-            SetWaveEnemyCount("Heavy", 15);
+            SetWaveEnemyCount("Light", 12);
+            SetWaveEnemyCount("Basic", 12);
+            SetWaveEnemyCount("Heavy", 12);
         }
         else if (Wave == 4)
+        {
+            SetWaveEnemyCount("Light", 16);
+            SetWaveEnemyCount("Basic", 16);
+            SetWaveEnemyCount("Heavy", 16);
+        }
+        else if (Wave == 5)
         {
             SetWaveEnemyCount("Light", 20);
             SetWaveEnemyCount("Basic", 20);
             SetWaveEnemyCount("Heavy", 20);
-        }
-        else if (Wave == 5)
-        {
-            SetWaveEnemyCount("Light", 25);
-            SetWaveEnemyCount("Basic", 25);
-            SetWaveEnemyCount("Heavy", 25);
         }
     }
 

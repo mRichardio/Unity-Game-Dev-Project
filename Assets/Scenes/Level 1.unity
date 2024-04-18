@@ -3867,11 +3867,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd861efaaa8f12a499ad4c211752a9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabBuilder: {fileID: 1792767070}
   ForwardMarker: {fileID: 1743714051}
   JumpSound: {fileID: 8300000, guid: a28bc43cb636ea24da5d2b643b1d4801, type: 3}
   CollectablePickupSound: {fileID: 8300000, guid: 1b68379a0c4bc4c4ba9c84726879628c, type: 3}
-  BaseMoney: 90000
-  CurrentMoney: 90000
+  BaseMoney: 200
+  CurrentMoney: 200
   BaseHealth: 100
   currentHealth: 0
   Damage: 10
@@ -4258,7 +4259,7 @@ MonoBehaviour:
   Enemies: []
   SpawnInterval: 3
   Wave: 1
-  WaveCap: 1
+  WaveCap: 5
   GameOver: 0
   isFightingBoss: 0
   BossDefeated: 0
@@ -16997,6 +16998,7 @@ MonoBehaviour:
   CurrentTowerCount: 0
   MaxTowerCount: 10
   TowerCountText: {fileID: 38376511}
+  isInBuildMode: 0
   Tower_A: {fileID: 3704251855290491307, guid: 24da199f168d5a049b9583aec1b67874, type: 3}
   Tower_B: {fileID: 3704251855290491307, guid: 968504ee623b86146ad18444b6811e5c, type: 3}
   Tower_C: {fileID: 3704251855290491307, guid: c1addcc9d007643469f4366021bf0bf4, type: 3}

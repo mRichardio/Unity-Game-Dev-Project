@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     GameManager gameManager;
     ProjectileManager projectileManager;
+    public PrefabBuilder prefabBuilder;
 
     public GameObject ForwardMarker;
 
@@ -104,10 +105,12 @@ public class PlayerController : MonoBehaviour
         weaponPrestige = 0;
         isEquipped = false;
         BaseHealth = 100;
-        BaseMoney = 0;
         currentHealth = BaseHealth;
         CurrentMoney = BaseMoney;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        // Prefab Builder
+        //prefabBuilder = GameObject.Find("PrefabBuilder").GetComponent<PrefabBuilder>();
     }
 
     private void FixedUpdate()
@@ -155,6 +158,14 @@ public class PlayerController : MonoBehaviour
                     f.ShrinkSpeed = UnityEngine.Random.Range(0.02f, 0.1f); // Had to use "UnityEngine here as without it Random.Range doesnt work here for some reason..."
 
                 }
+            }
+        }
+
+        // Removes preview tower when not in build mode
+        {
+            if (!prefabBuilder.isInBuildMode)
+            {
+                prefabBuilder.ResetPreviewTower();
             }
         }
 
@@ -295,6 +306,8 @@ public class PlayerController : MonoBehaviour
 
                 BuildCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
+
+                prefabBuilder.isInBuildMode = false;
             }
             else
             {
@@ -303,6 +316,8 @@ public class PlayerController : MonoBehaviour
 
                 BuildCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
+
+                prefabBuilder.isInBuildMode = true;
             }
         }
 

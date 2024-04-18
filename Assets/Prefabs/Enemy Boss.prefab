@@ -241,7 +241,7 @@ MonoBehaviour:
   maxHealth: 300
   currentHealth: 0
   Damage: 10
-  MovementSpeed: 1
+  MovementSpeed: 4
   ShrinkSpeed: 1
   CollectableParent: {fileID: 0}
   SmallCollectablePrefab: {fileID: 5555920559764112288, guid: 94818a6edc067f241acb19649ad3fdae, type: 3}
