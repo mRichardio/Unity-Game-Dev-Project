@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 37813751}
   - component: {fileID: 37813750}
   m_Layer: 0
-  m_Name: Stone (12)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2589,7 +2589,7 @@ GameObject:
   - component: {fileID: 206379063}
   - component: {fileID: 206379062}
   m_Layer: 0
-  m_Name: Stone (10)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7819,7 +7819,7 @@ GameObject:
   - component: {fileID: 727307539}
   - component: {fileID: 727307538}
   m_Layer: 0
-  m_Name: Stone (7)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7925,7 +7925,7 @@ GameObject:
   - component: {fileID: 769014377}
   - component: {fileID: 769014376}
   m_Layer: 0
-  m_Name: Stone (1)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10414,7 +10414,7 @@ GameObject:
   - component: {fileID: 975520004}
   - component: {fileID: 975520003}
   m_Layer: 0
-  m_Name: Stone (3)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13265,7 +13265,7 @@ GameObject:
   - component: {fileID: 1328669946}
   - component: {fileID: 1328669945}
   m_Layer: 0
-  m_Name: Stone (6)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13771,7 +13771,7 @@ GameObject:
   - component: {fileID: 1384036615}
   - component: {fileID: 1384036614}
   m_Layer: 0
-  m_Name: Stone (2)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15123,7 +15123,7 @@ GameObject:
   - component: {fileID: 1518144661}
   - component: {fileID: 1518144660}
   m_Layer: 0
-  m_Name: Stone (4)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16788,7 +16788,7 @@ GameObject:
   - component: {fileID: 1642894868}
   - component: {fileID: 1642894867}
   m_Layer: 0
-  m_Name: Stone (8)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17391,7 +17391,7 @@ GameObject:
   - component: {fileID: 1696612533}
   - component: {fileID: 1696612532}
   m_Layer: 0
-  m_Name: Stone (11)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18208,7 +18208,7 @@ GameObject:
   - component: {fileID: 1777932846}
   - component: {fileID: 1777932845}
   m_Layer: 0
-  m_Name: Stone (9)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20535,7 +20535,7 @@ GameObject:
   - component: {fileID: 2103461622}
   - component: {fileID: 2103461621}
   m_Layer: 0
-  m_Name: Stone (5)
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
